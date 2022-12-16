@@ -1,12 +1,11 @@
 
-
 project "Glad"
     kind "StaticLib"
     language "C"
     staticruntime "on"
     
-    targetdir   (project_targetdir .. "/%{prj.name}")
-    objdir      (project_objdir .. "/%{prj.name}")
+    targetdir 	(Solution.Path.ProjectTargetDirectory)
+    objdir 		(Solution.Path.ProjectObjectDirectory)
 
     files {
         "include/glad/glad.h",

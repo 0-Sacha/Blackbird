@@ -10,7 +10,7 @@ group "Dependencies"
 	include (Solution.Projects["ImGui"])
 group ""
 
-Solution.ProjectInfo.Includes["Blackbird"] = {
+Solution.ProjectsInfo.Includes["Blackbird"] = {
 	"%{Solution.Projects.Blackbird}/src/",
 
 	"%{Solution.Projects.Blackbird}/Dependencies/",
@@ -21,7 +21,7 @@ Solution.ProjectInfo.Includes["Blackbird"] = {
 	"%{Solution.Projects.Blackbird}/Dependencies/stb_image"
 }
 
-Solution.ProjectInfo.Defines["Blackbird"] = {
+Solution.ProjectsInfo.Defines["Blackbird"] = {
 	"GLFW_INCLUDE_NONE"
 }
 

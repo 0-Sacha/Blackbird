@@ -15,8 +15,8 @@ namespace Blackbird {
 
 #ifdef BlACKBIRD_ENABLE_LOGGER
 	#define BlACKBIRD_TRACE(...)	Blackbird::Core::Logger().Trace(__VA_ARGS__)
-	#define BlACKBIRD_INFO(...)	Blackbird::Core::Logger().Info(__VA_ARGS__)
-	#define BlACKBIRD_WARN(...)	Blackbird::Core::Logger().Warn(__VA_ARGS__)
+	#define BlACKBIRD_INFO(...)		Blackbird::Core::Logger().Info(__VA_ARGS__)
+	#define BlACKBIRD_WARN(...)		Blackbird::Core::Logger().Warn(__VA_ARGS__)
 	#define BlACKBIRD_ERROR(...)	Blackbird::Core::Logger().Error(__VA_ARGS__)
 	#define BlACKBIRD_FATAL(...)	Blackbird::Core::Logger().Fatal(__VA_ARGS__)
 #else
