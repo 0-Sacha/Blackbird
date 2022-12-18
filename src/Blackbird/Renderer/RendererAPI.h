@@ -16,7 +16,6 @@ namespace Blackbird {
 			OpenGL
 		};
 
-
 	public:
 		static inline API GetAPI() { return s_API; }
 

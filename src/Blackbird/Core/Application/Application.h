@@ -32,7 +32,7 @@ namespace Blackbird {
 		inline Window& GetWindow() { return *m_Window; }
 		inline static Application& GetInstance() { return *s_Instance; };
 
-		inline static inline EngineCore::LoggerManager::BasicLogger& Logger() {
+		inline static EngineCore::LoggerManager::BasicLogger& Logger() {
 			static auto instance = EngineCore::LoggerManager::BasicLogger("Application", EngineCore::LoggerManager::LogSeverity::Trace);
 			return instance;
 		}

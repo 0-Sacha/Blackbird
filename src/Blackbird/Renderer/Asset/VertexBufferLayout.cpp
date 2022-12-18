@@ -1,6 +1,6 @@
 
 #include "Blackbirdpch.h"
-#include "RendererBufferLayout.h"
+#include "VertexBufferLayout.h"
 
 
 namespace Blackbird {

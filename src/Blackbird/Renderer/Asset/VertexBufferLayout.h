@@ -30,6 +30,13 @@ namespace Blackbird {
 	struct BufferElements
 	{
 	public:
+		ShaderData::Type ShaderDataType;
+		std::string Name;
+		uint32_t Offset;
+		uint32_t Size;
+		bool Normalized;
+
+	public:
 		BufferElements() = default;
 
 		BufferElements(ShaderData::Type type, const std::string& name, bool normalized = false)
@@ -42,13 +49,6 @@ namespace Blackbird {
 
 	public:
 		inline uint32_t GetComponentCount() const { return ShaderData::GetComponentCountOf(ShaderDataType); }
-
-	public:
-		ShaderData::Type ShaderDataType;
-		std::string Name;
-		uint32_t Offset;
-		uint32_t Size;
-		bool Normalized;
 	};
 
 
@@ -63,6 +63,9 @@ namespace Blackbird {
 	public:
 		inline const std::vector<BufferElements>& GetElements() { return m_Elements; }
 		inline uint32_t GetStride() const { return m_Stride; }
+
+		template <typename... Args>
+		inline const BufferElements& GetElements(Args&&... args) { return m_Elements.emplace_back(std::forward<Args>(args)...); }
 
 	public:
 		inline std::vector<BufferElements>::iterator begin() { return m_Elements.begin(); }

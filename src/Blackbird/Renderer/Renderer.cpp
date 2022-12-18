@@ -6,9 +6,9 @@
 
 namespace Blackbird {
 
-	void Renderer::BeginScene()
+	void Renderer::BeginScene(OrthographicCamera& camera)
 	{
-		
+		m_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
 	}
 
 	void Renderer::EndScene()
@@ -16,10 +16,13 @@ namespace Blackbird {
 		
 	}
 
-	void Renderer::Submit(const Ref<VertexArray>& VertexArray)
+	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray)
 	{
-		VertexArray->Bind();
-		RendererCommand::DrawIndexed(VertexArray);
+		shader->Bind();
+		shader->UploadUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
+
+		vertexArray->Bind();
+		RendererCommand::DrawIndexed(vertexArray);
 	}
 
 }

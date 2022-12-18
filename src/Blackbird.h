@@ -9,9 +9,10 @@
 #include "Blackbird/ImGui/ImGuiLayer.h"
 
 #include "Blackbird/Renderer/Shader/Shader.h"
-#include "Blackbird/Renderer/Asset/RendererBuffer.h"
+#include "Blackbird/Renderer/Shader/ShaderLoader.h"
+#include "Blackbird/Renderer/Asset/VertexBuffer.h"
 #include "Blackbird/Renderer/Asset/VertexArray.h"
-#include "Blackbird/Renderer/Asset/RendererBufferLayout.h"
+#include "Blackbird/Renderer/Asset/VertexBufferLayout.h"
 #include "Blackbird/Renderer/Camera/OrthographicCamera.h"
 #include "Blackbird/Renderer/Camera/OrthographicCameraController.h"
 

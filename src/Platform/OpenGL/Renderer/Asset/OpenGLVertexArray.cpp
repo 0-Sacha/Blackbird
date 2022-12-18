@@ -3,7 +3,7 @@
 #include "Blackbird/Core/Core.h"
 #include "OpenGLVertexArray.h"
 
-#include "Blackbird/Renderer/Asset/RendererBufferLayout.h"
+#include "Blackbird/Renderer/Asset/VertexBufferLayout.h"
 
 #include <glad/glad.h>
 

@@ -1,9 +1,14 @@
 #pragma once
 
+#include "Blackbird/Core/Core.h"
 #include <glad/glad.h>
+#include "glm/glm.hpp"
+#include "glm/gtc/type_ptr.hpp"
 
 namespace Blackbird {
 	
+	class ShaderLoader;
+
 	enum class ShaderType : GLenum
 	{
 		None,
@@ -13,6 +18,9 @@ namespace Blackbird {
 
 	class Shader
 	{
+	public:
+		friend class ShaderLoader;
+
 	public:
 		Shader() = default;
 		~Shader();
@@ -24,15 +32,7 @@ namespace Blackbird {
 		void Bind() const;
 		void Unbind() const;
 
-
-	public:
-		static Shader* FromGLSLTextFiles(const std::string& vertexShaderPath, const std::string& fragmentShaderPath);
-		static Shader* FromGLSLTextFile(const std::string& path);
-
-		static Shader* FromGLSLStrings(const std::string& vertex, const std::string& fragment);
-		static Shader* FromGLSLCharPts(const char* const vertex, const char* const fragment);
-		static Shader* FromGLSLString(const std::string& source);
-
+		void UploadUniformMat4(const std::string& name, const glm::mat4& mat);
 
 	private:
 		RendererID CompileShader(ShaderType type, const char* const source);

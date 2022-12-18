@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Blackbird/Core/Core.h"
-#include "RendererBuffer.h"
+#include "VertexBuffer.h"
 
 namespace Blackbird {
 

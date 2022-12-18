@@ -5,7 +5,7 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-namespace Blackbird::Utils {
+namespace Blackbird {
 
 
 	OrthographicCamera::OrthographicCamera(float left, float right, float bottom, float top)

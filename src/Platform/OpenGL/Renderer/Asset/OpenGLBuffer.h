@@ -2,7 +2,7 @@
 #pragma once
 
 #include "Blackbird/Core/Core.h"
-#include "Blackbird/Renderer/Asset/RendererBuffer.h"
+#include "Blackbird/Renderer/Asset/VertexBuffer.h"
 
 namespace Blackbird {
 

@@ -26,9 +26,14 @@ namespace Blackbird {
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+		//io.ConfigViewportsNoAutoMerge = true;
+		//io.ConfigViewportsNoTaskBarIcon = true;
+
 
 		// Setup Dear ImGui style
 		ImGui::StyleColorsDark();
+		//ImGui::StyleColorsClassic();
 
 		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
 		ImGuiStyle& style = ImGui::GetStyle();
@@ -83,6 +88,11 @@ namespace Blackbird {
 	{
 		EventDispatcher dispatcher(event);
 		dispatcher.Dispatch<MouseButtonPressedEvent>(BlACKBIRD_BIND_EVENT(ImGuiLayer::OnMouseButtonPressed));
+	}
+
+	void ImGuiLayer::OnImGuiRender()
+	{
+		ImGui::ShowDemoWindow();
 	}
 
 	bool ImGuiLayer::OnMouseButtonPressed(MouseButtonPressedEvent& e)

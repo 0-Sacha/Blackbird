@@ -18,6 +18,7 @@ namespace Blackbird {
 		void OnAttach() override;
 		void OnDetach() override;
 		void OnEvent(Event& event);
+		void OnImGuiRender() override;
 		
 	public:
 		void BeginFrame();
@@ -25,7 +26,5 @@ namespace Blackbird {
 
 	private:
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& event);
-
 	};
-
 }

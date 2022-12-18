@@ -1,6 +1,3 @@
-#pragma once
-
-
 // Target Define
 #ifdef TARGET_DEBUG
 	#define BlACKBIRD_DEBUG
@@ -17,7 +14,7 @@
 
 // Architecture Define
 #ifdef ARCHITECTURE_X86
-	#error Blackbird doesn't support x86
+	#error Blackbird does not support x86
 #endif
 
 #ifdef ARCHITECTURE_X64
@@ -31,7 +28,7 @@
 #endif
 
 #ifdef PLATFORM_LINUX
-	#error Blackbird doesn't support Linux
+	#error Blackbird does not support Linux
 #endif
 
 
@@ -47,6 +44,7 @@
 
 
 // Include
+#include "EngineCore/FMT/Formatter.h"
 #include "EngineCore/FMT/Format/Container/AllContainer.h"
 #include "EngineCore/LoggerManager/LoggerManager.h"
 

@@ -23,45 +23,11 @@ namespace Blackbird {
 		glUseProgram(0);
 	}
 
-	Shader* Shader::FromGLSLTextFiles(const std::string& vertexShaderPath, const std::string& fragmentShaderPath)
+	void Shader::UploadUniformMat4(const std::string& name, const glm::mat4& mat)
 	{
-		Shader* shader = new Shader();
-		shader->LoadGLSLTextFiles(vertexShaderPath, fragmentShaderPath);
-		return shader;
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(mat));
 	}
-
-	Shader* Shader::FromGLSLTextFile(const std::string& path)
-	{
-		Shader* shader = new Shader();
-		shader->LoadGLSLTextFile(path);
-		return shader;
-	}
-
-	Shader* Shader::FromGLSLStrings(const std::string& vertex, const std::string& fragment)
-	{
-		Shader* shader = new Shader();
-		shader->LoadGLSLFormat(vertex.c_str(), fragment.c_str());
-		return shader;
-	}
-
-	Shader* Shader::FromGLSLCharPts(const char* const vertex, const char* const fragment)
-	{
-		Shader* shader = new Shader();
-		shader->LoadGLSLFormat(vertex, fragment);
-		return shader;
-	}
-
-	Shader* Shader::FromGLSLString(const std::string& source)
-	{
-		Shader* shader = new Shader();
-		std::string vertex;
-		std::string fragment;
-		Shader::ParseShader(source, vertex, fragment);
-		shader->LoadGLSLFormat(vertex.c_str(), fragment.c_str());
-		return shader;
-	}
-
-
 
 	void Shader::LoadGLSLTextFiles(const std::string& vertexShaderPath, const std::string& fragmentShaderPath)
 	{

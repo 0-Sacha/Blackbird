@@ -7,7 +7,7 @@
 #include "Blackbird/Event/ApplicationEvent.h"
 #include "Blackbird/Event/MouseEvent.h"
 
-namespace Blackbird::Utils {
+namespace Blackbird {
 
 	class OrthographicCameraController
 	{
@@ -18,7 +18,7 @@ namespace Blackbird::Utils {
 		void OnUpdate(TimeStep ts);
 		void OnEvent(Event& event);
 
-		OrthographicCamera GetCamera() { return m_Camera; }
+		OrthographicCamera& GetCamera() { return m_Camera; }
 		const OrthographicCamera& GetCamera() const { return m_Camera; }
 
 		float GetZoomLevel() const { return m_ZoomLevel; }

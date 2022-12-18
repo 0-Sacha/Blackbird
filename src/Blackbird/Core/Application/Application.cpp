@@ -14,11 +14,15 @@ namespace Blackbird {
 
 	Application::Application(const std::string& name, uint32_t width, uint32_t height)
 	{
-		if(!s_Instance) {
+		if(!s_Instance)
+		{
 			//Init Core
 
-		} else
+		}
+		else
+		{
 			BlACKBIRD_ASSERT(false, "Application already exists!");
+		}
 
 		s_Instance = this;
 

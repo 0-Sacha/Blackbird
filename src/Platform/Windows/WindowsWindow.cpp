@@ -124,7 +124,7 @@ namespace Blackbird {
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
 
-		BlACKBIRD_INFO("Creating Windows-window {0}  #{{1}, {2}}", props.Title, props.Width, props.Height);
+		BlACKBIRD_INFO("Creating Windows-window {0}  {{1}, {2}}", props.Title, props.Width, props.Height);
 
 
 		if (!s_GLFWInitialized) {

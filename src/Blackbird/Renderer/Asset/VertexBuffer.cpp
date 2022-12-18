@@ -1,7 +1,7 @@
 
 #include "Blackbirdpch.h"
 
-#include "RendererBuffer.h"
+#include "VertexBuffer.h"
 #include "Blackbird/Renderer/Renderer.h"
 
 #include "Platform/OpenGL/Renderer/Asset/OpenGLBuffer.h"
