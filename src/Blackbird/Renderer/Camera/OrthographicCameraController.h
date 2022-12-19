@@ -2,10 +2,10 @@
 
 #include "OrthographicCamera.h"
 
-#include "Blackbird/Core/TimeStep.h"
+#include "Blackbird/Core/Utils/TimeStep.h"
 
-#include "Blackbird/Event/ApplicationEvent.h"
-#include "Blackbird/Event/MouseEvent.h"
+#include "Blackbird/Core/Event/ApplicationEvent.h"
+#include "Blackbird/Core/Event/MouseEvent.h"
 
 namespace Blackbird {
 

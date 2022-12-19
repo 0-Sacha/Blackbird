@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Application/Application.h"
+#include "Blackbird/Core/Application/Application.h"
 
 #ifdef BlACKBIRD_PLATFORM_WINDOWS
 

@@ -1,7 +1,7 @@
 #pragma once
 
 
-// Not sur that all of this is needed
+// Not sure that all of this is needed
 #include "imgui.h"
 
 #include "Blackbird/Core/Input/Input.h"
@@ -25,5 +25,5 @@
 #include "Platform/OpenGL/Utils/Debug/OpenGlDebug.h"
 
 /////---------- Entry Point ----------/////
-#include "Blackbird/Core/EntryPoint.h"
+#include "Blackbird/Core/Utils/EntryPoint.h"
 /////---------------------------------/////

@@ -11,6 +11,7 @@ group "Dependencies"
 group ""
 
 Solution.ProjectsInfo.Includes["Blackbird"] = {
+	"%{Solution.Projects.Blackbird}/",
 	"%{Solution.Projects.Blackbird}/src/",
 
 	"%{Solution.Projects.Blackbird}/Dependencies/",

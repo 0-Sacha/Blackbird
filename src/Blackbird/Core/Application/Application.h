@@ -4,9 +4,9 @@
 
 #include "Blackbird/Core/Window.h"
 #include "Blackbird/Core/Layer/LayerStack.h"
-#include "Blackbird/Event/ApplicationEvent.h"
+#include "Blackbird/Core/Event/ApplicationEvent.h"
 
-#include "Blackbird/Core/TimeStep.h"
+#include "Blackbird/Core/Utils/TimeStep.h"
 
 #include "Blackbird/ImGui/ImGuiLayer.h"
 
