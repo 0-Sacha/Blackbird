@@ -24,7 +24,7 @@ namespace Blackbird {
 		case ShaderData::Type::Mat4:	return 4 * 4 * 4;
 		}
 
-		BlACKBIRD_ASSERT(false, "Unkown ShaderDataType!");
+		BLACKBIRD_ASSERT(false, "Unkown ShaderDataType!");
 		return 0;
 	}
 
@@ -44,7 +44,7 @@ namespace Blackbird {
 		case ShaderData::Type::Mat3:	return 3 * 3;
 		case ShaderData::Type::Mat4:	return 4 * 4;
 		}
-		BlACKBIRD_ASSERT(false, "Unkown ShaderDataType!");
+		BLACKBIRD_ASSERT(false, "Unkown ShaderDataType!");
 		return 0;
 	}
 

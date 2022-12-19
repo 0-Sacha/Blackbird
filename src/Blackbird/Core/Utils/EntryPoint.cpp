@@ -1,7 +1,7 @@
 #include "Blackbirdpch.h"
 #include "EntryPoint.h"
 
-#ifdef BlACKBIRD_PLATFORM_WINDOWS
+#ifdef BLACKBIRD_PLATFORM_WINDOWS
 
 int main(int argc, char** argv) {
 	auto app = Blackbird::CreateApplication();

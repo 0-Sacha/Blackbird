@@ -74,7 +74,7 @@ namespace Blackbird {
 			glDeleteProgram(programID);
 			programID = 0;
 
-			BlACKBIRD_ERROR("Program has not link : {}", log.data());
+			BLACKBIRD_ERROR("Program has not link : {}", log.data());
 		}
 
 		m_RendererID = programID;
@@ -101,7 +101,7 @@ namespace Blackbird {
 			glDeleteShader(shaderID);
 			shaderID = 0;
 
-			BlACKBIRD_ERROR("{} has not compiled : {}", type, log.data());
+			BLACKBIRD_ERROR("{} has not compiled : {}", type, log.data());
 		}
 
 		return shaderID;
@@ -120,7 +120,7 @@ namespace Blackbird {
 			ifile.read(&str[0], str.size()); // read in str
 			ifile.close();
 		} else {
-			BlACKBIRD_ERROR("Could not open file : {}", path);
+			BLACKBIRD_ERROR("Could not open file : {}", path);
 		}
 	}
 

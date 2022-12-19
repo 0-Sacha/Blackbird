@@ -13,14 +13,14 @@ namespace Blackbird {
 	OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
 		: m_WindowHandle(windowHandle)
 	{
-		BlACKBIRD_ASSERT(m_WindowHandle != nullptr, "WindowHandle is null");
+		BLACKBIRD_ASSERT(m_WindowHandle != nullptr, "WindowHandle is null");
 	}
 
 	void OpenGLContext::Init()
 	{
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		BlACKBIRD_ASSERT(status, "Failed to initialize Glad!");
+		BLACKBIRD_ASSERT(status, "Failed to initialize Glad!");
 	}
 
 	void OpenGLContext::Destroy()
@@ -36,10 +36,10 @@ namespace Blackbird {
 
 	void OpenGLContext::DisplayInfo()
 	{
-		BlACKBIRD_INFO("OpenGl Info :");
-		BlACKBIRD_INFO(" - Vendor   : {}", glGetString(GL_VENDOR));
-		BlACKBIRD_INFO(" - Renderer : {}", glGetString(GL_RENDERER));
-		BlACKBIRD_INFO(" - Version  : {}", glGetString(GL_VERSION));
+		BLACKBIRD_INFO("OpenGl Info :");
+		BLACKBIRD_INFO(" - Vendor   : {}", glGetString(GL_VENDOR));
+		BLACKBIRD_INFO(" - Renderer : {}", glGetString(GL_RENDERER));
+		BLACKBIRD_INFO(" - Version  : {}", glGetString(GL_VERSION));
 	}
 
 }

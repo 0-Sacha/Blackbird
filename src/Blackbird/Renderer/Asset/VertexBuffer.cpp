@@ -12,11 +12,11 @@ namespace Blackbird {
 	{
 		switch(RendererAPI::GetAPI())
 		{
-		case RendererAPI::API::None:	BlACKBIRD_ASSERT(false, "RendererAPI:None is not supported yet!"); return nullptr;
+		case RendererAPI::API::None:	BLACKBIRD_ASSERT(false, "RendererAPI:None is not supported yet!"); return nullptr;
 		case RendererAPI::API::OpenGL:	return new OpenGLVertexBuffer(vertices, size);
 		}
 
-		BlACKBIRD_ASSERT(false, "There is no Renderer API set!");
+		BLACKBIRD_ASSERT(false, "There is no Renderer API set!");
 		return nullptr;
 	}
 
@@ -24,11 +24,11 @@ namespace Blackbird {
 	{
 		switch (RendererAPI::GetAPI())
 		{
-		case RendererAPI::API::None:	BlACKBIRD_ASSERT(false, "RendererAPI:None is not supported yet!"); return nullptr;
+		case RendererAPI::API::None:	BLACKBIRD_ASSERT(false, "RendererAPI:None is not supported yet!"); return nullptr;
 		case RendererAPI::API::OpenGL:	return new OpenGLIndexBuffer(indices, count);
 		}
 
-		BlACKBIRD_ASSERT(false, "There is no Renderer API set!");
+		BLACKBIRD_ASSERT(false, "There is no Renderer API set!");
 		return nullptr;
 	}
 

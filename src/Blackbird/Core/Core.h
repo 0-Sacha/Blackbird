@@ -6,32 +6,32 @@ namespace Blackbird {
 	class Core;
 }
 
-#ifdef BlACKBIRD_DEBUG
-	#define BlACKBIRD_ENABLE_ASSERTS
-	#define BlACKBIRD_ENABLE_LOGGER
+#ifdef BLACKBIRD_DEBUG
+	#define BLACKBIRD_ENABLE_ASSERTS
+	#define BLACKBIRD_ENABLE_LOGGER
 
-	#define BlACKBIRD_ENABLE_EVENT_TRACE
+	#define BLACKBIRD_ENABLE_EVENT_TRACE
 #endif
 
-#ifdef BlACKBIRD_ENABLE_LOGGER
-	#define BlACKBIRD_TRACE(...)	Blackbird::Core::Logger().Trace(__VA_ARGS__)
-	#define BlACKBIRD_INFO(...)		Blackbird::Core::Logger().Info(__VA_ARGS__)
-	#define BlACKBIRD_WARN(...)		Blackbird::Core::Logger().Warn(__VA_ARGS__)
-	#define BlACKBIRD_ERROR(...)	Blackbird::Core::Logger().Error(__VA_ARGS__)
-	#define BlACKBIRD_FATAL(...)	Blackbird::Core::Logger().Fatal(__VA_ARGS__)
+#ifdef BLACKBIRD_ENABLE_LOGGER
+	#define BLACKBIRD_TRACE(...)	Blackbird::Core::Logger().Trace(__VA_ARGS__)
+	#define BLACKBIRD_INFO(...)		Blackbird::Core::Logger().Info(__VA_ARGS__)
+	#define BLACKBIRD_WARN(...)		Blackbird::Core::Logger().Warn(__VA_ARGS__)
+	#define BLACKBIRD_ERROR(...)	Blackbird::Core::Logger().Error(__VA_ARGS__)
+	#define BLACKBIRD_FATAL(...)	Blackbird::Core::Logger().Fatal(__VA_ARGS__)
 #else
-	#define BlACKBIRD_TRACE(...)
-	#define BlACKBIRD_INFO(...)
-	#define BlACKBIRD_WARN(...)
-	#define BlACKBIRD_ERROR(...)
-	#define BlACKBIRD_FATAL(...)
+	#define BLACKBIRD_TRACE(...)
+	#define BLACKBIRD_INFO(...)
+	#define BLACKBIRD_WARN(...)
+	#define BLACKBIRD_ERROR(...)
+	#define BLACKBIRD_FATAL(...)
 #endif
 
 
-#ifdef BlACKBIRD_ENABLE_ASSERTS
-	#define BlACKBIRD_ASSERT(x, ...) { if(!(x)) { Blackbird::Core::Logger().Fatal("Assertion Failed: {}", __VA_ARGS__); __debugbreak(); } }
+#ifdef BLACKBIRD_ENABLE_ASSERTS
+	#define BLACKBIRD_ASSERT(x, ...) { if(!(x)) { Blackbird::Core::Logger().Fatal("Assertion Failed: {}", __VA_ARGS__); __debugbreak(); } }
 #else
-	#define BlACKBIRD_ASSERT(x, ...)
+	#define BLACKBIRD_ASSERT(x, ...)
 #endif
 
 

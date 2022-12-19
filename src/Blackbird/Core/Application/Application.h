@@ -11,15 +11,25 @@
 #include "Blackbird/ImGui/ImGuiLayer.h"
 
 
-#define OGC_BIND_APPEVENT(x) std::bind(&Application::x, this, std::placeholders::_1)
+#define BLACKBIRD_BIND_APPEVENT(func) std::bind(&Application::func, this, std::placeholders::_1)
 
 namespace Blackbird {
+	struct ApplicationSpecification
+	{
+		std::string Name = "Blackbird App";
+		uint32_t Width = 1280;
+		uint32_t Height = 720;
+	};
 
 	class Application
 	{
 	public:
-		Application(const std::string& name = "Blackbird App", uint32_t width = 1280, uint32_t height = 720);
+		Application(const ApplicationSpecification& specs = ApplicationSpecification{});
+		Application(const std::string& name, uint32_t width = 1280, uint32_t height = 720);
 		virtual ~Application() = default;
+
+	private:
+		void Create(const ApplicationSpecification& specs);
 
 	public:
 		void Run();

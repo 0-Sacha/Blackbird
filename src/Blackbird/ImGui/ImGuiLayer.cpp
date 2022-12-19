@@ -87,7 +87,7 @@ namespace Blackbird {
 	void ImGuiLayer::OnEvent(Event& event)
 	{
 		EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<MouseButtonPressedEvent>(BlACKBIRD_BIND_EVENT(ImGuiLayer::OnMouseButtonPressed));
+		dispatcher.Dispatch<MouseButtonPressedEvent>(BLACKBIRD_BIND_EVENT(ImGuiLayer::OnMouseButtonPressed));
 	}
 
 	void ImGuiLayer::OnImGuiRender()

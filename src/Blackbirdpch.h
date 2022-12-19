@@ -1,14 +1,14 @@
 // Target Define
 #ifdef TARGET_DEBUG
-	#define BlACKBIRD_DEBUG
+	#define BLACKBIRD_DEBUG
 #endif
 
 #ifdef TARGET_RELEASE
-	#define BlACKBIRD_RELEASE
+	#define BLACKBIRD_RELEASE
 #endif
 
 #ifdef TARGET_DIST
-	#define BlACKBIRD_DIST
+	#define BLACKBIRD_DIST
 #endif
 
 
@@ -18,13 +18,13 @@
 #endif
 
 #ifdef ARCHITECTURE_X64
-	#define BlACKBIRD_X64
+	#define BLACKBIRD_X64
 #endif
 
 
 // Platform Define 
 #ifdef PLATFORM_WINDOWS
-	#define BlACKBIRD_PLATFORM_WINDOWS
+	#define BLACKBIRD_PLATFORM_WINDOWS
 #endif
 
 #ifdef PLATFORM_LINUX
@@ -71,7 +71,7 @@
 #include <functional>
 #include <memory>
 
-#ifdef BlACKBIRD_PLATFORM_WINDOWS
+#ifdef BLACKBIRD_PLATFORM_WINDOWS
 	#include <Windows.h>
-	#define BlACKBIRD_RENDERER_OPENGL
+	#define BLACKBIRD_RENDERER_OPENGL
 #endif

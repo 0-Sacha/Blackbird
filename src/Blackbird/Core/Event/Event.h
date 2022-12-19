@@ -2,13 +2,13 @@
 
 #include "Blackbird/Core/Core.h"
 
-#define BlACKBIRD_BIND_EVENT(fn) std::bind(&fn, this, std::placeholders::_1)
-#define BlACKBIRD_SET_BIT(i) (1 << i)
+#define BLACKBIRD_BIND_EVENT(fn) std::bind(&fn, this, std::placeholders::_1)
+#define BLACKBIRD_SET_BIT(i) (1 << i)
 
-#ifdef BlACKBIRD_ENABLE_EVENT_TRACE
-	#define BlACKBIRD_EVENT_TRACE(event) BlACKBIRD_TRACE("{}", event.ToString());
+#ifdef BLACKBIRD_ENABLE_EVENT_TRACE
+	#define BLACKBIRD_EVENT_TRACE(event) BLACKBIRD_TRACE("{}", event.ToString());
 #else
-	#define BlACKBIRD_EVENT_TRACE(event)
+	#define BLACKBIRD_EVENT_TRACE(event)
 #endif
 
 namespace Blackbird {
@@ -25,11 +25,11 @@ namespace Blackbird {
 	enum EventCategory
 	{
 		None = 0,
-		EventCategory_Application	= BlACKBIRD_SET_BIT(0),
-		EventCategory_Input			= BlACKBIRD_SET_BIT(1),
-		EventCategory_Keyboard		= BlACKBIRD_SET_BIT(2),
-		EventCategory_Mouse			= BlACKBIRD_SET_BIT(3),
-		EventCategory_MouseButton	= BlACKBIRD_SET_BIT(4)
+		EventCategory_Application	= BLACKBIRD_SET_BIT(0),
+		EventCategory_Input			= BLACKBIRD_SET_BIT(1),
+		EventCategory_Keyboard		= BLACKBIRD_SET_BIT(2),
+		EventCategory_Mouse			= BLACKBIRD_SET_BIT(3),
+		EventCategory_MouseButton	= BLACKBIRD_SET_BIT(4)
 	};
 
 #define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::type; }\

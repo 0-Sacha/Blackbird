@@ -15,7 +15,7 @@ namespace Blackbird {
 	static bool s_GLFWInitialized = false;
 
 	static void GLFWErrorCallback(int error, const char* description) {
-		BlACKBIRD_FATAL("GLFW Error ({0}): {1}", error, description);
+		BLACKBIRD_FATAL("GLFW Error ({0}): {1}", error, description);
 	}
 
 	static void GLFWWindowSizeCallback(GLFWwindow* window, int width, int height) {
@@ -124,12 +124,12 @@ namespace Blackbird {
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
 
-		BlACKBIRD_INFO("Creating Windows-window {0}  {{1}, {2}}", props.Title, props.Width, props.Height);
+		BLACKBIRD_INFO("Creating Windows-window {0}  {{1}, {2}}", props.Title, props.Width, props.Height);
 
 
 		if (!s_GLFWInitialized) {
 			int success = glfwInit();
-			BlACKBIRD_ASSERT(success, "Could not initialize GLFW!");
+			BLACKBIRD_ASSERT(success, "Could not initialize GLFW!");
 			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;
 		}

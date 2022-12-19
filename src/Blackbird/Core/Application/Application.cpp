@@ -12,27 +12,42 @@ namespace Blackbird {
 
 	Application* Application::s_Instance = nullptr;
 
+	Application::Application(const ApplicationSpecification& specs)
+	{
+		Create(specs);
+	}
+
+
 	Application::Application(const std::string& name, uint32_t width, uint32_t height)
+	{
+		ApplicationSpecification specs;
+		specs.Name = name;
+		specs.Width = width;
+		specs.Height = height;
+		Create(specs);
+	}
+
+	void Application::Create(const ApplicationSpecification& specs)
 	{
 		if(!s_Instance)
 		{
 			//Init Core
-
 		}
 		else
 		{
-			BlACKBIRD_ASSERT(false, "Application already exists!");
+			BLACKBIRD_ASSERT(false, "Application already exists!");
 		}
 
 		s_Instance = this;
 
-		m_Window = std::unique_ptr<Window>(Window::Create({ name, width, height }));
-		m_Window->SetEventCallback(OGC_BIND_APPEVENT(OnEvent));
+		m_Window = std::unique_ptr<Window>(Window::Create({ specs.Name, specs.Width, specs.Height }));
+		m_Window->SetEventCallback(BLACKBIRD_BIND_APPEVENT(OnEvent));
 
 		// Renderer::Init
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 	}
+
 
 	void Application::Run()
 	{
@@ -65,10 +80,10 @@ namespace Blackbird {
 
 	void Application::OnEvent(Event& event)
 	{
-		BlACKBIRD_EVENT_TRACE(event);
+		BLACKBIRD_EVENT_TRACE(event);
 
 		EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<WindowCloseEvent>(OGC_BIND_APPEVENT(OnWindowClose));
+		dispatcher.Dispatch<WindowCloseEvent>(BLACKBIRD_BIND_APPEVENT(OnWindowClose));
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin() && !event.Handled; )
 			(*--it)->OnEvent(event);

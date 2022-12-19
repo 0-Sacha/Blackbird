@@ -25,7 +25,7 @@ namespace Blackbird {
 		case ShaderData::Type::Mat4:	return GL_FLOAT;
 		}
 
-		BlACKBIRD_ASSERT(false, "Unkown ShaderDataType!");
+		BLACKBIRD_ASSERT(false, "Unkown ShaderDataType!");
 		return 0;
 	}
 

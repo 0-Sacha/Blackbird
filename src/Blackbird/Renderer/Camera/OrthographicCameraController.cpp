@@ -53,8 +53,8 @@ namespace Blackbird {
 	void OrthographicCameraController::OnEvent(Event& event)
 	{
 		EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<MouseScrolledEvent>(BlACKBIRD_BIND_EVENT(OrthographicCameraController::OnMouseScrolled));
-		dispatcher.Dispatch<WindowResizeEvent>(BlACKBIRD_BIND_EVENT(OrthographicCameraController::OnWindowResized));
+		dispatcher.Dispatch<MouseScrolledEvent>(BLACKBIRD_BIND_EVENT(OrthographicCameraController::OnMouseScrolled));
+		dispatcher.Dispatch<WindowResizeEvent>(BLACKBIRD_BIND_EVENT(OrthographicCameraController::OnWindowResized));
 	}
 
 	bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& event)
