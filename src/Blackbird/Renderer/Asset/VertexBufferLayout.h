@@ -65,7 +65,8 @@ namespace Blackbird {
 		inline uint32_t GetStride() const { return m_Stride; }
 
 		template <typename... Args>
-		inline const BufferElements& GetElements(Args&&... args) { return m_Elements.emplace_back(std::forward<Args>(args)...); }
+		BufferElements& Emplace(Args&&... args) { return m_Elements.emplace_back(std::forward<Args>(args)...); }
+		BufferElements& Push(const BufferElements& element) { m_Elements.push_back(element); }
 
 	public:
 		inline std::vector<BufferElements>::iterator begin() { return m_Elements.begin(); }

@@ -101,9 +101,6 @@ namespace Blackbird {
 		data.EventCallback(event);
 	}
 
-
-
-
 	Window* Window::Create(const WindowProps& props) {
 		return new WindowsWindow(props);
 	}
@@ -126,7 +123,6 @@ namespace Blackbird {
 
 		BLACKBIRD_INFO("Creating Windows-window {0}  {{1}, {2}}", props.Title, props.Width, props.Height);
 
-
 		if (!s_GLFWInitialized) {
 			int success = glfwInit();
 			BLACKBIRD_ASSERT(success, "Could not initialize GLFW!");
@@ -145,17 +141,11 @@ namespace Blackbird {
 
 		// Set GLFW callbacks
 		glfwSetWindowSizeCallback(m_Window, GLFWWindowSizeCallback);
-
 		glfwSetWindowCloseCallback(m_Window, GLFWWindowCloseCallback);
-
 		glfwSetKeyCallback(m_Window, GLFWKeyCallback);
-
 		glfwSetCharCallback(m_Window, GLFWCharCallback);
-
 		glfwSetMouseButtonCallback(m_Window, GLFWMouseButtonCallback);
-
 		glfwSetScrollCallback(m_Window, GLFWScrollCallback);
-
 		glfwSetCursorPosCallback(m_Window, GLFWCursorPosCallback);
 	}
 

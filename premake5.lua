@@ -3,7 +3,6 @@ Solution.Projects["GLFW"] 		= "Dependencies/GLFW"
 Solution.Projects["Glad"] 		= "Dependencies/Glad"
 Solution.Projects["ImGui"] 		= "Dependencies/imgui"
 
--- Dependencies
 group "Dependencies"
 	include (Solution.Projects["GLFW"])
 	include (Solution.Projects["Glad"])
