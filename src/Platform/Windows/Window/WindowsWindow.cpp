@@ -132,7 +132,7 @@ namespace Blackbird {
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, props.Title.c_str(), nullptr, nullptr);
 
-		m_RendererContext = new OpenGLContext(m_Window);
+		m_RendererContext = new Platform::OpenGL::OpenGLContext(m_Window);
 		m_RendererContext->Init();
 		m_RendererContext->DisplayInfo();
 

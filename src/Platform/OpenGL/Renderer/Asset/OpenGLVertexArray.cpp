@@ -1,14 +1,14 @@
 
 #include "Blackbirdpch.h"
-#include "Blackbird/Core/Core.h"
+
 #include "OpenGLVertexArray.h"
 
 #include "Blackbird/Renderer/Asset/VertexBufferLayout.h"
 
 #include <glad/glad.h>
 
-namespace Blackbird {
-
+namespace Blackbird
+{
 	uint32_t ShaderData::GetAPIType(ShaderData::Type type) {
 		switch (type)
 		{
@@ -28,6 +28,10 @@ namespace Blackbird {
 		BLACKBIRD_ASSERT(false, "Unkown ShaderDataType!");
 		return 0;
 	}
+}
+
+namespace Blackbird::Platform::OpenGL
+{
 
 	OpenGLVertexArray::OpenGLVertexArray()
 	{
@@ -40,12 +44,12 @@ namespace Blackbird {
 		glDeleteVertexArrays(1, &m_RendererID);
 	}
 
-	void OpenGLVertexArray::Bind()
+	void OpenGLVertexArray::Bind() const
 	{
 		glBindVertexArray(m_RendererID);
 	}
 
-	void OpenGLVertexArray::Unbind()
+	void OpenGLVertexArray::Unbind() const
 	{
 		glBindVertexArray(0);
 	}

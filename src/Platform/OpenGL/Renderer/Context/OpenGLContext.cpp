@@ -8,7 +8,8 @@
 
 #include "Platform/OpenGL/Utils/OpenGLFormat.h"
 
-namespace Blackbird {
+namespace Blackbird::Platform::OpenGL
+{
 
 	OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
 		: m_WindowHandle(windowHandle)

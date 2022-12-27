@@ -1,12 +1,13 @@
 #pragma once
 
-#include "Blackbird/Core/Core.h"
+#include "Platform/OpenGL/OpenGLCore.h"
 
 #include "Blackbird/Renderer/Context/RendererContext.h"
 
 struct GLFWwindow;
 
-namespace Blackbird {
+namespace Blackbird::Platform::OpenGL
+{
 
 	class OpenGLContext : public RendererContext
 	{

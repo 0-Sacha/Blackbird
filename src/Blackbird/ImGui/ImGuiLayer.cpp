@@ -3,14 +3,11 @@
 
 #include "ImGuiLayer.h"
 
-#include "imgui.h"
-#include "examples/imgui_impl_glfw.h"
-#include "examples/imgui_impl_opengl3.h"
+#include "Platform/OpenGL/OpenGLImGuiInclude.h"
+#include "Platform/Windows/WindowsImGuiInclude.h"
+#include "Platform/Windows/WindowsInclude.h"
 
 #include "Blackbird/Core/Application/Application.h"
-
-#include <GLFW/glfw3.h>
-#include <glad/glad.h>
 
 namespace Blackbird {
 
@@ -92,7 +89,6 @@ namespace Blackbird {
 
 	void ImGuiLayer::OnImGuiRender()
 	{
-		ImGui::ShowDemoWindow();
 	}
 
 	bool ImGuiLayer::OnMouseButtonPressed(MouseButtonPressedEvent& e)

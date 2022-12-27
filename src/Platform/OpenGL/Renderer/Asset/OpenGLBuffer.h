@@ -1,13 +1,11 @@
 
 #pragma once
 
-#include "Blackbird/Core/Core.h"
+#include "Platform/OpenGL/OpenGLCore.h"
 #include "Blackbird/Renderer/Asset/VertexBuffer.h"
 
-namespace Blackbird {
-
-
-	/////---------- VertexBuffer ----------/////
+namespace Blackbird::Platform::OpenGL
+{
 
 	class OpenGLVertexBuffer : public VertexBuffer
 	{
@@ -27,9 +25,6 @@ namespace Blackbird {
 		BufferLayout m_Layout;
 	};
 
-
-
-	/////---------- VertexBuffer ----------/////
 
 	class OpenGLIndexBuffer : public IndexBuffer
 	{

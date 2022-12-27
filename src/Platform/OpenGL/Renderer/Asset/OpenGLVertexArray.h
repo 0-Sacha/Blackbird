@@ -1,10 +1,11 @@
 #pragma once
 
-#include "Blackbird/Core/Core.h"
+#include "Platform/OpenGL/OpenGLCore.h"
 #include "Blackbird/Renderer/Asset/VertexArray.h"
 
 
-namespace Blackbird {
+namespace Blackbird::Platform::OpenGL
+{
 
 	class OpenGLVertexArray : public VertexArray
 	{
@@ -13,8 +14,8 @@ namespace Blackbird {
 		~OpenGLVertexArray() override;
 
 	public:
-		void Bind() override;
-		void Unbind() override;
+		void Bind() const override;
+		void Unbind() const override;
 
 		void AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) override;
 		void SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) override;

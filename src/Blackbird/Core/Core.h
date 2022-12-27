@@ -37,8 +37,6 @@ namespace Blackbird {
 
 namespace Blackbird {
 	
-	using RendererID = unsigned int;
-
 	template<typename T>
 	using Scope = std::unique_ptr<T>;
 

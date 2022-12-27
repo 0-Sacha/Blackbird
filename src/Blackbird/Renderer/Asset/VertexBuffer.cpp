@@ -8,24 +8,24 @@
 
 namespace Blackbird {
 
-	VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size)
+	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
 	{
 		switch(RendererAPI::GetAPI())
 		{
 		case RendererAPI::API::None:	BLACKBIRD_ASSERT(false, "RendererAPI:None is not supported yet!"); return nullptr;
-		case RendererAPI::API::OpenGL:	return new OpenGLVertexBuffer(vertices, size);
+		case RendererAPI::API::OpenGL:	return std::make_shared<Platform::OpenGL::OpenGLVertexBuffer>(vertices, size);
 		}
 
 		BLACKBIRD_ASSERT(false, "There is no Renderer API set!");
 		return nullptr;
 	}
 
-	IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t count)
+	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t count)
 	{
 		switch (RendererAPI::GetAPI())
 		{
 		case RendererAPI::API::None:	BLACKBIRD_ASSERT(false, "RendererAPI:None is not supported yet!"); return nullptr;
-		case RendererAPI::API::OpenGL:	return new OpenGLIndexBuffer(indices, count);
+		case RendererAPI::API::OpenGL:	return std::make_shared<Platform::OpenGL::OpenGLIndexBuffer>(indices, count);
 		}
 
 		BLACKBIRD_ASSERT(false, "There is no Renderer API set!");

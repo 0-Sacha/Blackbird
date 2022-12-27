@@ -4,10 +4,8 @@
 
 #include <glad/glad.h>
 
-namespace Blackbird {
-
-
-	/////---------- VertexBuffer ----------/////
+namespace Blackbird::Platform::OpenGL
+{
 
 	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
 	{

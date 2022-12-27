@@ -9,7 +9,7 @@
 #include "Blackbird/ImGui/ImGuiLayer.h"
 
 #include "Blackbird/Renderer/Shader/Shader.h"
-#include "Blackbird/Renderer/Shader/ShaderLoader.h"
+#include "Blackbird/Renderer/Texture/Texture.h"
 #include "Blackbird/Renderer/Asset/VertexBuffer.h"
 #include "Blackbird/Renderer/Asset/VertexArray.h"
 #include "Blackbird/Renderer/Asset/VertexBufferLayout.h"

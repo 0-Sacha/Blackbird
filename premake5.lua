@@ -40,10 +40,10 @@ project "Blackbird"
 	files {
 		"src/**.h",
 		"src/**.cpp",
-		"vendor/stb_image/**.h",
-		"vendor/stb_image/**.cpp",
-		"vendor/glm/glm/**.hpp",
-		"vendor/glm/glm/**.inl",
+		"Dependencies/stb_image/**.h",
+		"Dependencies/stb_image/**.cpp",
+		"Dependencies/glm/glm/**.hpp",
+		"Dependencies/glm/glm/**.inl",
 	}
 
 	Solution.IncludeAndLinkProject("EngineCore")

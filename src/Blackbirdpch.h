@@ -40,9 +40,6 @@
 #endif
 
 
-
-
-
 // Include
 #include "EngineCore/FMT/Formatter.h"
 #include "EngineCore/FMT/Format/Container/AllContainer.h"
@@ -63,7 +60,6 @@
 #include <string>
 #include <sstream>
 
-
 #include <iostream>
 #include <fstream>
 #include <utility>
@@ -75,3 +71,8 @@
 	#include <Windows.h>
 	#define BLACKBIRD_RENDERER_OPENGL
 #endif
+
+// GLM
+#include "glm/glm.hpp"
+#include "glm/gtc/type_ptr.hpp"
+#include "glm/gtc/matrix_transform.hpp"

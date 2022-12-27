@@ -2,9 +2,8 @@
 
 #include "Blackbird/Core/Core.h"
 
-namespace Blackbird {
-
-	/////---------- ShaderData ----------/////
+namespace Blackbird
+{
 
 	class ShaderData
 	{
@@ -21,11 +20,10 @@ namespace Blackbird {
 	public:
 		static uint32_t GetSizeOf(ShaderData::Type type);
 		static uint32_t GetComponentCountOf(ShaderData::Type type);
+		// FIXME
 		static uint32_t GetAPIType(ShaderData::Type type);
 	};
 
-
-	/////---------- BufferElements ----------/////
 
 	struct BufferElements
 	{
