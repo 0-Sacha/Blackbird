@@ -1,5 +1,4 @@
 
-#include "Blackbirdpch.h"
 #include "VertexArray.h"
 
 #include "Blackbird/Renderer/Renderer.h"

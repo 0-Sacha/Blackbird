@@ -1,5 +1,4 @@
 
-#include "Blackbirdpch.h"
 #include "Texture.h"
 
 #include "Blackbird/Renderer/Renderer.h"

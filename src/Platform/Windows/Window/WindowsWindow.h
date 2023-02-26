@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Blackbird/Core/Window.h"
+#include "Blackbird/Engine/Window.h"
 #include "Blackbird/Renderer/Context/RendererContext.h"
 
 struct GLFWwindow;

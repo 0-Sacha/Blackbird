@@ -1,4 +1,3 @@
-#include "Blackbirdpch.h"
 #include "Primitive2DShader.h"
 
 #include "Blackbird/Renderer/Shader/ShaderFactory.h"

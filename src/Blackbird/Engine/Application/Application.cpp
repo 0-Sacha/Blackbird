@@ -1,10 +1,9 @@
 
-#include "Blackbirdpch.h"
 
 #include "Application.h"
 
 #include "Blackbird/Core/Core.h"
-#include "Blackbird/Core/Input/Input.h"
+#include "Blackbird/Engine/Input/Input.h"
 #include "Blackbird/Renderer/Renderer.h"
 
 #include <glfw/glfw3.h>

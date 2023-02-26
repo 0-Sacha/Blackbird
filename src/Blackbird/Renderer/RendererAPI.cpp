@@ -1,5 +1,4 @@
 
-#include "Blackbirdpch.h"
 #include "RendererAPI.h"
 
 namespace Blackbird

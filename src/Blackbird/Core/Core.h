@@ -1,10 +1,39 @@
 #pragma once
 
-#include "Blackbirdpch.h"
+#include "Flags.h"
 
-namespace Blackbird {
-	class Core;
+#include "EngineCore/LoggerManager/LoggerManager.h"
+
+#include <utility>
+#include <memory>
+
+#include "glm/glm.hpp"
+#include "glm/gtc/type_ptr.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+
+namespace Blackbird
+{
+	template<typename T>
+	using Scope = std::unique_ptr<T>;
+
+	template<typename T>
+	using Ref = std::shared_ptr<T>;
+	
+	class Core
+	{
+	public:
+		static EngineCore::LoggerManager::BasicLogger& Logger();
+	};
+
+	class BlackbirdException : public std::exception
+	{
+	public:
+		BlackbirdException(const char* msg)
+			: std::exception(msg)
+		{}
+	};
 }
+
 
 #ifdef BLACKBIRD_DEBUG
 	#define BLACKBIRD_ENABLE_ASSERTS
@@ -33,28 +62,3 @@ namespace Blackbird {
 #else
 	#define BLACKBIRD_ASSERT(x, ...)
 #endif
-
-
-namespace Blackbird {
-	
-	template<typename T>
-	using Scope = std::unique_ptr<T>;
-
-	template<typename T>
-	using Ref = std::shared_ptr<T>;
-	
-	class Core
-	{
-	public:
-		static EngineCore::LoggerManager::BasicLogger& Logger();
-	};
-
-	class BlackbirdException : public std::exception
-	{
-	public:
-		BlackbirdException(const char* msg)
-			: std::exception(msg)
-		{}
-	};
-}
-

@@ -1,10 +1,9 @@
 
-#include "Blackbirdpch.h"
 #include "WindowsWindow.h"
 
-#include "Blackbird/Core/Event/ApplicationEvent.h"
-#include "Blackbird/Core/Event/KeyboardEvent.h"
-#include "Blackbird/Core/Event/MouseEvent.h"
+#include "Blackbird/Engine/Event/ApplicationEvent.h"
+#include "Blackbird/Engine/Event/KeyboardEvent.h"
+#include "Blackbird/Engine/Event/MouseEvent.h"
 
 #include "Platform/OpenGL/Renderer/Context/OpenGLContext.h"
 

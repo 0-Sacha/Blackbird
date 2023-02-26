@@ -1,4 +1,3 @@
-#include "Blackbirdpch.h"
 #include "Renderer2DStorage.h"
 
 namespace Blackbird::Renderer2DUtils

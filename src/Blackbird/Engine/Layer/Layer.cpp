@@ -1,5 +1,4 @@
 
-#include "Blackbirdpch.h"
 #include "Layer.h"
 
 namespace Blackbird {

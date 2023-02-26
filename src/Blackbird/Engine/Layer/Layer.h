@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Blackbird/Core/Core.h"
-#include "Blackbird/Core/Utils/TimeStep.h"
-#include "Blackbird/Core/Event/Event.h"
+#include "Blackbird/Engine/Utils/TimeStep.h"
+#include "Blackbird/Engine/Event/Event.h"
 
 namespace Blackbird {
 

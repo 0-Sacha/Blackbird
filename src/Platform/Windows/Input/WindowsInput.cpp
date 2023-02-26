@@ -1,9 +1,8 @@
 
-#include "Blackbirdpch.h"
 
 #include "WindowsInput.h"
 
-#include "Blackbird/Core/Application/Application.h"
+#include "Blackbird/Engine/Application/Application.h"
 #include <GLFW/glfw3.h>
 
 namespace Blackbird {

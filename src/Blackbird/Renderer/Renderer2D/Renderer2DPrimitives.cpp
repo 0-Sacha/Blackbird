@@ -1,4 +1,3 @@
-#include "Blackbirdpch.h"
 #include "Renderer2D.h"
 
 #include "Renderer2DStorage/Renderer2DStorage.h"

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Blackbird/Core/Input/Input.h"
+#include "Blackbird/Engine/Input/Input.h"
 
 struct GLFWwindow;
 

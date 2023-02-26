@@ -1,5 +1,4 @@
 
-#include "Blackbirdpch.h"
 
 #include "OpenGLShader.h"
 #include <glad/glad.h>

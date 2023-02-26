@@ -1,5 +1,4 @@
 
-#include "Blackbirdpch.h"
 
 #include "ImGuiLayer.h"
 
@@ -7,7 +6,7 @@
 #include "Platform/Windows/WindowsImGuiInclude.h"
 #include "Platform/Windows/WindowsInclude.h"
 
-#include "Blackbird/Core/Application/Application.h"
+#include "Blackbird/Engine/Application/Application.h"
 
 namespace Blackbird {
 

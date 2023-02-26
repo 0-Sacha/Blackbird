@@ -1,4 +1,3 @@
-#include "Blackbirdpch.h"
 #include "Primitive2DObject.h"
 
 namespace Blackbird::Renderer2DUtils::Primitive

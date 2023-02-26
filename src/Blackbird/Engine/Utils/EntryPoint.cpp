@@ -1,4 +1,3 @@
-#include "Blackbirdpch.h"
 #include "EntryPoint.h"
 
 #ifdef BLACKBIRD_PLATFORM_WINDOWS

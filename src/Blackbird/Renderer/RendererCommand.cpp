@@ -1,5 +1,4 @@
 
-#include "Blackbirdpch.h"
 #include "RendererCommand.h"
 
 #include "Platform/OpenGL/Renderer/OpenGLRendererAPI.h"

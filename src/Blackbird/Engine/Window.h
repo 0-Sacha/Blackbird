@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Blackbird/Core/Event/Event.h"
+#include "Blackbird/Engine/Event/Event.h"
 
 namespace Blackbird {
 

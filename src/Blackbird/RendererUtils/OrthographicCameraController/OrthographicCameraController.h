@@ -2,9 +2,9 @@
 
 #include "Blackbird/Renderer/Camera/OrthographicCamera.h"
 
-#include "Blackbird/Core/Utils/TimeStep.h"
-#include "Blackbird/Core/Event/ApplicationEvent.h"
-#include "Blackbird/Core/Event/MouseEvent.h"
+#include "Blackbird/Engine/Utils/TimeStep.h"
+#include "Blackbird/Engine/Event/ApplicationEvent.h"
+#include "Blackbird/Engine/Event/MouseEvent.h"
 
 namespace Blackbird {
 

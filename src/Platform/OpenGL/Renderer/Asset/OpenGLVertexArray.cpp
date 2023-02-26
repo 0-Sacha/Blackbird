@@ -1,5 +1,4 @@
 
-#include "Blackbirdpch.h"
 
 #include "OpenGLVertexArray.h"
 

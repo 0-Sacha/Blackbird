@@ -4,8 +4,8 @@
 // Not sure that all of this is needed
 #include "imgui.h"
 
-#include "Blackbird/Core/Input/Input.h"
-#include "Blackbird/Core/Application/Application.h"
+#include "Blackbird/Engine/Input/Input.h"
+#include "Blackbird/Engine/Application/Application.h"
 #include "Blackbird/ImGui/ImGuiLayer.h"
 
 #include "Blackbird/Renderer/Shader/Shader.h"
@@ -28,5 +28,5 @@
 #include "Platform/OpenGL/Utils/Debug/OpenGlDebug.h"
 
 /////---------- Entry Point ----------/////
-#include "Blackbird/Core/Utils/EntryPoint.h"
+#include "Blackbird/Engine/Utils/EntryPoint.h"
 /////---------------------------------/////

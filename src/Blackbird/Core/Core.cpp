@@ -1,6 +1,3 @@
-
-#include "Blackbirdpch.h"
-
 #include "Core.h"
 
 EngineCore::LoggerManager::BasicLogger& Blackbird::Core::Logger()

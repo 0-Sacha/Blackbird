@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Blackbirdpch.h"
 
 #include <glad/glad.h>
 

@@ -1,5 +1,4 @@
 
-#include "Blackbirdpch.h"
 
 #include "Renderer.h"
 #include "Blackbird/Renderer/Renderer2D/Renderer2D.h"

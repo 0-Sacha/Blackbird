@@ -31,9 +31,6 @@ project "Blackbird"
 	cppdialect "C++20"
 	staticruntime "on"
 
-	pchheader "Blackbirdpch.h"
-	pchsource "src/Blackbirdpch.cpp"
-
 	targetdir 	(Solution.Path.ProjectTargetDirectory)
     objdir 		(Solution.Path.ProjectObjectDirectory)
 

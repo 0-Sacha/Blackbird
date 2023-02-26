@@ -2,11 +2,11 @@
 
 #include "Blackbird/Core/Core.h"
 
-#include "Blackbird/Core/Window.h"
-#include "Blackbird/Core/Layer/LayerStack.h"
-#include "Blackbird/Core/Event/ApplicationEvent.h"
+#include "Blackbird/Engine/Window.h"
+#include "Blackbird/Engine/Layer/LayerStack.h"
+#include "Blackbird/Engine/Event/ApplicationEvent.h"
 
-#include "Blackbird/Core/Utils/TimeStep.h"
+#include "Blackbird/Engine/Utils/TimeStep.h"
 
 #include "Blackbird/ImGui/ImGuiLayer.h"
 

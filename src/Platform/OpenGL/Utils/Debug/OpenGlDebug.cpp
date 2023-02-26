@@ -1,5 +1,4 @@
 
-#include "Blackbirdpch.h"
 #include "OpenGlDebug.h"
 
 namespace Blackbird::OpenGL {
