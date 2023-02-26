@@ -2,6 +2,11 @@
 
 #include "Blackbird/Core/Core.h"
 
+#include "glm/glm.hpp"
+
+#include <unordered_map>
+#include <string>
+
 namespace Blackbird {
 	
 	enum class ShaderType

@@ -1,6 +1,7 @@
-
-
 #include "OpenGLShader.h"
+
+#include "glm/gtc/type_ptr.hpp"
+
 #include <glad/glad.h>
 
 namespace Blackbird::Platform::OpenGL
