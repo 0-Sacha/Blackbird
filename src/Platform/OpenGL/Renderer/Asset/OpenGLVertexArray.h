@@ -15,7 +15,7 @@ namespace Blackbird::Platform::OpenGL
 
 	public:
 		void Bind() const override;
-		void Unbind() const override;
+		void Release() const override;
 
 		void AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) override;
 		void SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) override;

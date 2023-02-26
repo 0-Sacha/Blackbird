@@ -13,7 +13,7 @@ namespace Blackbird::Platform::OpenGL
 
 	public:
 		void Bind(uint32_t slot) const override;
-		void Unbind(uint32_t slot) const override;
+		void Release(uint32_t slot) const override;
 
 	public:
 		uint32_t GetWidth() const override { return m_Width; }

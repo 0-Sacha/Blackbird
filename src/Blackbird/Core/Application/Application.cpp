@@ -5,6 +5,7 @@
 
 #include "Blackbird/Core/Core.h"
 #include "Blackbird/Core/Input/Input.h"
+#include "Blackbird/Renderer/Renderer.h"
 
 #include <glfw/glfw3.h>
 
@@ -17,7 +18,6 @@ namespace Blackbird {
 		Create(specs);
 	}
 
-
 	Application::Application(const std::string& name, uint32_t width, uint32_t height)
 	{
 		ApplicationSpecification specs;
@@ -29,21 +29,14 @@ namespace Blackbird {
 
 	void Application::Create(const ApplicationSpecification& specs)
 	{
-		if(!s_Instance)
-		{
-			//Init Core
-		}
-		else
-		{
+		if(s_Instance)
 			BLACKBIRD_ASSERT(false, "Application already exists!");
-		}
-
 		s_Instance = this;
 
 		m_Window = std::unique_ptr<Window>(Window::Create({ specs.Name, specs.Width, specs.Height }));
 		m_Window->SetEventCallback(BLACKBIRD_BIND_APPEVENT(OnEvent));
 
-		// Renderer::Init
+		Renderer::Init();
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 	}
@@ -56,8 +49,11 @@ namespace Blackbird {
 			TimeStep timeStep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate(timeStep);
+			if (!m_Minimized)
+			{
+				for (Layer* layer : m_LayerStack)
+					layer->OnUpdate(timeStep);
+			}
 
 			m_ImGuiLayer->BeginFrame();
 			for (Layer* layer : m_LayerStack)
@@ -84,6 +80,7 @@ namespace Blackbird {
 
 		EventDispatcher dispatcher(event);
 		dispatcher.Dispatch<WindowCloseEvent>(BLACKBIRD_BIND_APPEVENT(OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(BLACKBIRD_BIND_APPEVENT(OnWindowResize));
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin() && !event.Handled; )
 			(*--it)->OnEvent(event);
@@ -93,5 +90,19 @@ namespace Blackbird {
 	{
 		m_Running = false;
 		return true;
+	}
+
+	bool Application::OnWindowResize(WindowResizeEvent& event)
+	{
+		if (event.GetWidth() == 0 || event.GetHeight() == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+		m_Minimized = false;
+
+		Renderer::OnWindowResize(event.GetWidth(), event.GetHeight());
+
+		return false;
 	}
 }

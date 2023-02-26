@@ -49,7 +49,7 @@ namespace Blackbird::Platform::OpenGL
 		glBindVertexArray(m_RendererID);
 	}
 
-	void OpenGLVertexArray::Unbind() const
+	void OpenGLVertexArray::Release() const
 	{
 		glBindVertexArray(0);
 	}

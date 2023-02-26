@@ -48,5 +48,13 @@ namespace Blackbird {
 	public:
 		static EngineCore::LoggerManager::BasicLogger& Logger();
 	};
+
+	class BlackbirdException : public std::exception
+	{
+	public:
+		BlackbirdException(const char* msg)
+			: std::exception(msg)
+		{}
+	};
 }
 

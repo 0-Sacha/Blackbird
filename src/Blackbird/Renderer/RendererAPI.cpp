@@ -2,8 +2,7 @@
 #include "Blackbirdpch.h"
 #include "RendererAPI.h"
 
-namespace Blackbird {
-
+namespace Blackbird
+{
 	RendererAPI::API RendererAPI::s_API = RendererAPI::API::OpenGL;
-
 }

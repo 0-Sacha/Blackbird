@@ -24,7 +24,7 @@ namespace Blackbird::Platform::OpenGL
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
 	}
 
-	void OpenGLVertexBuffer::Unbind() const
+	void OpenGLVertexBuffer::Release() const
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
@@ -50,7 +50,7 @@ namespace Blackbird::Platform::OpenGL
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
 	}
 
-	void OpenGLIndexBuffer::Unbind() const
+	void OpenGLIndexBuffer::Release() const
 	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}

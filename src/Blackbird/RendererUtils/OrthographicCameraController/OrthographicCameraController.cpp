@@ -14,21 +14,21 @@ namespace Blackbird {
 
 	void OrthographicCameraController::OnUpdate(TimeStep ts)
 	{
-		#define OCC_ONUPDATE_SIN sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts
-		#define OCC_ONUPDATE_COS cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts
+		float updateSin = sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
+		float updateCos = cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
 
 		if(Input::IsKeyPressed(KeyboardKey::A)) {
-			m_CameraPosition.x -= OCC_ONUPDATE_COS;
-			m_CameraPosition.y -= OCC_ONUPDATE_SIN;
+			m_CameraPosition.x -= updateCos;
+			m_CameraPosition.y -= updateSin;
 		} else if(Input::IsKeyPressed(KeyboardKey::D)) {
-			m_CameraPosition.x += OCC_ONUPDATE_COS;
-			m_CameraPosition.y += OCC_ONUPDATE_SIN;
+			m_CameraPosition.x += updateCos;
+			m_CameraPosition.y += updateSin;
 		} else if (Input::IsKeyPressed(KeyboardKey::W)) {
-			m_CameraPosition.x -= OCC_ONUPDATE_SIN;
-			m_CameraPosition.y += OCC_ONUPDATE_COS;
+			m_CameraPosition.x -= updateSin;
+			m_CameraPosition.y += updateCos;
 		} else if (Input::IsKeyPressed(KeyboardKey::S)) {
-			m_CameraPosition.x += OCC_ONUPDATE_SIN;
-			m_CameraPosition.y -= OCC_ONUPDATE_COS;
+			m_CameraPosition.x += updateSin;
+			m_CameraPosition.y -= updateCos;
 		}
 
 		if(m_HasRotation)
@@ -47,14 +47,14 @@ namespace Blackbird {
 		}
 
 		m_Camera.SetPosition(m_CameraPosition);
-		m_CameraTranslationSpeed = m_ZoomLevel; // ?
+		m_CameraTranslationSpeed = m_ZoomLevel;
 	}
 
 	void OrthographicCameraController::OnEvent(Event& event)
 	{
 		EventDispatcher dispatcher(event);
 		dispatcher.Dispatch<MouseScrolledEvent>(BLACKBIRD_BIND_EVENT(OrthographicCameraController::OnMouseScrolled));
-		dispatcher.Dispatch<WindowResizeEvent>(BLACKBIRD_BIND_EVENT(OrthographicCameraController::OnWindowResized));
+		dispatcher.Dispatch<WindowResizeEvent>(BLACKBIRD_BIND_EVENT(OrthographicCameraController::OnWindowResize));
 	}
 
 	bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& event)
@@ -65,7 +65,7 @@ namespace Blackbird {
 		return false;
 	}
 
-	bool OrthographicCameraController::OnWindowResized(WindowResizeEvent& event)
+	bool OrthographicCameraController::OnWindowResize(WindowResizeEvent& event)
 	{
 		m_AspectRatio = (float)event.GetWidth() / (float)event.GetHeight();
 		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);

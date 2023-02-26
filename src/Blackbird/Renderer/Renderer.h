@@ -11,6 +11,13 @@ namespace Blackbird {
 	class Renderer
 	{
 	public:
+		static void Init();
+		static void Shutdown();
+
+	public:
+		static void OnWindowResize(std::uint32_t width, std::uint32_t height);
+
+	public:
 		static void BeginScene(OrthographicCamera& camera);
 		static void EndScene();
 

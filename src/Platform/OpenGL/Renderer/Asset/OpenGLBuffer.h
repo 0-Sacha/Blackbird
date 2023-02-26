@@ -15,7 +15,7 @@ namespace Blackbird::Platform::OpenGL
 
 	public:
 		void Bind() const override;
-		void Unbind() const override;
+		void Release() const override;
 
 		void SetLayout(const BufferLayout& layout) override { m_Layout = layout; };
 		const BufferLayout& GetLayout() const override { return m_Layout; };
@@ -34,7 +34,7 @@ namespace Blackbird::Platform::OpenGL
 
 	public:
 		void Bind() const override;
-		void Unbind() const override;
+		void Release() const override;
 
 		uint32_t GetCount() override { return m_Count; };
 

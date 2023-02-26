@@ -4,8 +4,7 @@
 
 #include "Platform/OpenGL/Renderer/OpenGLRendererAPI.h"
 
-namespace Blackbird {
-
+namespace Blackbird
+{
 	RendererAPI* RendererCommand::s_RendererAPI = new OpenGLRendererAPI();
-
 }

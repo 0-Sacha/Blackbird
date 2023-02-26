@@ -1,9 +1,8 @@
 #pragma once
 
-#include "OrthographicCamera.h"
+#include "Blackbird/Renderer/Camera/OrthographicCamera.h"
 
 #include "Blackbird/Core/Utils/TimeStep.h"
-
 #include "Blackbird/Core/Event/ApplicationEvent.h"
 #include "Blackbird/Core/Event/MouseEvent.h"
 
@@ -12,7 +11,7 @@ namespace Blackbird {
 	class OrthographicCameraController
 	{
 	public:
-		OrthographicCameraController(float aspectRatio, bool hasRotation = false);
+		OrthographicCameraController(float aspectRatio, bool hasRotation);
 
 	public:
 		void OnUpdate(TimeStep ts);
@@ -26,7 +25,8 @@ namespace Blackbird {
 
 	private:
 		bool OnMouseScrolled(MouseScrolledEvent& event);
-		bool OnWindowResized(WindowResizeEvent& event);
+		bool OnWindowResize(WindowResizeEvent& event);
+		bool OnMouseMouved(MouseMouvedEvent& event);
 
 	private:
 		float m_AspectRatio;

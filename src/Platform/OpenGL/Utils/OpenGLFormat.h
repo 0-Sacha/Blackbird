@@ -4,13 +4,14 @@
 
 #include <glad/glad.h>
 
-namespace EngineCore::FMT {
+namespace EngineCore::FMT
+{
 
 	template<typename FormatContext>
-	struct FormatType<GLubyte*, FormatContext>
+	struct FormatterType<GLubyte*, FormatContext>
 	{
 		static void Write(const GLubyte* t, FormatContext& context) {
-			FormatType<char*, FormatContext>::Write(reinterpret_cast<const char*>(t), context);
+			FormatterType<char*, FormatContext>::Write(reinterpret_cast<const char*>(t), context);
 		}
 	};
 

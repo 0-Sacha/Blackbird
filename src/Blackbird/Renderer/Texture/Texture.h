@@ -11,7 +11,7 @@ namespace Blackbird
 		virtual ~Texture() = default;
 
 		virtual void Bind(uint32_t slot = 0) const = 0;
-		virtual void Unbind(uint32_t slot = 0) const = 0;
+		virtual void Release(uint32_t slot = 0) const = 0;
 	};
 
 	class Texture2D : public Texture
