@@ -3,7 +3,7 @@
 #include <glad/glad.h>
 #include "Blackbird/Core/Core.h"
 
-namespace Blackbird::OpenGL {
+namespace Blackbird::Platform::OpenGL {
 
 	enum class OpenGlDebugLevel
 	{

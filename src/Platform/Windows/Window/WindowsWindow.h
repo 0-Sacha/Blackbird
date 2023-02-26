@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Blackbird/Engine/Window.h"
-#include "Blackbird/Renderer/Context/RendererContext.h"
+#include "Blackbird/EngineDetail/Window.h"
+#include "Blackbird/Engine/Context/RendererContext.h"
 
 struct GLFWwindow;
 
-namespace Blackbird {
-
+namespace Blackbird::Platform::Windows
+{
 	class WindowsWindow : public Window
 	{
 	public:

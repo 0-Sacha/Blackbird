@@ -1,7 +1,7 @@
 
 #include "OpenGlDebug.h"
 
-namespace Blackbird::OpenGL {
+namespace Blackbird::Platform::OpenGL {
 
 	static OpenGlDebugLevel s_OpenGlDebugLevel = OpenGlDebugLevel::HighAssert;
 

@@ -1,16 +1,16 @@
 
 #include "WindowsWindow.h"
 
-#include "Blackbird/Engine/Event/ApplicationEvent.h"
-#include "Blackbird/Engine/Event/KeyboardEvent.h"
-#include "Blackbird/Engine/Event/MouseEvent.h"
+#include "Blackbird/EngineDetail/Event/ApplicationEvent.h"
+#include "Blackbird/EngineDetail/Event/KeyboardEvent.h"
+#include "Blackbird/EngineDetail/Event/MouseEvent.h"
 
-#include "Platform/OpenGL/Renderer/Context/OpenGLContext.h"
+#include "Platform/OpenGL/Engine/Context/OpenGLContext.h"
 
 #include <GLFW/glfw3.h>
 
-namespace Blackbird {
-
+namespace Blackbird::Platform::Windows
+{
 	static bool s_GLFWInitialized = false;
 
 	static void GLFWErrorCallback(int error, const char* description) {
@@ -98,10 +98,6 @@ namespace Blackbird {
 
 		MouseMouvedEvent event((float)xPos, (float)yPos);
 		data.EventCallback(event);
-	}
-
-	Window* Window::Create(const WindowProps& props) {
-		return new WindowsWindow(props);
 	}
 
 	WindowsWindow::WindowsWindow(const WindowProps& props)

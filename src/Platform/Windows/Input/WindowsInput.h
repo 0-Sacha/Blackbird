@@ -1,23 +1,19 @@
 #pragma once
 
-#include "Blackbird/Engine/Input/Input.h"
+#include "Blackbird/EngineDetail/Input/InputImpl.h"
 
 struct GLFWwindow;
 
-namespace Blackbird {
-
-	class WindowsInput : public Input
+namespace Blackbird::Platform::Windows
+{
+	class WindowsInput : public InputImpl
 	{
-	protected:
-		bool IsKeyPressedImpl(int keyCode) override;
-
-		bool IsMouseBtPressedImpl(int btCode) override;
-		std::pair<float, float> GetMousePositionImpl() override;
-		float GetMouseXImpl() override;
-		float GetMouseYImpl() override;
+	public:
+		bool IsKeyPressed(int keyCode) override;
+		bool IsMouseBtPressed(int btCode) override;
+		std::pair<float, float> GetMousePosition() override;
 
 	private:
 		inline GLFWwindow* GetNativeWindow();
 	};
-
 }

@@ -1,11 +1,9 @@
 #pragma once
 
-
 #include <glad/glad.h>
 
 namespace EngineCore::FMT
 {
-
 	template<typename FormatContext>
 	struct FormatterType<GLubyte*, FormatContext>
 	{
@@ -13,5 +11,4 @@ namespace EngineCore::FMT
 			FormatterType<char*, FormatContext>::Write(reinterpret_cast<const char*>(t), context);
 		}
 	};
-
 }

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Blackbird/Engine/Layer/Layer.h"
+#include "Blackbird/EngineDetail/Layer/Layer.h"
 
-#include "Blackbird/Engine/Event/ApplicationEvent.h"
-#include "Blackbird/Engine/Event/KeyboardEvent.h"
-#include "Blackbird/Engine/Event/MouseEvent.h"
+#include "Blackbird/EngineDetail/Event/ApplicationEvent.h"
+#include "Blackbird/EngineDetail/Event/KeyboardEvent.h"
+#include "Blackbird/EngineDetail/Event/MouseEvent.h"
 
 namespace Blackbird {
 

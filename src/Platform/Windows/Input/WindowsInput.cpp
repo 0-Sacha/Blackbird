@@ -2,50 +2,32 @@
 
 #include "WindowsInput.h"
 
-#include "Blackbird/Engine/Application/Application.h"
+#include "Blackbird/EngineDetail/Application/Application.h"
 #include <GLFW/glfw3.h>
 
-namespace Blackbird {
-
-	Input* Input::GetInstance() {
-		Input* instance = new WindowsInput();
-		return instance;
-	}
-
-	bool WindowsInput::IsKeyPressedImpl(int keyCode)
+namespace Blackbird::Platform::Windows
+{
+	bool WindowsInput::IsKeyPressed(int keyCode)
 	{
 		auto state = glfwGetKey(GetNativeWindow(), keyCode);
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
 	}
 
-	bool WindowsInput::IsMouseBtPressedImpl(int btCode)
+	bool WindowsInput::IsMouseBtPressed(int btCode)
 	{
 		auto state = glfwGetMouseButton(GetNativeWindow(), btCode);
 		return state == GLFW_PRESS;
 	}
 
-	std::pair<float, float> WindowsInput::GetMousePositionImpl()
+	std::pair<float, float> WindowsInput::GetMousePosition()
 	{
 		double xPos, yPos;
 		glfwGetCursorPos(GetNativeWindow(), &xPos, &yPos);
 		return { (float)xPos, (float)yPos };
 	}
 
-	float WindowsInput::GetMouseXImpl()
-	{
-		auto [x, y] = GetMousePositionImpl();
-		return x;
-	}
-
-	float WindowsInput::GetMouseYImpl()
-	{
-		auto [x, y] = GetMousePositionImpl();
-		return y;
-	}
-
 	inline GLFWwindow* WindowsInput::GetNativeWindow()
 	{
 		return static_cast<GLFWwindow*>(Application::GetInstance().GetWindow().GetNativeWindow());
 	}
-
 }
