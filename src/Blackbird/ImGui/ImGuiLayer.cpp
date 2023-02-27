@@ -2,9 +2,9 @@
 
 #include "ImGuiLayer.h"
 
-#include "Platform/OpenGL/OpenGLImGuiInclude.h"
-#include "Platform/Windows/WindowsImGuiInclude.h"
-#include "Platform/Windows/WindowsInclude.h"
+#include "Platform/GraphicsPlatform/OpenGL/OpenGLImGuiInclude.h"
+#include "Platform/WindowPlatform/GLFW/GLFWImGuiInclude.h"
+#include "Platform/WindowPlatform/GLFW/GLFWInclude.h"
 
 #include "Blackbird/EngineDetail/Application/Application.h"
 

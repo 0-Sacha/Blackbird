@@ -6,16 +6,15 @@
 #include "Blackbird/EngineDetail/Input/Input.h"
 #include "Blackbird/Engine/Renderer/Renderer.h"
 
+#include "Blackbird/EngineAPI.h"
+#include "Platform/PlatformAPI.h"
+
+#include "Platform/WindowPlatform/GLFW/GLFWPlatform.h"
+#include "Platform/GraphicsPlatform/OpenGL/OpenGLPlatform.h"
+
+#include "Platform/WindowPlatform/GLFW/Window/GLFWWindow.h"
+
 #include <glfw/glfw3.h>
-
-
-#include "Platform/Windows/Window/WindowsWindow.h"
-#include "Blackbird/PlatformAPI.h"
-#include "Platform/Windows/Input/WindowsInput.h"
-#include "Platform/OpenGL/Engine/OpenGLRendererAPI.h"
-#include "Platform/OpenGL/Engine/Asset/OpenGLAssetFactoryImpl.h"
-#include "Platform/OpenGL/Engine/OpenGLShader/OpenGLShaderFactoryImpl.h"
-#include "Platform/OpenGL/Engine/OpenGLTexture/OpenGLTextureFactoryImpl.h"
 
 namespace Blackbird
 {
@@ -37,19 +36,18 @@ namespace Blackbird
 
 	void Application::Create(const ApplicationSpecification& specs)
 	{
+		PlatformAPI::GetInstance().SetWindowPlatform(std::make_unique<WindowPlatform::GLFW::GLFWPlatform>());
+		PlatformAPI::GetInstance().SetGraphicsPlatform(std::make_unique<GraphicsPlatform::OpenGL::OpenGLPlatform>());
+
+		PlatformAPI::GetInstance().GetWindowPlatform().InitEngineAPI(EngineAPI::GetInstance());
+		PlatformAPI::GetInstance().GetGraphicsPlatform().InitEngineAPI(EngineAPI::GetInstance());
+
 		if(s_Instance)
 			BLACKBIRD_ASSERT(false, "Application already exists!");
 		s_Instance = this;
 
-		m_Window.reset(new Platform::Windows::WindowsWindow({ specs.Name, specs.Width, specs.Height }));
+		m_Window.reset(new WindowPlatform::GLFW::GLFWWindow({ specs.Name, specs.Width, specs.Height }, PlatformAPI::GetInstance()));
 		m_Window->SetEventCallback(BLACKBIRD_BIND_APPEVENT(OnEvent));
-
-		PlatformAPI::GetInstance().SetInput(std::make_unique<Platform::Windows::WindowsInput>());
-
-		PlatformAPI::GetInstance().SetRendererAPI(std::make_unique<Platform::OpenGL::OpenGLRendererAPI>());
-		PlatformAPI::GetInstance().SetAssetFactory(std::make_unique<Platform::OpenGL::OpenGLAssetFactoryImpl>());
-		PlatformAPI::GetInstance().SetShaderFactory(std::make_unique<Platform::OpenGL::OpenGLShaderFactoryImpl>());
-		PlatformAPI::GetInstance().SetTextureFactory(std::make_unique<Platform::OpenGL::OpenGLTextureFactoryImpl>());
 
 		Renderer::Init();
 		m_ImGuiLayer = new ImGuiLayer();

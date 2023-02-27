@@ -35,6 +35,8 @@ namespace Blackbird
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture)
 	{
 		Storage->Shaders.TextureShader->Bind();
+		Storage->Shaders.TextureShader->SetFloat4("u_Color", glm::vec4(1.0f));
+		Storage->Shaders.TextureShader->SetFloat("u_TilingFactor", 1.0f);
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position);
 		transform = glm::scale(transform, glm::vec3(size, 1.0f));

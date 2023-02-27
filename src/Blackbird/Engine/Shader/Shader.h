@@ -50,7 +50,7 @@ namespace EngineCore::FMT
 	template<typename FormatContext>
 	struct FormatterType<Blackbird::ShaderType, FormatContext>
 	{
-		static void Write(const Blackbird::ShaderType t, FormatContext& context) {
+		static void Format(const Blackbird::ShaderType t, FormatContext& context) {
 			switch (t)
 			{
 			case Blackbird::ShaderType::None:

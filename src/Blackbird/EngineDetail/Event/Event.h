@@ -84,13 +84,11 @@ namespace Blackbird {
 
 namespace EngineCore::FMT
 {
-
 	template<typename FormatContext>
 	struct FormatterType<Blackbird::Event, FormatContext>
 	{
-		inline static void Write(const Blackbird::Event& t, FormatContext& context) {
-			FormatterType<std::string>::Write(t.ToString(), context);
+		inline static void Format(const Blackbird::Event& t, FormatContext& context) {
+			FormatterType<std::string>::Format(t.ToString(), context);
 		}
 	};
-
 }

@@ -1,8 +1,8 @@
 #pragma once
 
-namespace Blackbird {
-
-	class RendererContext
+namespace Blackbird
+{
+	class IRendererContext
 	{
 	public:
 		virtual void Init() = 0;
@@ -12,5 +12,4 @@ namespace Blackbird {
 	public:
 		virtual void DisplayInfo() = 0;
 	};
-
 }

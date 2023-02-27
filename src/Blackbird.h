@@ -26,4 +26,4 @@
 #include "Blackbird/Engine/Context/RendererContext.h"
 
 
-#include "Platform/OpenGL/Utils/Debug/OpenGlDebug.h"
+#include "Platform/GraphicsPlatform/OpenGL/Utils/Debug/OpenGlDebug.h"
