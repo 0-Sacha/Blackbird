@@ -4,7 +4,6 @@
 
 namespace Blackbird::Renderer2DUtils::Primitive
 {
-
 	struct Primitive2DShaders
 	{
 		Ref<Shader> FlatColorShader;
@@ -14,5 +13,4 @@ namespace Blackbird::Renderer2DUtils::Primitive
 		void Init();
 		void Release();
 	};
-
 }

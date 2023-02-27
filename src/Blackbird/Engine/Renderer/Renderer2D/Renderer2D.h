@@ -10,7 +10,6 @@ namespace Blackbird::Renderer2DUtils
 
 namespace Blackbird
 {
-
 	class Renderer2D
 	{
 	public:
@@ -21,15 +20,6 @@ namespace Blackbird
 		static void EndScene();
 
 	public:
-		//Primitives
-		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const glm::vec4& color);
-		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const glm::vec4& color);
-
-		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture);
-		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture);
-
-	public:
 		static inline Renderer2DUtils::Renderer2DStorage* Storage = nullptr;
 	};
-
 }

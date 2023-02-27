@@ -4,7 +4,6 @@
 
 namespace Blackbird::Renderer2DUtils::Primitive
 {
-
 	struct Primitive2DQuad
 	{
 		Ref<VertexArray> QuadVA;
@@ -13,5 +12,4 @@ namespace Blackbird::Renderer2DUtils::Primitive
 		void Init();
 		void Release();
 	};
-
 }

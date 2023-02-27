@@ -22,6 +22,7 @@
 
 #include "Blackbird/Engine/Renderer/Renderer.h"
 #include "Blackbird/Engine/Renderer/Renderer2D/Renderer2D.h"
+#include "Blackbird/Engine/Renderer/Renderer2D/Designer2D/Designer2D.h"
 #include "Blackbird/Engine/Renderer/RendererCommand.h"
 #include "Blackbird/Engine/Context/RendererContext.h"
 
