@@ -129,7 +129,7 @@ namespace Blackbird::WindowPlatform::GLFW
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, props.Title.c_str(), nullptr, nullptr);
 
-		m_RendererContext = platformAPI.GetGraphicsPlatform().GetNewGLFWRendererContext(m_Window);
+		m_RendererContext = platformAPI.GraphicsPlatform().GetNewGLFWRendererContext(m_Window);
 		m_RendererContext->Init();
 		m_RendererContext->DisplayInfo();
 

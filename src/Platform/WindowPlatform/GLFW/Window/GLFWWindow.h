@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Blackbird/EngineDetail/Window.h"
-#include "Blackbird/Engine/Context/RendererContext.h"
+#include "Blackbird/Engine/Context/IRendererContext.h"
 
 #include "Platform/PlatformAPI.h"
 
@@ -41,7 +41,7 @@ namespace Blackbird::WindowPlatform::GLFW
 		};
 
 	private:
-		std::unique_ptr<IRendererContext> m_RendererContext;
+		Scope<IRendererContext> m_RendererContext;
 		GLFWwindow* m_Window;
 		WindowData m_Data;
 	};

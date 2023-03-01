@@ -3,8 +3,8 @@
 #include "Blackbird/Core/Core.h"
 #include "VertexBuffer.h"
 
-namespace Blackbird {
-
+namespace Blackbird
+{
 	class VertexArray
 	{
 	public:
@@ -20,5 +20,4 @@ namespace Blackbird {
 		virtual const std::vector<Ref<VertexBuffer>> GetVertexBuffers() const = 0;
 		virtual const Ref<IndexBuffer> GetIndexBuffer() const = 0;
 	};
-
 }

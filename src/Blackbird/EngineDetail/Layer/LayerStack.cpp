@@ -1,8 +1,8 @@
 
 #include "LayerStack.h"
 
-namespace Blackbird {
-
+namespace Blackbird
+{
 	LayerStack::LayerStack()
 	{
 
@@ -18,12 +18,14 @@ namespace Blackbird {
 	{
 		m_Layers.emplace(m_Layers.begin() + m_LayerInsertIdx, layer);
 		m_LayerInsertIdx++;
+		layer->SetEngineContext(m_ApplicationRendererContext);
 		layer->OnAttach();
 	}
 
 	void LayerStack::PushOverlay(Layer* overlay)
 	{
 		m_Layers.emplace_back(overlay);
+		overlay->SetEngineContext(m_ApplicationRendererContext);
 		overlay->OnAttach();
 	}
 
@@ -33,6 +35,7 @@ namespace Blackbird {
 		if (it != m_Layers.begin() + m_LayerInsertIdx)
 		{
 			layer->OnDetach();
+			layer->ClearEngineContext();
 			m_Layers.erase(it);
 			m_LayerInsertIdx--;
 		}
@@ -44,8 +47,8 @@ namespace Blackbird {
 		if (it != m_Layers.end())
 		{
 			overlay->OnDetach();
+			overlay->ClearEngineContext();
 			m_Layers.erase(it);
 		}
 	}
-
 }

@@ -3,8 +3,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-namespace Blackbird {
-
+namespace Blackbird
+{
 	class OrthographicCamera
 	{
 	public:
@@ -34,5 +34,4 @@ namespace Blackbird {
 		glm::vec3 m_Position = { 0.0f, 0.0f, 0.0f };
 		float m_Rotation = 0.0f;
 	};
-
 }

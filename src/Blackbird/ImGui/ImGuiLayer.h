@@ -6,13 +6,13 @@
 #include "Blackbird/EngineDetail/Event/KeyboardEvent.h"
 #include "Blackbird/EngineDetail/Event/MouseEvent.h"
 
-namespace Blackbird {
-
+namespace Blackbird
+{
 	class ImGuiLayer : public Layer
 	{
 	public:
 		ImGuiLayer();
-		virtual ~ImGuiLayer() = default;
+		~ImGuiLayer() override {}
 
 	public:
 		void OnAttach() override;

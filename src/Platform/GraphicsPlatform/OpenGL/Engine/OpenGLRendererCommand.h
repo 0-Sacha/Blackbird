@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Blackbird/Engine/Renderer/IRendererCommand.h"
+#include "Blackbird/Engine/IRendererCommand.h"
 
 namespace Blackbird::GraphicsPlatform::OpenGL
 {

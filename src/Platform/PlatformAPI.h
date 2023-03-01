@@ -10,11 +10,14 @@ namespace Blackbird
 	class PlatformAPI
 	{
 	public:
-		static PlatformAPI& GetInstance();
+		WindowPlatform::IWindowPlatform& WindowPlatform() 		{ return *m_WindowPlatform; }
+		GraphicsPlatform::IGraphicsPlatform& GraphicsPlatform() { return *m_GraphicsPlatform; }
 
 	public:
-		WindowPlatform::IWindowPlatform& GetWindowPlatform() 		{ return *m_WindowPlatform; }
-		GraphicsPlatform::IGraphicsPlatform& GetGraphicsPlatform() 	{ return *m_GraphicsPlatform; }
+		Scope<Window> CreateWindow(const WindowProps& props)
+		{
+			return m_WindowPlatform->CreateWindow(props, *this);
+		}
 
 	public:
 		void SetWindowPlatform(std::unique_ptr<WindowPlatform::IWindowPlatform>&& windowPlatform) 			{ m_WindowPlatform = std::move(windowPlatform); }

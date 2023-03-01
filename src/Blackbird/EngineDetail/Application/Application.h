@@ -2,6 +2,8 @@
 
 #include "Blackbird/Core/Core.h"
 
+#include "Blackbird/Engine/Context/EngineContext.h"
+
 #include "Blackbird/EngineDetail/Window.h"
 #include "Blackbird/EngineDetail/Layer/LayerStack.h"
 #include "Blackbird/EngineDetail/Event/ApplicationEvent.h"
@@ -31,6 +33,7 @@ namespace Blackbird
 
 	private:
 		void Create(const ApplicationSpecification& specs);
+		void Destroy();
 
 	public:
 		void Run();
@@ -53,7 +56,8 @@ namespace Blackbird
 		bool OnWindowResize(WindowResizeEvent& event);
 
 	private:
-		std::unique_ptr<Window> m_Window;
+		MasterEngineContext m_EngineContext;
+		Scope<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 
 		bool m_Running = true;

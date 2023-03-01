@@ -2,9 +2,14 @@
 
 #include "Blackbird/EngineAPI.h"
 
-#include "Blackbird/Engine/Context/RendererContext.h"
+#include "Blackbird/Engine/Context/IRendererContext.h"
 
 struct GLFWwindow;
+
+namespace Blackbird
+{
+    class PlatformAPI;
+}
 
 namespace Blackbird::GraphicsPlatform
 {
@@ -12,6 +17,6 @@ namespace Blackbird::GraphicsPlatform
     {
     public:
         virtual void InitEngineAPI(EngineAPI& api) = 0;
-        virtual std::unique_ptr<IRendererContext> GetNewGLFWRendererContext(GLFWwindow* window) = 0;
+        virtual Scope<IRendererContext> GetNewGLFWRendererContext(GLFWwindow* window) = 0;
 	};
 }

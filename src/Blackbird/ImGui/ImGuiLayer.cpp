@@ -8,8 +8,8 @@
 
 #include "Blackbird/EngineDetail/Application/Application.h"
 
-namespace Blackbird {
-
+namespace Blackbird
+{
 	ImGuiLayer::ImGuiLayer()
 		: Layer("ImGuiLayer") {}
 

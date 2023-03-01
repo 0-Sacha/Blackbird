@@ -1,6 +1,6 @@
 
 #include "Shader.h"
-#include "ShaderFactory.h"
+#include "IShaderFactory.h"
 
 namespace Blackbird
 {
@@ -56,7 +56,7 @@ namespace Blackbird
 		return program;
 	}
 
-	Ref<Shader> ShaderFactory::CreateFromPath(const std::string& path)
+	Ref<Shader> IShaderFactory::CreateFromPath(const std::string& path)
 	{
 		std::string data;
 		ReadFileInString(path, data);
@@ -69,10 +69,10 @@ namespace Blackbird
 		auto count = lastDot == std::string::npos ? path.size() : lastDot;
 		count -= lastSlash;
 		std::string name = path.substr(lastSlash, count);
-		return ShaderFactory::Create(name, program);
+		return Create(name, program);
 	}
 
-	Ref<Shader> ShaderFactory::CreateFromPaths(const std::string& name, const std::string& vertexPath, const std::string& fragmentPath)
+	Ref<Shader> IShaderFactory::CreateFromPaths(const std::string& name, const std::string& vertexPath, const std::string& fragmentPath)
 	{
 		std::unordered_map<ShaderType, std::string> program;
 
@@ -84,14 +84,14 @@ namespace Blackbird
 		ReadFileInString(fragmentPath, fragment);
 		program[ShaderType::Fragment] = fragment;
 
-		return ShaderFactory::Create(name, program);
+		return Create(name, program);
 	}
 
-	Ref<Shader> ShaderFactory::CreateFromSrcs(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
+	Ref<Shader> IShaderFactory::CreateFromSrcs(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
 	{
 		std::unordered_map<ShaderType, std::string> program;
 		program[ShaderType::Vertex] = vertexSrc;
 		program[ShaderType::Fragment] = fragmentSrc;
-		return ShaderFactory::Create(name, program);
+		return Create(name, program);
 	}
 }

@@ -5,16 +5,13 @@
 
 namespace Blackbird::GraphicsPlatform::OpenGL
 {
-	class OpenGLGLFWContext : public WindowPlatform::GLFW::IGLFWContext
+	class OpenGLGLFWContext final : public WindowPlatform::GLFW::IGLFWContext
 	{
 	public:
 		OpenGLGLFWContext(GLFWwindow* windowHandle);
 
 	public:
-		void Init() override;
-		void SwapBuffer() override;
-		void Destroy() override;
-
+		int InitGraphicsPlatform(GLFWContextInitializer proc) override;
 		void DisplayInfo() override;
 	};
 }

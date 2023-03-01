@@ -1,25 +1,19 @@
 
 
 #include "Renderer.h"
-#include "Blackbird/Engine/Renderer/Renderer2D/Renderer2D.h"
+#include "Blackbird/Engine/Renderer2D/Renderer2D.h"
 
 namespace Blackbird
 {
-	void Renderer::Init()
+	void Renderer::Init(Ref<EngineAPI>& engineAPI)
 	{
-		RendererCommand::Init();
-		Renderer2D::Init();
+		m_EngineAPI = engineAPI;
+		m_SceneData = CreateScope<SceneData>();
 	}
 
 	void Renderer::Shutdown()
 	{
-		RendererCommand::Shutdown();
-		Renderer2D::Shutdown();
-	}
-
-	void Renderer::OnWindowResize(std::uint32_t width, std::uint32_t height)
-	{
-		RendererCommand::SetViewport(0, 0, width, height);
+		m_SceneData = nullptr;
 	}
 
 	void Renderer::BeginScene(OrthographicCamera& camera)
@@ -38,6 +32,6 @@ namespace Blackbird
 		shader->SetMat4("u_Transform", transform);
 
 		vertexArray->Bind();
-		RendererCommand::DrawIndexed(vertexArray);
+		m_EngineAPI->RendererCommand().DrawIndexed(vertexArray);
 	}
 }

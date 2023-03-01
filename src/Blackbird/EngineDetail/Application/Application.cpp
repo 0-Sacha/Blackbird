@@ -3,16 +3,9 @@
 #include "Application.h"
 
 #include "Blackbird/Core/Core.h"
-#include "Blackbird/EngineDetail/Input/Input.h"
 #include "Blackbird/Engine/Renderer/Renderer.h"
 
-#include "Blackbird/EngineAPI.h"
-#include "Platform/PlatformAPI.h"
-
-#include "Platform/WindowPlatform/GLFW/GLFWPlatform.h"
-#include "Platform/GraphicsPlatform/OpenGL/OpenGLPlatform.h"
-
-#include "Platform/WindowPlatform/GLFW/Window/GLFWWindow.h"
+#include "Blackbird/Engine/Static/StaticContext.h"
 
 #include <glfw/glfw3.h>
 
@@ -36,24 +29,30 @@ namespace Blackbird
 
 	void Application::Create(const ApplicationSpecification& specs)
 	{
-		PlatformAPI::GetInstance().SetWindowPlatform(std::make_unique<WindowPlatform::GLFW::GLFWPlatform>());
-		PlatformAPI::GetInstance().SetGraphicsPlatform(std::make_unique<GraphicsPlatform::OpenGL::OpenGLPlatform>());
-
-		PlatformAPI::GetInstance().GetWindowPlatform().InitEngineAPI(EngineAPI::GetInstance());
-		PlatformAPI::GetInstance().GetGraphicsPlatform().InitEngineAPI(EngineAPI::GetInstance());
-
 		if(s_Instance)
 			BLACKBIRD_ASSERT(false, "Application already exists!");
+
 		s_Instance = this;
 
-		m_Window.reset(new WindowPlatform::GLFW::GLFWWindow({ specs.Name, specs.Width, specs.Height }, PlatformAPI::GetInstance()));
+		m_EngineContext.InitPlatformAPI();
+
+		m_Window = m_EngineContext.Platform().CreateWindow({ specs.Name, specs.Width, specs.Height });
 		m_Window->SetEventCallback(BLACKBIRD_BIND_APPEVENT(OnEvent));
 
-		Renderer::Init();
+		m_EngineContext.InitEngineAPI();
+		m_EngineContext.CreateRenderer();
+		m_EngineContext.CreateRenderer2D();
+
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
+
+		StaticContext::SetEngineContext(m_EngineContext);
 	}
 
+	void Application::Destroy()
+	{
+		m_EngineContext.Destroy();
+	}
 
 	void Application::Run()
 	{
@@ -114,7 +113,7 @@ namespace Blackbird
 		}
 		m_Minimized = false;
 
-		Renderer::OnWindowResize(event.GetWidth(), event.GetHeight());
+		m_EngineContext.OnWindowResize(event.GetWidth(), event.GetHeight());
 
 		return false;
 	}

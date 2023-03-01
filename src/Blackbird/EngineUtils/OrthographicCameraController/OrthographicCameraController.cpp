@@ -1,11 +1,9 @@
-
-
 #include "OrthographicCameraController.h"
 
-#include "Blackbird/EngineDetail/Input/Input.h"
+#include "Blackbird/Engine/Static/S_Input.h"
 
-namespace Blackbird {
-
+namespace Blackbird
+{
 	OrthographicCameraController::OrthographicCameraController(float aspectRatio, bool hasRotation)
 		: m_AspectRatio(aspectRatio), m_Camera(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel), m_HasRotation(hasRotation)
 	{
@@ -16,25 +14,25 @@ namespace Blackbird {
 		float updateSin = sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
 		float updateCos = cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
 
-		if(Input::IsKeyPressed(KeyboardKey::A)) {
+		if(S_Input::IsKeyPressed(KeyboardKey::A)) {
 			m_CameraPosition.x -= updateCos;
 			m_CameraPosition.y -= updateSin;
-		} else if(Input::IsKeyPressed(KeyboardKey::D)) {
+		} else if(S_Input::IsKeyPressed(KeyboardKey::D)) {
 			m_CameraPosition.x += updateCos;
 			m_CameraPosition.y += updateSin;
-		} else if (Input::IsKeyPressed(KeyboardKey::W)) {
+		} else if (S_Input::IsKeyPressed(KeyboardKey::W)) {
 			m_CameraPosition.x -= updateSin;
 			m_CameraPosition.y += updateCos;
-		} else if (Input::IsKeyPressed(KeyboardKey::S)) {
+		} else if (S_Input::IsKeyPressed(KeyboardKey::S)) {
 			m_CameraPosition.x += updateSin;
 			m_CameraPosition.y -= updateCos;
 		}
 
 		if(m_HasRotation)
 		{
-			if (Input::IsKeyPressed(KeyboardKey::Q))
+			if (S_Input::IsKeyPressed(KeyboardKey::Q))
 				m_CameraRotation += m_CameraRotationSpeed * ts;
-			if (Input::IsKeyPressed(KeyboardKey::E))
+			if (S_Input::IsKeyPressed(KeyboardKey::E))
 				m_CameraRotation -= m_CameraRotationSpeed * ts;
 
 			if (m_CameraRotation > 180.0f)
@@ -70,5 +68,4 @@ namespace Blackbird {
 		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
 		return false;
 	}
-
 }

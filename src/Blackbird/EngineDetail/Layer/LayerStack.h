@@ -20,6 +20,7 @@ namespace Blackbird {
 		std::vector<Layer*>::iterator end() { return m_Layers.end(); }
 
 	private:
+		EngineContext m_ApplicationRendererContext;
 		std::vector<Layer*> m_Layers;
 		uint32_t m_LayerInsertIdx = 0;
 	};

@@ -1,6 +1,5 @@
 #include "OpenGLGLFWContext.h"
 
-#include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
 #include "Platform/GraphicsPlatform/OpenGL/Utils/OpenGLFormat.h"
@@ -13,21 +12,9 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 		BLACKBIRD_ASSERT(m_WindowHandle != nullptr, "WindowHandle is null");
 	}
 
-	void OpenGLGLFWContext::Init()
+	int OpenGLGLFWContext::InitGraphicsPlatform(GLFWContextInitializer proc)
 	{
-		glfwMakeContextCurrent(m_WindowHandle);
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		BLACKBIRD_ASSERT(status, "Failed to initialize Glad!");
-	}
-
-	void OpenGLGLFWContext::Destroy()
-	{
-		glfwDestroyWindow(m_WindowHandle);
-	}
-
-	void OpenGLGLFWContext::SwapBuffer()
-	{
-		glfwSwapBuffers(m_WindowHandle);
+		return gladLoadGLLoader((GLADloadproc)proc);
 	}
 
 	void OpenGLGLFWContext::DisplayInfo()

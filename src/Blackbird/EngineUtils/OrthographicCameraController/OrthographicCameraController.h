@@ -6,8 +6,8 @@
 #include "Blackbird/EngineDetail/Event/ApplicationEvent.h"
 #include "Blackbird/EngineDetail/Event/MouseEvent.h"
 
-namespace Blackbird {
-
+namespace Blackbird
+{
 	class OrthographicCameraController
 	{
 	public:

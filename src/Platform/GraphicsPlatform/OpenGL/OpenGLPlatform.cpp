@@ -11,13 +11,13 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 {
     void OpenGLPlatform::InitEngineAPI(EngineAPI& api)
     {
-		api.SetRendererCommand(std::make_unique<OpenGL::OpenGLRendererCommand>());
-		api.SetAssetFactory(std::make_unique<OpenGL::OpenGLAssetFactory>());
-		api.SetShaderFactory(std::make_unique<OpenGL::OpenGLShaderFactory>());
-		api.SetTextureFactory(std::make_unique<OpenGL::OpenGLTextureFactory>());
+		api.SetRendererCommand(CreateScope<OpenGL::OpenGLRendererCommand>());
+		api.SetAssetFactory(CreateScope<OpenGL::OpenGLAssetFactory>());
+		api.SetShaderFactory(CreateScope<OpenGL::OpenGLShaderFactory>());
+		api.SetTextureFactory(CreateScope<OpenGL::OpenGLTextureFactory>());
     }
 
-    std::unique_ptr<IRendererContext> OpenGLPlatform::GetNewGLFWRendererContext(GLFWwindow* window)
+	Scope<IRendererContext> OpenGLPlatform::GetNewGLFWRendererContext(GLFWwindow* window)
 	{
 		return std::make_unique<OpenGLGLFWContext>(window);
 	}

@@ -8,6 +8,6 @@ namespace Blackbird::GraphicsPlatform::OpenGL
     {
     public:
         void InitEngineAPI(EngineAPI& api) override;
-        std::unique_ptr<IRendererContext> GetNewGLFWRendererContext(GLFWwindow* window) override;
+        Scope<IRendererContext> GetNewGLFWRendererContext(GLFWwindow* window) override;
     };
 }
