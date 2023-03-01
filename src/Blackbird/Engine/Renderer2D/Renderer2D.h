@@ -22,10 +22,7 @@ namespace Blackbird
 		void EndScene();
 
 	public:
-		void Draw(IDesigner2D& designer);
-
-	public:
-		QuadDesigner CreateQuadDesigner() { return QuadDesigner(this); }
+		QuadDesigner CreateQuadDesigner() { return QuadDesigner(&m_Storage->QuadManager); }
 
 	public:
 		EngineAPI& Engine() { return *m_EngineAPI; }

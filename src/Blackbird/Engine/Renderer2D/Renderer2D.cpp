@@ -8,13 +8,13 @@ namespace Blackbird
 	void Renderer2D::Init(Ref<EngineAPI>& engineAPI)
 	{
 		m_EngineAPI = engineAPI;
-
-		m_Storage = CreateScope<Renderer2DStorage>();
-		m_Storage->Init(*this);
+		m_Storage = std::make_unique<Renderer2DStorage>(*this);
+		m_Storage->Init();
 	}
 
 	void Renderer2D::Shutdown()
 	{
+		m_Storage->Shutdown();
 	}
 
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
@@ -24,6 +24,6 @@ namespace Blackbird
 
 	void Renderer2D::EndScene()
 	{
-
+		m_Storage->QuadManager.EndScene();
 	}
 }

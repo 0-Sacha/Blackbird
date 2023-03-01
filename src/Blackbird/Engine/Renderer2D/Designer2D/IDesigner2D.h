@@ -7,34 +7,46 @@ namespace Blackbird
 {
     class Renderer2D;
 
-    class IDesigner2D
-    {
+	class IDesigner2DManager
+	{
 	public:
-		IDesigner2D(Renderer2D* defaultRenderer = nullptr)
-            : m_DefaultRenderer(defaultRenderer)
-        {}
+		IDesigner2DManager(Renderer2D& renderer2D)
+			: m_Renderer2D(renderer2D)
+		{}
 
-    public:
-		virtual void Draw(Renderer2D& renderer) = 0;
-        void DefaultDraw()
-        {
-            if (m_DefaultRenderer != nullptr)
-                return Draw(*m_DefaultRenderer);
-            BLACKBIRD_WARN("Use of DefaultDraw on a Designer2D but there is no default renderer set");
-        }
-
-	private:
-		Renderer2D* m_DefaultRenderer = nullptr;
-    };
-
-    class IDesigner2DManager
-    {
-    public:
-        virtual void Init(Renderer2D& m_Renderer2D) = 0;
-        virtual void Release() = 0;
+	public:
+		virtual void Init() = 0;
+		virtual void Release() = 0;
 
 	public:
 		virtual void BeginScene(const OrthographicCamera& camera) = 0;
+		virtual void Flush() = 0;
 		virtual void EndScene() = 0;
+
+	public:
+		Renderer2D& GetRenderer2D() { return m_Renderer2D; }
+
+	protected:
+		Renderer2D& m_Renderer2D;
+	};
+
+    class IDesigner2D
+    {
+	public:
+		IDesigner2D(IDesigner2DManager* defaultManager = nullptr)
+            : m_DefaultManager(defaultManager)
+        {}
+
+    public:
+		virtual void Draw(IDesigner2DManager& renderer) = 0;
+        void DefaultDraw()
+        {
+            if (m_DefaultManager != nullptr)
+                return Draw(*m_DefaultManager);
+            BLACKBIRD_WARN("Use of DefaultDraw on a Designer2D but there is no DefaultManager set");
+        }
+
+	private:
+		IDesigner2DManager* m_DefaultManager = nullptr;
     };
 }

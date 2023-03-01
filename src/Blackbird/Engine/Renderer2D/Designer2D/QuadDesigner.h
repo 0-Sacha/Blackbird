@@ -3,17 +3,29 @@
 #include "IDesigner2D.h"
 
 #include "Blackbird/Engine/Asset/VertexArray.h"
+#include "Blackbird/Engine/Asset/VertexBuffer.h"
 #include "Blackbird/Engine/Texture/Texture.h"
 #include "Blackbird/Engine/Shader/Shader.h"
+#include "BatchBuffer2D.h"
 
 #include "glm/glm.hpp"
 
 namespace Blackbird
 {
+    class QuadDesignerManager;
+
     class QuadDesigner : public IDesigner2D
     {
 	public:
-        QuadDesigner(Renderer2D* defaultRenderer = nullptr)
+        struct Vertex
+        {
+            glm::vec3 Position;
+			glm::vec4 Color;
+			glm::vec2 TexCoord;
+        };
+
+	public:
+        QuadDesigner(IDesigner2DManager* defaultRenderer = nullptr)
 			: IDesigner2D(defaultRenderer)
 		{}
 
@@ -39,21 +51,36 @@ namespace Blackbird
         QuadDesigner& SetColor(glm::vec4 color) { Color = color; return *this; }
 
     public:
-        void Draw(Renderer2D& renderer) override;
+        void Draw(IDesigner2DManager& manager) override;
+        void Draw(QuadDesignerManager& renderer);
     };
 
     class QuadDesignerManager : public IDesigner2DManager 
     {
+	public:
+        static constexpr std::size_t NUMBER_OF_QUAD_BATCH = 10'000;
+        using BatchBuffer2DType = BatchBuffer2D<typename QuadDesigner::Vertex, 4, 6>;
+
+	public:
+        QuadDesignerManager(Renderer2D& renderer)
+            : IDesigner2DManager(renderer)
+            , BatchBuffer(NUMBER_OF_QUAD_BATCH)
+        {}
+
     public:
-        void Init(Renderer2D& renderer) override;
+        void Init() override;
         void Release() override;
     
 	public:
 		void BeginScene(const OrthographicCamera& camera) override;
+		void Flush() override;
 		void EndScene() override;
 
     public:
+        BatchBuffer2DType BatchBuffer;
+
 		Ref<VertexArray> QuadVA;
+		Ref<VertexBuffer> QuadVB;
 		Ref<Shader> FlatColorShader;
 		Ref<Shader> TextureShader;
     };

@@ -13,9 +13,6 @@ namespace Blackbird
 		static void EndScene() { StaticContext::GetRenderer2D().EndScene(); }
 
 	public:
-		static void Draw(IDesigner2D& designer) { StaticContext::GetRenderer2D().Draw(designer); }
-
-	public:
 		static QuadDesigner CreateQuadDesigner() { return StaticContext::GetRenderer2D().CreateQuadDesigner(); }
 	};
 }

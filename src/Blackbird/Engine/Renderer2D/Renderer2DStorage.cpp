@@ -6,7 +6,7 @@ namespace Blackbird
 {
 	void Renderer2DStorage::Init(Renderer2D& renderer)
 	{
-		QuadManager.Init(renderer);
+		QuadManager.Init();
 	}
 
 	void Renderer2DStorage::Release()

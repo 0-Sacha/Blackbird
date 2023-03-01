@@ -7,13 +7,23 @@
 
 namespace Blackbird
 {
-	struct Renderer2DStorage
+	class Renderer2DStorage
 	{
+	public:
+		Renderer2DStorage(Renderer2D& renderer2D)
+			: QuadManager(renderer2D)
+		{}
+
 	public:
 		QuadDesignerManager QuadManager;
 
 	public:
-		void Init(Renderer2D& renderer);
-		void Release();
+		void Init()
+		{
+			QuadManager.Init();
+		}
+
+		void Shutdown()
+		{}
 	};
 }
