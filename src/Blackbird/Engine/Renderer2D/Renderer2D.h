@@ -23,6 +23,7 @@ namespace Blackbird
 
 	public:
 		QuadDesigner CreateQuadDesigner() { return QuadDesigner(&m_Storage->QuadManager); }
+		Designer2DDrawOnDestroy<QuadDesigner> DrawQuadDesigner() { return Designer2DDrawOnDestroy(CreateQuadDesigner()); }
 
 	public:
 		EngineAPI& Engine() { return *m_EngineAPI; }

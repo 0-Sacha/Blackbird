@@ -12,6 +12,13 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 		glUniform1i(location, data);
 	}
 
+	void OpenGLShader::UploadUniformIntArray(const std::string& name, int* data, std::uint32_t count)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniform1iv(location, count, data);
+	}
+
+
 	void OpenGLShader::UploadUniformFloat(const std::string& name, float data)
 	{
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
@@ -35,6 +42,13 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform4f(location, data.x, data.y, data.z, data.w);
 	}
+
+	void OpenGLShader::UploadUniformFloatArray(const std::string& name, float* data, std::uint32_t count)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniform1fv(location, count, data);
+	}
+
 	
 	void OpenGLShader::UploadUniformMat3(const std::string& name, const glm::mat3& data)
 	{

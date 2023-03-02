@@ -1,31 +1,29 @@
 
 #include "OpenGLTexture.h"
 
-#include "stb_image.h"
-
 #include "Platform/GraphicsPlatform/OpenGL/OpenGLInclude.h"
 
 namespace Blackbird::GraphicsPlatform::OpenGL
 {
 
-	void static GetFormatsFromChannels(int channels, GLenum& internalFormat, GLenum& format)
+	void static GetFormatsFromChannels(std::size_t channelSize, GLenum& internalFormat, GLenum& format)
 	{
-		if (channels == 4)
+		if (channelSize == 4)
 		{
 			internalFormat = GL_RGBA8;
 			format = GL_RGBA;
 		}
-		else if (channels == 3)
+		else if (channelSize == 3)
 		{
 			internalFormat = GL_RGB8;
 			format = GL_RGB;
 		}
-		else if (channels == 2)
+		else if (channelSize == 2)
 		{
 			internalFormat = GL_RG;
 			format = GL_RG;
 		}
-		else if (channels == 1)
+		else if (channelSize == 1)
 		{
 			internalFormat = GL_RED;
 			format = GL_RED;
@@ -36,31 +34,24 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 		}
 	}
 
-	OpenGLTexture2D::OpenGLTexture2D(const std::string& path)
-		: m_Path(path)
+	OpenGLTexture2D::OpenGLTexture2D(std::uint32_t width, std::uint32_t height, void* data, std::size_t channelSize)
+		: m_Width(width)
+		, m_Height(height)
 	{
-		int width, height, channels;
-		stbi_set_flip_vertically_on_load(1);
-		stbi_uc* data = stbi_load(path.c_str(), &width, &height, &channels, 0);
-		m_Width = width;
-		m_Height = height;
-
 		GLenum internalFormat = 0;
 		GLenum format = 0;
-		GetFormatsFromChannels(channels, internalFormat, format);
-		
+		GetFormatsFromChannels(channelSize, internalFormat, format);
+
 		glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererID);
 		glTextureStorage2D(m_RendererID, 1, internalFormat, m_Width, m_Height);
 
 		glTextureParameteri(m_RendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTextureParameteri(m_RendererID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-		glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_S, GL_REPEAT); 
+		glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 		glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, format, GL_UNSIGNED_BYTE, data);
-
-		stbi_image_free(data);
 	}
 
 	OpenGLTexture2D::~OpenGLTexture2D()
@@ -77,5 +68,7 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 	{
 		glBindTextureUnit(slot, 0);
 	}
+
+
 
 }

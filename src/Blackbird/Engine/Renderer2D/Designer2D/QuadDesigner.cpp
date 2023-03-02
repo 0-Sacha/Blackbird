@@ -17,14 +17,17 @@ namespace Blackbird
 		BufferLayout squareLayout = {
 			{ ShaderData::Type::Float3, "a_Position" },
 			{ ShaderData::Type::Float4, "a_Color" },
-			{ ShaderData::Type::Float2, "a_TexCoord" }
+			{ ShaderData::Type::Float2, "a_TexCoord" },
+			{ ShaderData::Type::Float, "a_TexIndex" },
+			{ ShaderData::Type::Float, "a_TilingFactor" }
 		};
 		QuadVB->SetLayout(squareLayout);
 		QuadVA->AddVertexBuffer(QuadVB);
 
-		uint32_t* quadIndicies = new uint32_t[BatchBuffer.GetMaxIndicies()];
+		const std::size_t quadIndiciesSize = BatchBuffer.GetMaxIndicies();
+		uint32_t* quadIndicies = new uint32_t[quadIndiciesSize];
 		uint32_t offset = 0;
-		for (uint32_t i = 0; i + 5 < BatchBuffer.GetMaxIndicies(); i += 6)
+		for (uint32_t i = 0; i + 5 < quadIndiciesSize; i += 6)
 		{
 			quadIndicies[i + 0] = offset + 0;
 			quadIndicies[i + 1] = offset + 1;
@@ -36,105 +39,55 @@ namespace Blackbird
 		
 			offset += 4;
 		}
-		Ref<IndexBuffer> quadIB = assetFactory.CreateIndexBuffer(quadIndicies, BatchBuffer.GetMaxIndicies());
+		Ref<IndexBuffer> quadIB = assetFactory.CreateIndexBuffer(quadIndicies, quadIndiciesSize);
 		QuadVA->SetIndexBuffer(quadIB);
 		delete[] quadIndicies;
 
 
 		// Quad Shaders
 		auto& shaderFactory = m_Renderer2D.Engine().ShaderFactory();
+		BatchShader = shaderFactory.CreateFromPath("assets/shaders/Texture.glsl");
+		BatchShader->Bind();
 
-		FlatColorShader = shaderFactory.CreateFromPath("assets/shaders/FlatColor.glsl");
-		TextureShader = shaderFactory.CreateFromPath("assets/shaders/Texture.glsl");
-		TextureShader->Bind();
-		TextureShader->SetInt("u_Texture", 0);
+		const std::size_t samplerSize = BatchTexture.GetMaxTexturePerBatch();
+		int32_t* samplers = new int32_t[samplerSize];
+		for (std::size_t i = 0; i < samplerSize; ++i)
+			samplers[i] = i;
+		BatchShader->SetIntArray("u_Textures", samplers, samplerSize);
+
+		auto& textureFactory = m_Renderer2D.Engine().TextureFactory();
+		WhiteTexture = textureFactory.CreateTexture2DUniqueColor(0xff'ff'ff'ff);
 	}
 
     void QuadDesignerManager::Release()
 	{
 		QuadVA = nullptr;
 
-		FlatColorShader = nullptr;
-		TextureShader = nullptr;
+		BatchShader = nullptr;
 	}
 
 	void QuadDesignerManager::BeginScene(const OrthographicCamera& camera)
 	{
-		FlatColorShader->Bind();
-		FlatColorShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
+		BatchShader->Bind();
+		BatchShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
 
-		TextureShader->Bind();
-		TextureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
-
-		BatchBuffer.BeginScene();
+		BatchBuffer.Reset();
+		BatchTexture.Reset();
 	}
 
 	void QuadDesignerManager::EndScene()
 	{
+		BatchTexture.BindAllTexture();
 		QuadVB->SetData(BatchBuffer.GetData(), BatchBuffer.GetVerticiesSize());
 		Flush();
 	}
 
 	void QuadDesignerManager::Flush()
 	{
-		TextureShader->Bind();
 		QuadVA->Bind();
 		m_Renderer2D.Engine().RendererCommand().DrawIndexed(QuadVA, BatchBuffer.GetIndiciesCount());
 	}
 
-	static void DrawQuadColor(QuadDesigner& quad, QuadDesignerManager& manager)
-    {
-		QuadDesigner::Vertex vertex{ quad.Position, quad.Color, { 0.0f, 0.0f } };
-		manager.BatchBuffer.PushBackVertex(vertex);
-
-		vertex.Position = { quad.Position.x + quad.Size.x, quad.Position.y, 0.0f };
-		vertex.TexCoord = { 1.0f, 0.0f };
-		manager.BatchBuffer.PushBackVertex(vertex);
-
-		vertex.Position = { quad.Position.x + quad.Size.x, quad.Position.y + quad.Size.y, 0.0f };
-		vertex.TexCoord = { 1.0f, 1.0f };
-		manager.BatchBuffer.PushBackVertex(vertex);
-
-		vertex.Position = { quad.Position.x, quad.Position.y + quad.Size.y, 0.0f };
-		vertex.TexCoord = { 0.0f, 1.0f };
-		manager.BatchBuffer.PushBackVertex(vertex);
-
-		manager.BatchBuffer.ObjectAdded();
-
-		/*
-		manager.FlatColorShader->Bind();
-		manager.FlatColorShader->SetFloat4("u_Color", quad.Color);
-
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), quad.Position);
-        if (quad.Size != glm::vec2{ 1.0f, 1.0f })
-		    transform = glm::scale(transform, glm::vec3(quad.Size, 1.0f));
-        if (quad.Rotation != 0)
-		    transform = glm::rotate(transform, quad.Rotation, glm::vec3(0.0f, 0.0f, 1.0f));
-		manager.FlatColorShader->SetMat4("u_Transform", transform);
-
-		manager.QuadVA->Bind();
-		manager.GetRenderer2D().Engine().RendererCommand().DrawIndexed(manager.QuadVA);
-		*/
-	}
-
-	static void DrawQuadTexture(QuadDesigner& quad, QuadDesignerManager& manager)
-	{
-		manager.TextureShader->Bind();
-		manager.TextureShader->SetFloat4("u_Color", quad.Color);
-		manager.TextureShader->SetFloat("u_TilingFactor", quad.TilingFactor);
-
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), quad.Position);
-        if (quad.Size != glm::vec2{ 1.0f, 1.0f })
-		    transform = glm::scale(transform, glm::vec3(quad.Size, 1.0f));
-        if (quad.Rotation != 0)
-		    transform = glm::rotate(transform, quad.Rotation, glm::vec3(0.0f, 0.0f, 1.0f));
-		manager.TextureShader->SetMat4("u_Transform", transform);
-		
-        quad.Texture->Bind();
-
-		manager.QuadVA->Bind();
-		manager.GetRenderer2D().Engine().RendererCommand().DrawIndexed(manager.QuadVA);
-	}
 
 	void QuadDesigner::Draw(IDesigner2DManager& manager)
 	{
@@ -146,8 +99,79 @@ namespace Blackbird
 
     void QuadDesigner::Draw(QuadDesignerManager& manager)
     {
-        if (Texture == nullptr)
-            return DrawQuadColor(*this, manager);
-        return DrawQuadTexture(*this, manager);
+		std::uint32_t texIndex;
+		if (Texture == nullptr)
+			manager.BatchTexture.AddTexture(manager.WhiteTexture, texIndex);
+		else
+			manager.BatchTexture.AddTexture(Texture, texIndex);
+
+		glm::mat4 transfrom = GetTransform();
+
+		static constexpr glm::vec4 QUAD_VERTICIES_POSITION[4] = {
+			{ -0.5f, -0.5f, 0.0f, 1.0f },
+			{  0.5f, -0.5f, 0.0f, 1.0f },
+			{  0.5f,  0.5f, 0.0f, 1.0f },
+			{ -0.5f,  0.5f, 0.0f, 1.0f }
+		};
+
+		manager.BatchBuffer.BeginObject();
+
+		QuadDesigner::Vertex vertex{ transfrom * QUAD_VERTICIES_POSITION[0], Color, { 0.0f, 0.0f }, texIndex, TilingFactor };
+		manager.BatchBuffer.PushBackVertex(vertex);
+
+		vertex.Position = transfrom * QUAD_VERTICIES_POSITION[1];
+		vertex.TexCoord = { 1.0f, 0.0f };
+		manager.BatchBuffer.PushBackVertex(vertex);
+
+		vertex.Position = transfrom * QUAD_VERTICIES_POSITION[2];
+		vertex.TexCoord = { 1.0f, 1.0f };
+		manager.BatchBuffer.PushBackVertex(vertex);
+
+		vertex.Position = transfrom * QUAD_VERTICIES_POSITION[3];
+		vertex.TexCoord = { 0.0f, 1.0f };
+		manager.BatchBuffer.PushBackVertex(vertex);
+
+		manager.BatchBuffer.EndObject();
     }
+
+
+	static void DrawQuadColorInstant(QuadDesigner& quad, QuadDesignerManager& manager)
+	{
+		// FIXME
+		// manager.FlatColorShader->Bind();
+		// manager.FlatColorShader->SetFloat4("u_Color", quad.Color);
+		// manager.FlatColorShader->SetMat4("u_Transform", quad.GetTransform());
+
+		manager.QuadVA->Bind();
+		manager.GetRenderer2D().Engine().RendererCommand().DrawIndexed(manager.QuadVA);
+	}
+
+	static void DrawQuadTextureInstant(QuadDesigner& quad, QuadDesignerManager& manager)
+	{
+		// FIXME
+		// manager.TextureShader->Bind();
+		// manager.TextureShader->SetFloat4("u_Color", quad.Color);
+		// manager.TextureShader->SetFloat("u_TilingFactor", quad.TilingFactor);
+		// manager.TextureShader->SetMat4("u_Transform", quad.GetTransform());
+
+		quad.Texture->Bind();
+		manager.QuadVA->Bind();
+		manager.GetRenderer2D().Engine().RendererCommand().DrawIndexed(manager.QuadVA);
+	}
+
+
+	void QuadDesigner::DrawInstant(IDesigner2DManager& manager)
+	{
+		QuadDesignerManager* asQuadManager = dynamic_cast<QuadDesignerManager*>(&manager);
+		if (asQuadManager != nullptr)
+			return DrawInstant(*asQuadManager);
+		BLACKBIRD_WARN("Give a IDesigner2DManager to a QuadDesigner which is not a QuadDesignerManager");
+	}
+
+	void QuadDesigner::DrawInstant(QuadDesignerManager& manager)
+	{
+		if (Texture == nullptr)
+			return DrawQuadColorInstant(*this, manager);
+		return DrawQuadColorInstant(*this, manager);
+	}
 }

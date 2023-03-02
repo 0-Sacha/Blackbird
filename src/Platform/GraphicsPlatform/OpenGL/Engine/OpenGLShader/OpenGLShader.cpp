@@ -18,4 +18,5 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 	{
 		glUseProgram(0);
 	}
+
 }

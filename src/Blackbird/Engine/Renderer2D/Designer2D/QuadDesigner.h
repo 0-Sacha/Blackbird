@@ -6,7 +6,9 @@
 #include "Blackbird/Engine/Asset/VertexBuffer.h"
 #include "Blackbird/Engine/Texture/Texture.h"
 #include "Blackbird/Engine/Shader/Shader.h"
-#include "BatchBuffer2D.h"
+
+#include "../BatchBuffer2D.h"
+#include "../BatchTextureSlot.h"
 
 #include "glm/glm.hpp"
 
@@ -22,6 +24,8 @@ namespace Blackbird
             glm::vec3 Position;
 			glm::vec4 Color;
 			glm::vec2 TexCoord;
+			float TexIndex;
+			float TilingFactor;
         };
 
 	public:
@@ -50,9 +54,23 @@ namespace Blackbird
 
         QuadDesigner& SetColor(glm::vec4 color) { Color = color; return *this; }
 
+	public:
+        glm::mat4 GetTransform()
+        {
+            glm::mat4 transform = glm::translate(glm::mat4(1.0f), Position);
+            if (Size != glm::vec2{ 1.0f, 1.0f })
+                transform = glm::scale(transform, glm::vec3(Size, 1.0f));
+            if (Rotation != 0)
+                transform = glm::rotate(transform, Rotation, glm::vec3(0.0f, 0.0f, 1.0f));
+            return transform;
+        }
+
     public:
         void Draw(IDesigner2DManager& manager) override;
         void Draw(QuadDesignerManager& renderer);
+
+		void DrawInstant(IDesigner2DManager& manager) override;
+		void DrawInstant(QuadDesignerManager& renderer);
     };
 
     class QuadDesignerManager : public IDesigner2DManager 
@@ -78,10 +96,12 @@ namespace Blackbird
 
     public:
         BatchBuffer2DType BatchBuffer;
+        BatchTextureSlot BatchTexture;
+        
 
 		Ref<VertexArray> QuadVA;
 		Ref<VertexBuffer> QuadVB;
-		Ref<Shader> FlatColorShader;
-		Ref<Shader> TextureShader;
+		Ref<Shader> BatchShader;
+		Ref<Texture> WhiteTexture;
     };
 }

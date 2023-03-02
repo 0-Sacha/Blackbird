@@ -30,15 +30,19 @@ namespace Blackbird
 		std::size_t GetVerticieCount() const
         {
             BLACKBIRD_ASSERT((m_BufferCurrentPos - m_Buffer.get()) == (m_ObjectCount * VERTICIES_PER_OBJECT), "Wrong number of verticies compared to the number of objects")
-            return m_BufferCurrentPos - m_Buffer.get();
+            return m_ObjectCount * VERTICIES_PER_OBJECT;
         }
 
 	public:
-		void BeginScene()
+		void Reset()
         {
 			m_BufferCurrentPos = m_Buffer.get();
             m_ObjectCount = 0;
 		}
+
+	public:
+		void BeginObject() {}
+		void EndObject() { m_ObjectCount++; }
 
 		bool CanPushBack() { return m_BufferCurrentPos + 1 < m_BufferEnd; }
 		bool CanPushBack(std::size_t count) { return m_BufferCurrentPos + count < m_BufferEnd; }
@@ -49,14 +53,12 @@ namespace Blackbird
             *m_BufferCurrentPos++ = object;
         }
 
-        void ObjectAdded() { m_ObjectCount++; }
-
     protected:
 		void ResizeAndReset(std::size_t maxCount)
         {
             m_MaxCount = maxCount;
             m_Buffer.reset(new ObjectVertexType[GetMaxVerticies()]);
-            m_BufferEnd = m_Buffer.get() + m_MaxCount * sizeof(ObjectVertexType);
+            m_BufferEnd = m_Buffer.get() + m_MaxCount;
             m_BufferCurrentPos = m_Buffer.get();
         }
 

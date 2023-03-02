@@ -39,6 +39,8 @@ namespace Blackbird
 
     public:
 		virtual void Draw(IDesigner2DManager& renderer) = 0;
+		virtual void DrawInstant(IDesigner2DManager& renderer) = 0;
+
         void DefaultDraw()
         {
             if (m_DefaultManager != nullptr)
@@ -46,7 +48,34 @@ namespace Blackbird
             BLACKBIRD_WARN("Use of DefaultDraw on a Designer2D but there is no DefaultManager set");
         }
 
+		void DefaultDrawInstant()
+		{
+			if (m_DefaultManager != nullptr)
+				return DrawInstant(*m_DefaultManager);
+			BLACKBIRD_WARN("Use of DefaultDraw on a Designer2D but there is no DefaultManager set");
+		}
+
 	private:
 		IDesigner2DManager* m_DefaultManager = nullptr;
     };
+
+	template <typename DesignerType>
+	class Designer2DDrawOnDestroy
+	{
+	public:
+		Designer2DDrawOnDestroy(const DesignerType& designer)
+			: m_Designer(designer)
+		{}
+
+		~Designer2DDrawOnDestroy() { m_Designer.DefaultDraw(); }
+
+	public:
+		DesignerType* operator->()
+		{
+			return &m_Designer;
+		}
+
+	private:
+		DesignerType m_Designer;
+	};
 }
