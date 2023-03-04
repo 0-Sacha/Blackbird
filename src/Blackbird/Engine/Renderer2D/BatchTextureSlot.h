@@ -55,7 +55,7 @@ namespace Blackbird
 
 				if (slot == nullptr)
 					continue;
-				if (slot->GetRendererID() == texture->GetRendererID())
+				if (slot->GetTextureID() == texture->GetTextureID())
 				{
 					textureIndexBatch = i;
 					return true;

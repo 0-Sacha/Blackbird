@@ -5,6 +5,13 @@
 namespace Blackbird
 {
 
+	Ref<SpritesFactoryLibrary> ITextureFactory::CreateSpritesFactoryLibraryFromPath(const std::string& path, const glm::uvec2& spriteSize)
+	{
+		Ref<Texture2D> sheetTexture = CreateTexture2DFromPath(path);
+		Ref<SheetToSpriteFactory> factory = std::make_shared<SheetToSpriteFactory>(sheetTexture, spriteSize);
+		return std::make_shared<SpritesFactoryLibrary>(factory);
+	}
+
 	Ref<Texture2D> ITextureFactory::CreateTexture2DFromPath(const std::string& path)
 	{
 		int width, height, channels;

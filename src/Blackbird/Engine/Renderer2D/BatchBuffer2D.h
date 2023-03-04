@@ -21,7 +21,7 @@ namespace Blackbird
 		std::size_t GetMaxIndicies() const { return m_MaxCount * INDICIES_PER_OBJECT; }
 		std::size_t GetMaxVerticies() const { return m_MaxCount * VERTICIES_PER_OBJECT; }
 
-		const ObjectVertexType* GetData() const     { return m_Buffer.get(); }
+		const ObjectVertexType* GetData() const     { return m_VerticiesBuffer.get(); }
 
 		std::size_t GetObjectCount() const          { return m_ObjectCount; }
 		std::size_t GetIndiciesCount() const        { return m_ObjectCount * INDICIES_PER_OBJECT; }
@@ -29,37 +29,45 @@ namespace Blackbird
 
 		std::size_t GetVerticieCount() const
         {
-            BLACKBIRD_ASSERT((m_BufferCurrentPos - m_Buffer.get()) == (m_ObjectCount * VERTICIES_PER_OBJECT), "Wrong number of verticies compared to the number of objects")
+            BLACKBIRD_ASSERT((m_VerticiesBufferCurrentPos - m_VerticiesBuffer.get()) == (m_ObjectCount * VERTICIES_PER_OBJECT), "Wrong number of verticies compared to the number of objects")
             return m_ObjectCount * VERTICIES_PER_OBJECT;
         }
 
 	public:
 		void Reset()
         {
-			m_BufferCurrentPos = m_Buffer.get();
+			m_VerticiesBufferCurrentPos = m_VerticiesBuffer.get();
             m_ObjectCount = 0;
 		}
 
 	public:
-		void BeginObject() {}
-		void EndObject() { m_ObjectCount++; }
+		bool CanPushBackVertex()                  { return m_VerticiesBufferCurrentPos < m_VerticiesBufferEnd; }
+		bool CanPushBackVerticies(std::size_t count) { return m_VerticiesBufferCurrentPos + (count - 1) < m_VerticiesBufferEnd; }
 
-		bool CanPushBack() { return m_BufferCurrentPos + 1 < m_BufferEnd; }
-		bool CanPushBack(std::size_t count) { return m_BufferCurrentPos + count < m_BufferEnd; }
+		bool CanAddObject()
+        {
+            return CanPushBackVerticies(VERTICIES_PER_OBJECT) && m_ObjectCount < m_MaxCount;
+		}
+
+		void ObjectAdded()
+        {
+			BLACKBIRD_ASSERT(m_ObjectCount < m_MaxCount, "Wasn't able to add an Object in the BatchBuffer, manager must have been Flush")
+			m_ObjectCount++;
+        }
 
 		void PushBackVertex(const ObjectVertexType& object)
         {
-            BLACKBIRD_ASSERT(CanPushBack(), "Can't PushBack a Verex in the BatchBuffer")
-            *m_BufferCurrentPos++ = object;
+            BLACKBIRD_ASSERT(CanPushBackVertex(), "Wasn't able to add a Verex in the BatchBuffer, manager must have been Flush")
+            *m_VerticiesBufferCurrentPos++ = object;
         }
 
     protected:
 		void ResizeAndReset(std::size_t maxCount)
         {
             m_MaxCount = maxCount;
-            m_Buffer.reset(new ObjectVertexType[GetMaxVerticies()]);
-            m_BufferEnd = m_Buffer.get() + m_MaxCount;
-            m_BufferCurrentPos = m_Buffer.get();
+            m_VerticiesBuffer.reset(new ObjectVertexType[GetMaxVerticies()]);
+            m_VerticiesBufferEnd = m_VerticiesBuffer.get() + GetMaxVerticies();
+            m_VerticiesBufferCurrentPos = m_VerticiesBuffer.get();
         }
 
     protected:
@@ -67,8 +75,8 @@ namespace Blackbird
 		
         std::size_t m_ObjectCount = 0;
 
-        std::unique_ptr<ObjectVertexType[]> m_Buffer = nullptr;
-		ObjectVertexType* m_BufferEnd = nullptr;
-		ObjectVertexType* m_BufferCurrentPos = nullptr;
+        std::unique_ptr<ObjectVertexType[]> m_VerticiesBuffer = nullptr;
+		ObjectVertexType* m_VerticiesBufferEnd = nullptr;
+		ObjectVertexType* m_VerticiesBufferCurrentPos = nullptr;
     };
 }

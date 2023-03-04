@@ -4,8 +4,12 @@
 
 namespace Blackbird
 {
-	OrthographicCameraController::OrthographicCameraController(float aspectRatio, bool hasRotation)
-		: m_AspectRatio(aspectRatio), m_Camera(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel), m_HasRotation(hasRotation)
+	OrthographicCameraController::OrthographicCameraController(IInput& input, float aspectRatio, bool hasRotation)
+		: m_Input(input)
+		, m_AspectRatio(aspectRatio)
+		, m_CameraBounds(-m_AspectRatio * m_ZoomLevel, m_AspectRatio* m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel)
+		, m_Camera(m_CameraBounds.Left, m_CameraBounds.Right, m_CameraBounds.Bottom, m_CameraBounds.Top)
+		, m_HasRotation(hasRotation)
 	{
 	}
 
@@ -14,25 +18,25 @@ namespace Blackbird
 		float updateSin = sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
 		float updateCos = cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
 
-		if(S_Input::IsKeyPressed(KeyboardKey::A)) {
+		if(m_Input.IsKeyPressed(KeyboardKey::A)) {
 			m_CameraPosition.x -= updateCos;
 			m_CameraPosition.y -= updateSin;
-		} else if(S_Input::IsKeyPressed(KeyboardKey::D)) {
+		} else if(m_Input.IsKeyPressed(KeyboardKey::D)) {
 			m_CameraPosition.x += updateCos;
 			m_CameraPosition.y += updateSin;
-		} else if (S_Input::IsKeyPressed(KeyboardKey::W)) {
+		} else if (m_Input.IsKeyPressed(KeyboardKey::W)) {
 			m_CameraPosition.x -= updateSin;
 			m_CameraPosition.y += updateCos;
-		} else if (S_Input::IsKeyPressed(KeyboardKey::S)) {
+		} else if (m_Input.IsKeyPressed(KeyboardKey::S)) {
 			m_CameraPosition.x += updateSin;
 			m_CameraPosition.y -= updateCos;
 		}
 
 		if(m_HasRotation)
 		{
-			if (S_Input::IsKeyPressed(KeyboardKey::Q))
+			if (m_Input.IsKeyPressed(KeyboardKey::Q))
 				m_CameraRotation += m_CameraRotationSpeed * ts;
-			if (S_Input::IsKeyPressed(KeyboardKey::E))
+			if (m_Input.IsKeyPressed(KeyboardKey::E))
 				m_CameraRotation -= m_CameraRotationSpeed * ts;
 
 			if (m_CameraRotation > 180.0f)
@@ -68,4 +72,10 @@ namespace Blackbird
 		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
 		return false;
 	}
+
+	bool OrthographicCameraController::OnMouseMouved(MouseMouvedEvent& event)
+	{
+		return false;
+	}
+
 }

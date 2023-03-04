@@ -26,4 +26,21 @@ namespace Blackbird
 	{
 		m_Storage->QuadManager.EndScene();
 	}
+
+	Renderer2DStatistics Renderer2D::GetStats()
+	{
+		Renderer2DStatistics res;
+		res.DrawCall = 0;
+
+		res.QuadStats = m_Storage->QuadManager.Stats;
+		res.DrawCall += m_Storage->QuadManager.Stats.DrawCall;
+
+		return res;
+	}
+
+	void Renderer2D::ResetStats()
+	{
+		m_Storage->QuadManager.Stats.Reset();
+	}
+
 }

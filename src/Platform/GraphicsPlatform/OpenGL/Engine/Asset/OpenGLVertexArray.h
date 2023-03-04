@@ -20,8 +20,8 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 		void AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) override;
 		void SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) override;
 
-		const std::vector<Ref<VertexBuffer>> GetVertexBuffers() const override;
-		const Ref<Blackbird::IndexBuffer> GetIndexBuffer() const override;
+		const std::vector<Ref<VertexBuffer>>& GetVertexBuffers() const override { return m_VertexBuffers; }
+		const Ref<IndexBuffer>& GetIndexBuffer() const override { return m_IndexBuffer; }
 
 	private:
 		RendererID m_RendererID;

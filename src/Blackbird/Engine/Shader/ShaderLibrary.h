@@ -1,30 +1,40 @@
 #pragma once
 
 #include "Blackbird/Core/Core.h"
-#include "IShaderFactory.h"
+#include "Shader.h"
 
 namespace Blackbird
 {
+	class IShaderFactory;
+
 	class ShaderLibrary
 	{
 	public:
-		ShaderLibrary(IShaderFactory& factory)
+		bool Exists(const std::string& name);
+		void Add(const Ref<Shader>& shader);
+		void Add(const std::string& name, const Ref<Shader>& shader);
+		Ref<Shader> Get(const std::string& name);
+
+	protected:
+		std::unordered_map<std::string, Ref<Shader>> m_Shaders;
+	};
+
+	class ShaderPathsLibrary : public ShaderLibrary
+	{
+	public:
+		ShaderPathsLibrary(IShaderFactory& factory)
 			: m_ShaderFactory(factory)
 		{}
 
 	public:
-		void Add(const Ref<Shader>& shader);
-		void Add(const std::string& name, const Ref<Shader>& shader);
-
 		Ref<Shader> LoadFromPath(const std::string& path);
 		Ref<Shader> LoadFromPath(const std::string& name, const std::string& path);
 
-		Ref<Shader> Get(const std::string& name);
+	protected:
+		using ShaderLibrary::Add;
 
-		bool Exists(const std::string& name);
-
-	public:
+	protected:
 		IShaderFactory& m_ShaderFactory;
-		std::unordered_map<std::string, Ref<Shader>> m_Shaders;
 	};
+
 }

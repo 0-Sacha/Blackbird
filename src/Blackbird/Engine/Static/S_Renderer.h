@@ -7,10 +7,13 @@ namespace Blackbird
 	class S_Renderer
 	{
 	public:
-		static void BeginScene(OrthographicCamera& camera) { StaticContext::GetRenderer().BeginScene(camera); }
-		static void EndScene() { StaticContext::GetRenderer().EndScene(); }
+		static Renderer& Get() { return StaticContext::GetRenderer(); }
 
 	public:
-		static void Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform = glm::mat4(1.0f)) { StaticContext::GetRenderer().Submit(shader, vertexArray, transform); }
+		static void BeginScene(OrthographicCamera& camera)	{ Get().BeginScene(camera); }
+		static void EndScene()								{ Get().EndScene(); }
+
+	public:
+		static void Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform = glm::mat4(1.0f)) { Get().Submit(shader, vertexArray, transform); }
 	};
 }

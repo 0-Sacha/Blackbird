@@ -10,10 +10,25 @@
 #include "../BatchBuffer2D.h"
 #include "../BatchTextureSlot.h"
 
+#include "../Statistics2D.h"
+
 #include "glm/glm.hpp"
 
 namespace Blackbird
 {
+    class QuadStatistics : public Statistics2D
+    {
+    public:
+        std::uint32_t QuadCount = 0;
+
+    public:
+        void Reset() override { Statistics2D::Reset(); QuadCount = 0; }
+
+	public:
+		std::uint32_t GetVerticiesCount() override  { return QuadCount * 4; }
+		std::uint32_t GetIndiciesCount() override   { return QuadCount * 6; }
+	};
+
     class QuadDesignerManager;
 
     class QuadDesigner : public IDesigner2D
@@ -38,7 +53,7 @@ namespace Blackbird
         glm::vec2 Size = { 1.0f, 1.0f };
         float Rotation = 0.0f;
 
-        Ref<Texture2D> Texture = nullptr;
+        Ref<Texture2D> QuadTexture = nullptr;
         float TilingFactor = 1.0f;
 
         glm::vec4 Color = glm::vec4{ 1.0f, 1.0f, 1.0f, 1.0f };
@@ -49,7 +64,7 @@ namespace Blackbird
         QuadDesigner& SetSize(glm::vec2 size) { Size = size; return *this; }
         QuadDesigner& SetRotation(float rotation) { Rotation = rotation; return *this; }
 
-        QuadDesigner& SetTexture(const Ref<Texture2D>& texture) { Texture = texture; return *this; }
+        QuadDesigner& SetTexture(const Ref<Texture2D>& texture) { QuadTexture = texture; return *this; }
         QuadDesigner& SetTilingFactor(float tilingFactor) { TilingFactor = tilingFactor; return *this; }
 
         QuadDesigner& SetColor(glm::vec4 color) { Color = color; return *this; }
@@ -80,9 +95,9 @@ namespace Blackbird
         using BatchBuffer2DType = BatchBuffer2D<typename QuadDesigner::Vertex, 4, 6>;
 
 	public:
-        QuadDesignerManager(Renderer2D& renderer)
+        QuadDesignerManager(Renderer2D& renderer, std::size_t numberOfQuadBatch = NUMBER_OF_QUAD_BATCH)
             : IDesigner2DManager(renderer)
-            , BatchBuffer(NUMBER_OF_QUAD_BATCH)
+            , BatchBuffer(numberOfQuadBatch)
         {}
 
     public:
@@ -98,10 +113,11 @@ namespace Blackbird
         BatchBuffer2DType BatchBuffer;
         BatchTextureSlot BatchTexture;
         
-
 		Ref<VertexArray> QuadVA;
 		Ref<VertexBuffer> QuadVB;
 		Ref<Shader> BatchShader;
-		Ref<Texture> WhiteTexture;
+		Ref<Texture2D> WhiteTexture;
+
+        QuadStatistics Stats;
     };
 }

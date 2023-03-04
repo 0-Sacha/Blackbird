@@ -11,7 +11,7 @@ namespace Blackbird
 	{
 	public:
 		Renderer2DStorage(Renderer2D& renderer2D)
-			: QuadManager(renderer2D)
+			: QuadManager(renderer2D, 50'000)
 		{}
 
 	public:

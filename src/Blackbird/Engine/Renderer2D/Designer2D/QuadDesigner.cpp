@@ -46,7 +46,7 @@ namespace Blackbird
 
 		// Quad Shaders
 		auto& shaderFactory = m_Renderer2D.Engine().ShaderFactory();
-		BatchShader = shaderFactory.CreateFromPath("assets/shaders/Texture.glsl");
+		BatchShader = shaderFactory.CreateFromPath("../Blackbird/Assets/shaders/Texture.glsl");
 		BatchShader->Bind();
 
 		const std::size_t samplerSize = BatchTexture.GetMaxTexturePerBatch();
@@ -62,7 +62,6 @@ namespace Blackbird
     void QuadDesignerManager::Release()
 	{
 		QuadVA = nullptr;
-
 		BatchShader = nullptr;
 	}
 
@@ -77,15 +76,20 @@ namespace Blackbird
 
 	void QuadDesignerManager::EndScene()
 	{
-		BatchTexture.BindAllTexture();
-		QuadVB->SetData(BatchBuffer.GetData(), BatchBuffer.GetVerticiesSize());
 		Flush();
 	}
 
 	void QuadDesignerManager::Flush()
 	{
+		Stats.DrawCall++;
+
+		BatchTexture.BindAllTexture();
+		QuadVB->SetData(BatchBuffer.GetData(), BatchBuffer.GetVerticiesSize());
 		QuadVA->Bind();
 		m_Renderer2D.Engine().RendererCommand().DrawIndexed(QuadVA, BatchBuffer.GetIndiciesCount());
+
+		BatchBuffer.Reset();
+		BatchTexture.Reset();
 	}
 
 
@@ -99,11 +103,16 @@ namespace Blackbird
 
     void QuadDesigner::Draw(QuadDesignerManager& manager)
     {
+		if (manager.BatchBuffer.CanAddObject() == false)
+			manager.Flush();
+
+		Ref<Texture2D> texture = QuadTexture == nullptr ? manager.WhiteTexture : QuadTexture;
 		std::uint32_t texIndex;
-		if (Texture == nullptr)
-			manager.BatchTexture.AddTexture(manager.WhiteTexture, texIndex);
-		else
-			manager.BatchTexture.AddTexture(Texture, texIndex);
+		if (manager.BatchTexture.AddTexture(texture, texIndex) == false)
+		{
+			manager.Flush();
+			manager.BatchTexture.AddTexture(texture, texIndex);
+		}
 
 		glm::mat4 transfrom = GetTransform();
 
@@ -114,24 +123,27 @@ namespace Blackbird
 			{ -0.5f,  0.5f, 0.0f, 1.0f }
 		};
 
-		manager.BatchBuffer.BeginObject();
+		const glm::vec2& texCoordsMin = texture->GetTexCoordsMin();
+		const glm::vec2& texCoordsMax = texture->GetTexCoordsMax();
 
-		QuadDesigner::Vertex vertex{ transfrom * QUAD_VERTICIES_POSITION[0], Color, { 0.0f, 0.0f }, texIndex, TilingFactor };
+		QuadDesigner::Vertex vertex{ transfrom * QUAD_VERTICIES_POSITION[0], Color, { texCoordsMin.x, texCoordsMin.y }, texIndex, TilingFactor };
 		manager.BatchBuffer.PushBackVertex(vertex);
 
 		vertex.Position = transfrom * QUAD_VERTICIES_POSITION[1];
-		vertex.TexCoord = { 1.0f, 0.0f };
+		vertex.TexCoord = { texCoordsMax.x, texCoordsMin.y };
 		manager.BatchBuffer.PushBackVertex(vertex);
 
 		vertex.Position = transfrom * QUAD_VERTICIES_POSITION[2];
-		vertex.TexCoord = { 1.0f, 1.0f };
+		vertex.TexCoord = { texCoordsMax.x, texCoordsMax.y };
 		manager.BatchBuffer.PushBackVertex(vertex);
 
 		vertex.Position = transfrom * QUAD_VERTICIES_POSITION[3];
-		vertex.TexCoord = { 0.0f, 1.0f };
+		vertex.TexCoord = { texCoordsMin.x, texCoordsMax.y };
 		manager.BatchBuffer.PushBackVertex(vertex);
 
-		manager.BatchBuffer.EndObject();
+		manager.BatchBuffer.ObjectAdded();
+
+		manager.Stats.QuadCount++;
     }
 
 
@@ -144,6 +156,9 @@ namespace Blackbird
 
 		manager.QuadVA->Bind();
 		manager.GetRenderer2D().Engine().RendererCommand().DrawIndexed(manager.QuadVA);
+
+		manager.Stats.QuadCount++;
+		manager.Stats.DrawCall++;
 	}
 
 	static void DrawQuadTextureInstant(QuadDesigner& quad, QuadDesignerManager& manager)
@@ -154,9 +169,12 @@ namespace Blackbird
 		// manager.TextureShader->SetFloat("u_TilingFactor", quad.TilingFactor);
 		// manager.TextureShader->SetMat4("u_Transform", quad.GetTransform());
 
-		quad.Texture->Bind();
+		quad.QuadTexture->Bind();
 		manager.QuadVA->Bind();
 		manager.GetRenderer2D().Engine().RendererCommand().DrawIndexed(manager.QuadVA);
+
+		manager.Stats.QuadCount++;
+		manager.Stats.DrawCall++;
 	}
 
 
@@ -170,7 +188,7 @@ namespace Blackbird
 
 	void QuadDesigner::DrawInstant(QuadDesignerManager& manager)
 	{
-		if (Texture == nullptr)
+		if (QuadTexture == nullptr)
 			return DrawQuadColorInstant(*this, manager);
 		return DrawQuadColorInstant(*this, manager);
 	}

@@ -6,12 +6,23 @@
 #include "Blackbird/EngineDetail/Event/ApplicationEvent.h"
 #include "Blackbird/EngineDetail/Event/MouseEvent.h"
 
+#include "Blackbird/EngineDetail/Input/IInput.h"
+
 namespace Blackbird
 {
+	struct OrthographicCameraBounds
+	{
+		float Left, Right;
+		float Bottom, Top;
+
+		float GetWidth() { return Right - Left; }
+		float GetHeight() { return Top - Bottom; }
+	};
+
 	class OrthographicCameraController
 	{
 	public:
-		OrthographicCameraController(float aspectRatio, bool hasRotation);
+		OrthographicCameraController(IInput& input, float aspectRatio, bool hasRotation);
 
 	public:
 		void OnUpdate(TimeStep ts);
@@ -23,14 +34,19 @@ namespace Blackbird
 		float GetZoomLevel() const { return m_ZoomLevel; }
 		void SetZoomLevel(float level) { m_ZoomLevel = level; }
 
+		OrthographicCameraBounds GetBoumds() { return m_CameraBounds; }
+
 	private:
 		bool OnMouseScrolled(MouseScrolledEvent& event);
 		bool OnWindowResize(WindowResizeEvent& event);
 		bool OnMouseMouved(MouseMouvedEvent& event);
 
 	private:
+		IInput& m_Input;
+		
 		float m_AspectRatio;
 		float m_ZoomLevel = 1.0f;
+		OrthographicCameraBounds m_CameraBounds;
 		OrthographicCamera m_Camera;
 
 		bool m_HasRotation;

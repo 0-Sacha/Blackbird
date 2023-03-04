@@ -6,10 +6,15 @@
 #include "Blackbird/EngineAPI.h"
 
 #include "Renderer2DStorage.h"
+#include "Statistics2D.h"
 
 namespace Blackbird
 {
-	class IDesigner2D;
+	struct Renderer2DStatistics
+	{
+		std::uint32_t DrawCall;
+		QuadStatistics QuadStats;
+	};
 
 	class Renderer2D
 	{
@@ -22,8 +27,12 @@ namespace Blackbird
 		void EndScene();
 
 	public:
+		Renderer2DStatistics GetStats();
+		void ResetStats();
+
+	public:
 		QuadDesigner CreateQuadDesigner() { return QuadDesigner(&m_Storage->QuadManager); }
-		Designer2DDrawOnDestroy<QuadDesigner> DrawQuadDesigner() { return Designer2DDrawOnDestroy(CreateQuadDesigner()); }
+		Designer2DDrawOnDestroy<QuadDesigner> DrawQuad() { return Designer2DDrawOnDestroy(CreateQuadDesigner()); }
 
 	public:
 		EngineAPI& Engine() { return *m_EngineAPI; }

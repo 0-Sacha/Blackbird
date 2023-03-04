@@ -15,7 +15,7 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 		void Bind(uint32_t slot) const override;
 		void Release(uint32_t slot) const override;
 
-		std::uint32_t GetRendererID() const override { return m_RendererID; }
+		std::uint32_t GetTextureID() const override { return m_RendererID; }
 
 	public:
 		std::uint32_t GetWidth() const override { return m_Width; }

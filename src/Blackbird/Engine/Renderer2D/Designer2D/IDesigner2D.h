@@ -78,4 +78,5 @@ namespace Blackbird
 	private:
 		DesignerType m_Designer;
 	};
+
 }

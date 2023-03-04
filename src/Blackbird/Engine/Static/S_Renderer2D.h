@@ -9,11 +9,18 @@ namespace Blackbird
 	class S_Renderer2D
 	{
 	public:
-		static void BeginScene(OrthographicCamera& camera)	{ StaticContext::GetRenderer2D().BeginScene(camera); }
-		static void EndScene()								{ StaticContext::GetRenderer2D().EndScene(); }
+		static Renderer2D& Get() { return StaticContext::GetRenderer2D(); }
 
 	public:
-		static QuadDesigner CreateQuadDesigner()						{ return StaticContext::GetRenderer2D().CreateQuadDesigner(); }
-		static Designer2DDrawOnDestroy<QuadDesigner> DrawQuadDesigner() { return StaticContext::GetRenderer2D().DrawQuadDesigner(); }
+		static void BeginScene(OrthographicCamera& camera)	{ Get().BeginScene(camera); }
+		static void EndScene()								{ Get().EndScene(); }
+		
+	public:
+		static Renderer2DStatistics GetStats()				{ return Get().GetStats();}
+		static void ResetStats()							{ return Get().ResetStats(); }
+
+	public:
+		static QuadDesigner CreateQuadDesigner()				{ return Get().CreateQuadDesigner(); }
+		static Designer2DDrawOnDestroy<QuadDesigner> DrawQuad() { return Get().DrawQuad(); }
 	};
 }
