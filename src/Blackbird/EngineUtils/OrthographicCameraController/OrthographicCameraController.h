@@ -26,15 +26,21 @@ namespace Blackbird
 
 	public:
 		void OnUpdate(TimeStep ts);
-		void OnEvent(Event& event);
 
+	public:
 		OrthographicCamera& GetCamera() { return m_Camera; }
 		const OrthographicCamera& GetCamera() const { return m_Camera; }
 
-		float GetZoomLevel() const { return m_ZoomLevel; }
-		void SetZoomLevel(float level) { m_ZoomLevel = level; }
+		float GetZoomLevel() const		{ return m_ZoomLevel; }
+		void SetZoomLevel(float level)	{ m_ZoomLevel = level; CalculateProjection();}
 
 		OrthographicCameraBounds GetBoumds() { return m_CameraBounds; }
+	
+	private:
+		void CalculateProjection();
+
+	public:
+		void OnEvent(Event& event);
 
 	private:
 		bool OnMouseScrolled(MouseScrolledEvent& event);

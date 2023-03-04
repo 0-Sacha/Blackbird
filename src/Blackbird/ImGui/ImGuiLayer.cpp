@@ -1,17 +1,14 @@
-
-
 #include "ImGuiLayer.h"
-
-#include "Platform/GraphicsPlatform/OpenGL/OpenGLImGuiInclude.h"
-#include "Platform/WindowPlatform/GLFW/GLFWImGuiInclude.h"
-#include "Platform/WindowPlatform/GLFW/GLFWInclude.h"
 
 #include "Blackbird/EngineDetail/Application/Application.h"
 
+
 namespace Blackbird
 {
-	ImGuiLayer::ImGuiLayer()
-		: Layer("ImGuiLayer") {}
+	ImGuiLayer::ImGuiLayer(Application& applicationLinked)
+		: Layer("ImGuiLayer")
+		, m_ApplicationLinked(applicationLinked)
+	{}
 
 	void ImGuiLayer::OnAttach()
 	{
@@ -39,44 +36,44 @@ namespace Blackbird
 			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 		}
 
-		Application& app = Application::GetInstance();
-		GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
-
-		// Setup Platform/Renderer bindings
-		ImGui_ImplGlfw_InitForOpenGL(window, true);
-		ImGui_ImplOpenGL3_Init("#version 410");
+		m_ApplicationLinked.GetEngineContext().Platform().WindowPlatform().ImGUIInit(m_ApplicationLinked.GetWindow());
+		m_ApplicationLinked.GetEngineContext().Platform().GraphicsPlatform().ImGUIInit();
 	}
 
 	void ImGuiLayer::OnDetach()
 	{
-		ImGui_ImplOpenGL3_Shutdown();
-		ImGui_ImplGlfw_Shutdown();
+		m_ApplicationLinked.GetEngineContext().Platform().GraphicsPlatform().ImGUIShutdown();
+		m_ApplicationLinked.GetEngineContext().Platform().WindowPlatform().ImGUIShutdown();
+
 		ImGui::DestroyContext();
 	}
 
 	void ImGuiLayer::BeginFrame()
 	{
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
+		m_ApplicationLinked.GetEngineContext().Platform().GraphicsPlatform().ImGUINewFrame();
+		m_ApplicationLinked.GetEngineContext().Platform().WindowPlatform().ImGUINewFrame();
+
 		ImGui::NewFrame();
+
+		if (m_DockspaceSpecification.Enable)
+			BeginFrameDockspace();
 	}
 
 	void ImGuiLayer::EndFrame()
 	{
+		if (m_DockspaceSpecification.Enable)
+			EndFrameDockspace();
+
 		ImGuiIO& io = ImGui::GetIO();
-		Application& app = Application::GetInstance();
-		io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());
+		io.DisplaySize = ImVec2((float)m_ApplicationLinked.GetWindow().GetWidth(), (float)m_ApplicationLinked.GetWindow().GetHeight());
 
 		// Rendering
 		ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		m_ApplicationLinked.GetEngineContext().Platform().GraphicsPlatform().ImGuiRender();
 
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 		{
-			GLFWwindow* backup_current_context = glfwGetCurrentContext();
-			ImGui::UpdatePlatformWindows();
-			ImGui::RenderPlatformWindowsDefault();
-			glfwMakeContextCurrent(backup_current_context);
+			m_ApplicationLinked.GetEngineContext().Platform().WindowPlatform().ImGuiViewportPass();
 		}
 	}
 
@@ -90,9 +87,63 @@ namespace Blackbird
 	{
 	}
 
+	void ImGuiLayer::BeginFrameDockspace()
+	{
+		ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+		if (m_DockspaceSpecification.OPTFullscreen)
+		{
+			ImGuiViewport* viewport = ImGui::GetMainViewport();
+			ImGui::SetNextWindowPos(viewport->GetWorkPos());
+			ImGui::SetNextWindowSize(viewport->GetWorkSize());
+			ImGui::SetNextWindowViewport(viewport->ID);
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+			window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
+			window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+		}
+		else
+		{
+			m_DockspaceSpecification.DockspaceFlags &= ~ImGuiDockNodeFlags_PassthruCentralNode;
+		}
+
+		// When using ImGuiDockNodeFlags_PassthruCentralNode, DockSpace() will render our background
+		// and handle the pass-thru hole, so we ask Begin() to not render a background.
+		if (m_DockspaceSpecification.DockspaceFlags & ImGuiDockNodeFlags_PassthruCentralNode)
+			window_flags |= ImGuiWindowFlags_NoBackground;
+
+		// Important: note that we proceed even if Begin() returns false (aka window is collapsed).
+		// This is because we want to keep our DockSpace() active. If a DockSpace() is inactive,
+		// all active windows docked into it will lose their parent and become undocked.
+		// We cannot preserve the docking relationship between an active window and an inactive docking, otherwise
+		// any change of dockspace/settings would lead to windows being stuck in limbo and never being visible.
+		if (!m_DockspaceSpecification.OPTPading)
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+
+		ImGui::Begin("DockSpace Demo", &m_DockspaceSpecification.Open, window_flags);
+		if (!m_DockspaceSpecification.OPTPading)
+			ImGui::PopStyleVar();
+
+		if (m_DockspaceSpecification.OPTFullscreen)
+			ImGui::PopStyleVar(2);
+
+		// DockSpace
+		ImGuiIO& io = ImGui::GetIO();
+		if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
+		{
+			ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+			ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), m_DockspaceSpecification.DockspaceFlags);
+		}
+	}
+
+	void ImGuiLayer::EndFrameDockspace()
+	{
+		ImGui::End();
+	}
+
 	bool ImGuiLayer::OnMouseButtonPressed(MouseButtonPressedEvent& e)
 	{
 		ImGuiIO io = ImGui::GetIO();
 		return io.WantCaptureMouse;
 	}
+
 }

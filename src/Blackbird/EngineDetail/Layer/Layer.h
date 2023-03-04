@@ -8,6 +8,8 @@
 
 namespace Blackbird
 {
+	class Application;
+
 	class Layer
 	{
 	public:
@@ -15,6 +17,9 @@ namespace Blackbird
 		Layer(std::string&& debugName);
 
 		virtual ~Layer() {}
+
+		void OnAttachLayer(Application* applicationLinked) { m_ApplicationLinked = applicationLinked; OnAttach(); }
+		void OnDetachLayer(Application* applicationLinked) { BLACKBIRD_ASSERT(m_ApplicationLinked == applicationLinked); OnDetach(); }
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
@@ -24,12 +29,8 @@ namespace Blackbird
 
 		inline const std::string& GetName() const { return m_DebugName; }
 
-	public:
-		void SetEngineContext(EngineContext& context)	{ m_EngineContext = context; }
-		void ClearEngineContext()						{ m_EngineContext.Clear(); }
-
 	protected:
-		EngineContext m_EngineContext;
+		Application* m_ApplicationLinked;
 		std::string m_DebugName;
 	};
 }

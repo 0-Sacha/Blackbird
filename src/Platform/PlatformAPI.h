@@ -1,7 +1,7 @@
 #pragma once
 
-#include "GraphicsPlatform/GraphicsPlatform.h"
-#include "WindowPlatform/WindowPlatform.h"
+#include "GraphicsPlatform/IGraphicsPlatform.h"
+#include "WindowPlatform/IWindowPlatform.h"
 
 #include <memory>
 
@@ -14,7 +14,7 @@ namespace Blackbird
 		GraphicsPlatform::IGraphicsPlatform& GraphicsPlatform() { return *m_GraphicsPlatform; }
 
 	public:
-		Scope<Window> CreateWindow(const WindowProps& props)
+		Ref<Window> CreateWindow(const WindowProps& props)
 		{
 			return m_WindowPlatform->CreateWindow(props, *this);
 		}

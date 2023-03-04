@@ -1,13 +1,13 @@
 #pragma once
 
-#include "StaticContext.h"
+#include "S_Application.h"
 
 namespace Blackbird
 {
 	class S_AssetFactory
 	{
 	public:
-		static IAssetFactory& Get() { return StaticContext::Engine().AssetFactory(); }
+		static IAssetFactory& Get() { return S_Application::Engine().AssetFactory(); }
 
 	public:
 		static Ref<VertexArray> CreateVertexArray()										{ return Get().CreateVertexArray(); }

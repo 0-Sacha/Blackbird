@@ -8,7 +8,7 @@ namespace Blackbird
 	void Renderer::Init(Ref<EngineAPI>& engineAPI)
 	{
 		m_EngineAPI = engineAPI;
-		m_SceneData = CreateScope<SceneData>();
+		m_SceneData = std::make_unique<SceneData>();
 	}
 
 	void Renderer::Shutdown()

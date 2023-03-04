@@ -34,7 +34,7 @@ namespace Blackbird
     {
 	public:
 		IDesigner2D(IDesigner2DManager* defaultManager = nullptr)
-            : m_DefaultManager(defaultManager)
+            : m_DefaultDrawManager(defaultManager)
         {}
 
     public:
@@ -43,20 +43,20 @@ namespace Blackbird
 
         void DefaultDraw()
         {
-            if (m_DefaultManager != nullptr)
-                return Draw(*m_DefaultManager);
+            if (m_DefaultDrawManager != nullptr)
+                return Draw(*m_DefaultDrawManager);
             BLACKBIRD_WARN("Use of DefaultDraw on a Designer2D but there is no DefaultManager set");
         }
 
 		void DefaultDrawInstant()
 		{
-			if (m_DefaultManager != nullptr)
-				return DrawInstant(*m_DefaultManager);
+			if (m_DefaultDrawManager != nullptr)
+				return DrawInstant(*m_DefaultDrawManager);
 			BLACKBIRD_WARN("Use of DefaultDraw on a Designer2D but there is no DefaultManager set");
 		}
 
 	private:
-		IDesigner2DManager* m_DefaultManager = nullptr;
+		IDesigner2DManager* m_DefaultDrawManager = nullptr;
     };
 
 	template <typename DesignerType>

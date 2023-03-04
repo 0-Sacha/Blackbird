@@ -1,13 +1,13 @@
 #pragma once
 
-#include "StaticContext.h"
+#include "S_Application.h"
 
 namespace Blackbird
 {
 	class S_TextureFactory
 	{
 	public:
-		static ITextureFactory& Get() { return StaticContext::Engine().TextureFactory(); }
+		static ITextureFactory& Get() { return S_Application::Engine().TextureFactory(); }
 
 	public:
 		static Ref<SpritesPathsLibrary> CreateSpritesPathsLibrary()

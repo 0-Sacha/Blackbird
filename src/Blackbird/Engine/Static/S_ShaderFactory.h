@@ -1,13 +1,13 @@
 #pragma once
 
-#include "StaticContext.h"
+#include "S_Application.h"
 
 namespace Blackbird
 {
 	class S_ShaderFactory
 	{
 	public:
-		static IShaderFactory& Get() { return StaticContext::Engine().ShaderFactory(); }
+		static IShaderFactory& Get() { return S_Application::Engine().ShaderFactory(); }
 
 	public:
 		static Ref<ShaderPathsLibrary> CreateShaderPathsLibrary() { return Get().CreateShaderPathsLibrary(); }

@@ -33,40 +33,38 @@ namespace Blackbird
 
 	private:
 		void Create(const ApplicationSpecification& specs);
-		void Destroy();
 
 	public:
 		void Run();
+		void Close();
 
+	public:
+		void PushLayer(Ref<Layer> layer);
+		void PushOverlay(Ref<Layer> overlay);
+
+	public:
+		Window& GetWindow() { return *m_Window; }
+		EngineCore::LoggerManager::BasicLogger& Logger() { return m_Logger; }
+		EngineContext& GetEngineContext() { return m_EngineContext; }
+	
+	public:
 		void OnEvent(Event& event);
-
-		void PushLayer(Layer* layer);
-		void PushOverlay(Layer* overlay);
-
-		inline Window& GetWindow() { return *m_Window; }
-		inline static Application& GetInstance() { return *s_Instance; };
-
-		inline static EngineCore::LoggerManager::BasicLogger& Logger() {
-			static auto instance = EngineCore::LoggerManager::BasicLogger("Application", EngineCore::LoggerManager::LogSeverity::Trace);
-			return instance;
-		}
-
+	
 	private:
 		bool OnWindowClose(WindowCloseEvent& event);
 		bool OnWindowResize(WindowResizeEvent& event);
 
 	private:
 		MasterEngineContext m_EngineContext;
-		Scope<Window> m_Window;
-		ImGuiLayer* m_ImGuiLayer;
+		Ref<Window> m_Window;
+		Ref<ImGuiLayer> m_ImGuiLayer;
+
+		EngineCore::LoggerManager::BasicLogger m_Logger;
 
 		bool m_Running = true;
 		bool m_Minimized = false;
 		
 		LayerStack m_LayerStack;
 		float m_LastFrameTime = 0.0f;
-
-	private:
-		static Application* s_Instance;
 	};
 }

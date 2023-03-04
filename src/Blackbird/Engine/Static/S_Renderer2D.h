@@ -1,6 +1,6 @@
 #pragma once
 
-#include "StaticContext.h"
+#include "S_Application.h"
 
 namespace Blackbird
 {
@@ -9,7 +9,7 @@ namespace Blackbird
 	class S_Renderer2D
 	{
 	public:
-		static Renderer2D& Get() { return StaticContext::GetRenderer2D(); }
+		static Renderer2D& Get() { return S_Application::GetRenderer2D(); }
 
 	public:
 		static void BeginScene(OrthographicCamera& camera)	{ Get().BeginScene(camera); }

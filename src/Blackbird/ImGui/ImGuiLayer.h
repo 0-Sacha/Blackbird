@@ -6,12 +6,16 @@
 #include "Blackbird/EngineDetail/Event/KeyboardEvent.h"
 #include "Blackbird/EngineDetail/Event/MouseEvent.h"
 
+#include "imgui.h"
+
 namespace Blackbird
 {
+	class Application;
+
 	class ImGuiLayer : public Layer
 	{
 	public:
-		ImGuiLayer();
+		ImGuiLayer(Application& applicationLinked);
 		~ImGuiLayer() override {}
 
 	public:
@@ -25,6 +29,28 @@ namespace Blackbird
 		void EndFrame();
 
 	private:
+		void BeginFrameDockspace();
+		void EndFrameDockspace();
+
+	private:
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& event);
+
+	private:
+		Application& m_ApplicationLinked;
+	
+	private:
+		struct DockspaceSpecification
+		{
+			bool Enable = true;
+
+			bool OPTFullscreen = true;
+			bool OPTPading = false;
+			ImGuiDockNodeFlags DockspaceFlags = ImGuiDockNodeFlags_None;
+			
+			bool Open = true;
+		};
+
+		DockspaceSpecification m_DockspaceSpecification;
 	};
+
 }

@@ -1,13 +1,13 @@
 #pragma once
 
-#include "StaticContext.h"
+#include "S_Application.h"
 
 namespace Blackbird
 {
 	class S_Input
 	{
 	public:
-		static IInput& Get() { return StaticContext::Engine().Input(); }
+		static IInput& Get() { return S_Application::Engine().Input(); }
 
 	public:
 		inline static bool IsKeyPressed(int keyCode) 				{ return Get().IsKeyPressed(keyCode); }

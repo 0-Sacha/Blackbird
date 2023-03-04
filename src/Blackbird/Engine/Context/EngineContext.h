@@ -44,11 +44,10 @@ namespace Blackbird
     class MasterEngineContext : public EngineContext
 	{
 	public:
-        void Create();
         void Destroy();
 
         void InitPlatformAPI();
-        void InitEngineAPI();
+        void InitEngineAPI(Ref<Window>& window);
         void CreateRenderer();
         void CreateRenderer2D();
     

@@ -5,14 +5,12 @@
 #include "Blackbird/Core/Core.h"
 #include "Blackbird/Engine/Renderer/Renderer.h"
 
-#include "Blackbird/Engine/Static/StaticContext.h"
+#include "Blackbird/Engine/Static/S_Application.h"
 
 #include <glfw/glfw3.h>
 
 namespace Blackbird
 {
-	Application* Application::s_Instance = nullptr;
-
 	Application::Application(const ApplicationSpecification& specs)
 	{
 		Create(specs);
@@ -29,29 +27,26 @@ namespace Blackbird
 
 	void Application::Create(const ApplicationSpecification& specs)
 	{
-		if(s_Instance)
-			BLACKBIRD_ASSERT(false, "Application already exists!");
-
-		s_Instance = this;
+		m_Logger.SetName(specs.Name);
 
 		m_EngineContext.InitPlatformAPI();
 
 		m_Window = m_EngineContext.Platform().CreateWindow({ specs.Name, specs.Width, specs.Height });
 		m_Window->SetEventCallback(BLACKBIRD_BIND_APPEVENT(OnEvent));
 
-		m_EngineContext.InitEngineAPI();
+		m_EngineContext.InitEngineAPI(m_Window);
 		m_EngineContext.CreateRenderer();
 		m_EngineContext.CreateRenderer2D();
 
-		m_ImGuiLayer = new ImGuiLayer();
+		m_ImGuiLayer = std::make_shared<ImGuiLayer>(*this);
 		PushOverlay(m_ImGuiLayer);
 
-		StaticContext::SetEngineContext(m_EngineContext);
+		S_Application::SetDefaultApplication(this);
 	}
 
-	void Application::Destroy()
+	void Application::Close()
 	{
-		m_EngineContext.Destroy();
+		m_Running = false;
 	}
 
 	void Application::Run()
@@ -63,25 +58,29 @@ namespace Blackbird
 
 			if (!m_Minimized)
 			{
-				for (Layer* layer : m_LayerStack)
-					layer->OnUpdate(timeStep);
+				m_LayerStack.ForEach([timeStep](Ref<Layer>& layer)
+					{
+						layer->OnUpdate(timeStep);
+					});
 			}
 
 			m_ImGuiLayer->BeginFrame();
-			for (Layer* layer : m_LayerStack)
-				layer->OnImGuiRender();
+			m_LayerStack.ForEach([](Ref<Layer>& layer)
+				{
+					layer->OnImGuiRender();
+				});
 			m_ImGuiLayer->EndFrame();
 
 			m_Window->OnUpdate();
 		}
 	}
 
-	void Application::PushLayer(Layer* layer)
+	void Application::PushLayer(Ref<Layer> layer)
 	{
 		m_LayerStack.PushLayer(layer);
 	}
 
-	void Application::PushOverlay(Layer* overlay)
+	void Application::PushOverlay(Ref<Layer> overlay)
 	{
 		m_LayerStack.PushOverlay(overlay);
 	}
@@ -94,13 +93,15 @@ namespace Blackbird
 		dispatcher.Dispatch<WindowCloseEvent>(BLACKBIRD_BIND_APPEVENT(OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(BLACKBIRD_BIND_APPEVENT(OnWindowResize));
 
-		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin() && !event.Handled; )
-			(*--it)->OnEvent(event);
+		m_LayerStack.ForEachReverse([&event](Ref<Layer>& layer)
+			{
+				layer->OnEvent(event);
+			});
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& event)
 	{
-		m_Running = false;
+		Close();
 		return true;
 	}
 

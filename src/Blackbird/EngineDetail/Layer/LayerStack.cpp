@@ -1,54 +1,38 @@
-
 #include "LayerStack.h"
 
 namespace Blackbird
 {
-	LayerStack::LayerStack()
-	{
 
+	void LayerStack::PushLayer(Ref<Layer>& layer)
+	{
+		m_Layers.emplace_back(layer);
+		layer->OnAttachLayer(m_ApplicationLinked);
 	}
 
-	LayerStack::~LayerStack()
+	void LayerStack::PushOverlay(Ref<Layer>& overlay)
 	{
-		for (Layer* layer : m_Layers)
-			delete layer;
+		m_Overlay.push_back(overlay);
+		overlay->OnAttachLayer(m_ApplicationLinked);
 	}
 
-	void LayerStack::PushLayer(Layer* layer)
+	void LayerStack::PopLayer(Ref<Layer>& layer)
 	{
-		m_Layers.emplace(m_Layers.begin() + m_LayerInsertIdx, layer);
-		m_LayerInsertIdx++;
-		layer->SetEngineContext(m_ApplicationRendererContext);
-		layer->OnAttach();
-	}
-
-	void LayerStack::PushOverlay(Layer* overlay)
-	{
-		m_Layers.emplace_back(overlay);
-		overlay->SetEngineContext(m_ApplicationRendererContext);
-		overlay->OnAttach();
-	}
-
-	void LayerStack::PopLayer(Layer* layer)
-	{
-		auto it = std::find(m_Layers.begin(), m_Layers.begin() + m_LayerInsertIdx, layer);
-		if (it != m_Layers.begin() + m_LayerInsertIdx)
-		{
-			layer->OnDetach();
-			layer->ClearEngineContext();
-			m_Layers.erase(it);
-			m_LayerInsertIdx--;
-		}
-	}
-
-	void LayerStack::PopOverlay(Layer* overlay)
-	{
-		auto it = std::find(m_Layers.begin() + m_LayerInsertIdx, m_Layers.end(), overlay);
+		auto it = std::find(m_Layers.begin(), m_Layers.begin(), layer);
 		if (it != m_Layers.end())
 		{
-			overlay->OnDetach();
-			overlay->ClearEngineContext();
+			(*it)->OnDetachLayer(m_ApplicationLinked);
 			m_Layers.erase(it);
 		}
 	}
+
+	void LayerStack::PopOverlay(Ref<Layer>& overlay)
+	{
+		auto it = std::find(m_Overlay.begin(), m_Overlay.end(), overlay);
+		if (it != m_Overlay.end())
+		{
+			(*it)->OnDetachLayer(m_ApplicationLinked);
+			m_Overlay.erase(it);
+		}
+	}
+
 }

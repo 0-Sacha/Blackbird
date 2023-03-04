@@ -7,7 +7,7 @@ namespace Blackbird
 	OrthographicCameraController::OrthographicCameraController(IInput& input, float aspectRatio, bool hasRotation)
 		: m_Input(input)
 		, m_AspectRatio(aspectRatio)
-		, m_CameraBounds(-m_AspectRatio * m_ZoomLevel, m_AspectRatio* m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel)
+		, m_CameraBounds{ -m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel }
 		, m_Camera(m_CameraBounds.Left, m_CameraBounds.Right, m_CameraBounds.Bottom, m_CameraBounds.Top)
 		, m_HasRotation(hasRotation)
 	{
@@ -51,6 +51,12 @@ namespace Blackbird
 		m_CameraTranslationSpeed = m_ZoomLevel;
 	}
 
+	void OrthographicCameraController::CalculateProjection()
+	{
+		m_CameraBounds = { -m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel };
+		m_Camera.SetProjection(m_CameraBounds.Left, m_CameraBounds.Right, m_CameraBounds.Bottom, m_CameraBounds.Top);
+	}
+
 	void OrthographicCameraController::OnEvent(Event& event)
 	{
 		EventDispatcher dispatcher(event);
@@ -62,14 +68,14 @@ namespace Blackbird
 	{
 		m_ZoomLevel -= event.GetYOffset() * 0.25f;
 		m_ZoomLevel = std::max(m_ZoomLevel, 0.25f);
-		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
+		CalculateProjection();
 		return false;
 	}
 
 	bool OrthographicCameraController::OnWindowResize(WindowResizeEvent& event)
 	{
 		m_AspectRatio = (float)event.GetWidth() / (float)event.GetHeight();
-		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
+		CalculateProjection();
 		return false;
 	}
 
