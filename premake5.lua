@@ -9,16 +9,14 @@ group "Dependencies"
 	include (Solution.Projects["ImGui"])
 group ""
 
+Solution.ProjectsInfo.PlatformDefineName["Blackbird"] = "BLACKBIRD"
+
 Solution.ProjectsInfo.Includes["Blackbird"] = {
 	"%{Solution.Projects.Blackbird}/",
 	"%{Solution.Projects.Blackbird}/src/",
 
-	"%{Solution.Projects.Blackbird}/Dependencies/",
-	"%{Solution.Projects.Blackbird}/Dependencies/GLFW/include",
-	"%{Solution.Projects.Blackbird}/Dependencies/Glad/include",
+	"%{Solution.Projects.Blackbird}/Dependencies",
 	"%{Solution.Projects.Blackbird}/Dependencies/ImGui",
-	"%{Solution.Projects.Blackbird}/Dependencies/glm",
-	"%{Solution.Projects.Blackbird}/Dependencies/stb_image"
 }
 
 Solution.ProjectsInfo.Defines["Blackbird"] = {
@@ -34,6 +32,11 @@ project "Blackbird"
 	targetdir 	(Solution.Path.ProjectTargetDirectory)
     objdir 		(Solution.Path.ProjectObjectDirectory)
 
+	includedirs {
+		"%{Solution.Projects.Blackbird}/Dependencies/GLFW/include",
+		"%{Solution.Projects.Blackbird}/Dependencies/Glad/include",
+	}
+
 	files {
 		"src/**.h",
 		"src/**.cpp",
@@ -43,15 +46,15 @@ project "Blackbird"
 		"Dependencies/glm/glm/**.inl",
 	}
 
-	Solution.IncludeAndLinkProject("EngineCore")
-	Solution.IncludeProject("Blackbird")
-
 	links {
 		"GLFW",
 		"Glad",
 		"ImGui",
 		"opengl32.lib"
 	}
+
+	Solution.IncludeAndLinkProject("EngineCore")
+	Solution.IncludeProject("Blackbird")
 
 	filter "system:windows"
 		defines "_CRT_SECURE_NO_WARNINGS"
