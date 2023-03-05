@@ -31,12 +31,28 @@ namespace Blackbird {
 				function(overlay);
 		}
 
+		void ForEachStopable(std::function<bool(Ref<Layer>& layer)> function)
+		{
+			for (Ref<Layer>& layer : m_Layers)
+				if (function(layer)) return;
+			for (Ref<Layer>& overlay : m_Overlay)
+				if (function(overlay)) return;
+		}
+
 		void ForEachReverse(std::function<void(Ref<Layer>& layer)> function)
 		{
 			for (Ref<Layer>& overlay : m_Overlay | std::views::reverse)
 				function(overlay);
 			for (Ref<Layer>& layer : m_Layers | std::views::reverse)
 				function(layer);
+		}
+
+		void ForEachReverseStopable(std::function<bool(Ref<Layer>& layer)> function)
+		{
+			for (Ref<Layer>& overlay : m_Overlay | std::views::reverse)
+				if (function(overlay)) return;
+			for (Ref<Layer>& layer : m_Layers | std::views::reverse)
+				if (function(layer)) return;
 		}
 
 	private:

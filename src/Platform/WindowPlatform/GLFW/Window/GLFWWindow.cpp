@@ -117,7 +117,7 @@ namespace Blackbird::WindowPlatform::GLFW
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
 
-		BLACKBIRD_INFO("Creating GLFW-window {0}  {{1}, {2}}", props.Title, props.Width, props.Height);
+		BLACKBIRD_INFO("Creating {0}  {{1}, {2}}", props.Title, props.Width, props.Height);
 
 		if (!s_GLFWInitialized)
 		{

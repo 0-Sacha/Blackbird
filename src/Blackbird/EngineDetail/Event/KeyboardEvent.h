@@ -6,13 +6,18 @@
 
 // KeyPressed, KeyReleased, KeyTyped,
 
-namespace Blackbird {
+namespace Blackbird
+{
 
-	class KeyEvent : public Event
+	class KeyboardEvent : public Event
 	{
 	public:
 		EVENT_CLASS_CATEGORY(EventCategory_Keyboard | EventCategory_Input)
+	};
 
+	class KeyEvent : public KeyboardEvent
+	{
+	public:
 		inline int GetKeyCode() const { return m_KeyCode; }
 		inline KeyboardKey GetKeyboardKey() const { return (KeyboardKey)m_KeyCode; }
 

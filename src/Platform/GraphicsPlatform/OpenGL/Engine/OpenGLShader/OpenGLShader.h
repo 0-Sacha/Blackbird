@@ -4,7 +4,7 @@
 
 #include "Blackbird/Engine/Shader/Shader.h"
 
-namespace Blackbird::GraphicsPlatform::OpenGL 
+namespace Blackbird::GraphicsPlatform::OpenGL
 {
 
 	class OpenGLShader : public Shader
@@ -12,7 +12,7 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 	public:
 		~OpenGLShader() override;
 
-		OpenGLShader(const std::string& name, RendererID id)
+		OpenGLShader(const std::string& name, OpenGLRendererID id)
 			: m_Name(name)
 			, m_RendererID(id)
 		{}
@@ -24,7 +24,7 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 		const std::string& GetName() const override { return m_Name; }
 
 	public:
-		RendererID GetRendererID() { return m_RendererID; }
+		OpenGLRendererID GetRendererID() { return m_RendererID; }
 
 	public:
 		void SetInt(const std::string& name, int data) override									{ UploadUniformInt(name, data); }
@@ -48,11 +48,11 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 		void UploadUniformMat4(const std::string& name, const glm::mat4& data);
 
 	public:
-		static RendererID LinkShader(const Shader::Program& program);
+		static OpenGLRendererID LinkShader(const Shader::Program& program);
 
 	private:
 		std::string m_Name;
-		RendererID m_RendererID;
+		OpenGLRendererID m_RendererID;
 	};
 
 }

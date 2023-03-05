@@ -55,14 +55,20 @@ namespace Blackbird
 
 		ImGui::NewFrame();
 
-		if (m_DockspaceSpecification.Enable)
+		if (m_DockspaceData.Enable)
+		{
 			BeginFrameDockspace();
+			m_DockspaceData.IsFrameOpen = true;
+		}
 	}
 
 	void ImGuiLayer::EndFrame()
 	{
-		if (m_DockspaceSpecification.Enable)
+		if (m_DockspaceData.IsFrameOpen)
+		{
 			EndFrameDockspace();
+			m_DockspaceData.IsFrameOpen = false;
+		}
 
 		ImGuiIO& io = ImGui::GetIO();
 		io.DisplaySize = ImVec2((float)m_ApplicationLinked.GetWindow().GetWidth(), (float)m_ApplicationLinked.GetWindow().GetHeight());
@@ -80,7 +86,8 @@ namespace Blackbird
 	void ImGuiLayer::OnEvent(Event& event)
 	{
 		EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<MouseButtonPressedEvent>(BLACKBIRD_BIND_EVENT(ImGuiLayer::OnMouseButtonPressed));
+		dispatcher.Dispatch<MouseButtonPressedEvent>(BLACKBIRD_BIND_EVENT(OnMouseEvent));
+		dispatcher.Dispatch<MouseScrolledEvent>(BLACKBIRD_BIND_EVENT(OnMouseEvent));
 	}
 
 	void ImGuiLayer::OnImGuiRender()
@@ -90,7 +97,7 @@ namespace Blackbird
 	void ImGuiLayer::BeginFrameDockspace()
 	{
 		ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
-		if (m_DockspaceSpecification.OPTFullscreen)
+		if (m_DockspaceData.OPTFullscreen)
 		{
 			ImGuiViewport* viewport = ImGui::GetMainViewport();
 			ImGui::SetNextWindowPos(viewport->WorkPos);
@@ -103,12 +110,12 @@ namespace Blackbird
 		}
 		else
 		{
-			m_DockspaceSpecification.DockspaceFlags &= ~ImGuiDockNodeFlags_PassthruCentralNode;
+			m_DockspaceData.DockspaceFlags &= ~ImGuiDockNodeFlags_PassthruCentralNode;
 		}
 
 		// When using ImGuiDockNodeFlags_PassthruCentralNode, DockSpace() will render our background
 		// and handle the pass-thru hole, so we ask Begin() to not render a background.
-		if (m_DockspaceSpecification.DockspaceFlags & ImGuiDockNodeFlags_PassthruCentralNode)
+		if (m_DockspaceData.DockspaceFlags & ImGuiDockNodeFlags_PassthruCentralNode)
 			window_flags |= ImGuiWindowFlags_NoBackground;
 
 		// Important: note that we proceed even if Begin() returns false (aka window is collapsed).
@@ -116,22 +123,21 @@ namespace Blackbird
 		// all active windows docked into it will lose their parent and become undocked.
 		// We cannot preserve the docking relationship between an active window and an inactive docking, otherwise
 		// any change of dockspace/settings would lead to windows being stuck in limbo and never being visible.
-		if (!m_DockspaceSpecification.OPTPading)
+		if (!m_DockspaceData.OPTPading)
 			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 
-		ImGui::Begin("DockSpace Demo", &m_DockspaceSpecification.Open, window_flags);
-		if (!m_DockspaceSpecification.OPTPading)
+		ImGui::Begin(m_DockspaceData.DockspaceName, &m_DockspaceData.Open, window_flags);
+		if (!m_DockspaceData.OPTPading)
 			ImGui::PopStyleVar();
 
-		if (m_DockspaceSpecification.OPTFullscreen)
+		if (m_DockspaceData.OPTFullscreen)
 			ImGui::PopStyleVar(2);
 
-		// DockSpace
 		ImGuiIO& io = ImGui::GetIO();
 		if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
 		{
-			ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
-			ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), m_DockspaceSpecification.DockspaceFlags);
+			ImGuiID dockspace_id = ImGui::GetID(m_DockspaceData.DockspaceID);
+			ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), m_DockspaceData.DockspaceFlags);
 		}
 	}
 
@@ -140,10 +146,12 @@ namespace Blackbird
 		ImGui::End();
 	}
 
-	bool ImGuiLayer::OnMouseButtonPressed(MouseButtonPressedEvent& e)
+	bool ImGuiLayer::OnMouseEvent(Event& e)
 	{
+		if (m_EventBlocked)
+			return false;
 		ImGuiIO io = ImGui::GetIO();
-		return io.WantCaptureMouse;
+		return io.WantCaptureMouse || io.WantCaptureKeyboard;
 	}
 
 }

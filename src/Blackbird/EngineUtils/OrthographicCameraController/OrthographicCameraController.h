@@ -22,7 +22,7 @@ namespace Blackbird
 	class OrthographicCameraController
 	{
 	public:
-		OrthographicCameraController(IInput& input, float aspectRatio, bool hasRotation);
+		OrthographicCameraController(IInput& input, float aspectRatio);
 
 	public:
 		void OnUpdate(TimeStep ts);
@@ -30,12 +30,17 @@ namespace Blackbird
 	public:
 		OrthographicCamera& GetCamera() { return m_Camera; }
 		const OrthographicCamera& GetCamera() const { return m_Camera; }
-
-		float GetZoomLevel() const		{ return m_ZoomLevel; }
-		void SetZoomLevel(float level)	{ m_ZoomLevel = level; CalculateProjection();}
-
 		OrthographicCameraBounds GetBoumds() { return m_CameraBounds; }
-	
+		float GetZoomLevel() const { return m_ZoomLevel; }
+
+		void EnableRotation() { m_HasRotation = true; }
+		void DisableRotation() { m_HasRotation = false; }
+
+	public:
+		void SetZoomLevel(float level)			{ m_ZoomLevel = level; CalculateProjection();}
+		void SetAspectRatio(float aspectRatio)	{ m_AspectRatio = aspectRatio; CalculateProjection(); }
+		void SetAspectRatio(std::uint32_t width, std::uint32_t height)	{ m_AspectRatio = (float)width / height; CalculateProjection(); }
+
 	private:
 		void CalculateProjection();
 
@@ -60,7 +65,7 @@ namespace Blackbird
 		glm::vec3 m_CameraPosition = { 0.0f, 0.0f, 0.0f };
 		float m_CameraRotation = 0.0f;
 		float m_CameraTranslationSpeed = 5.0f;
-		float m_CameraRotationSpeed = 180.0f;
+		float m_CameraRotationSpeed = 50.0f;
 	};
 
 }

@@ -24,7 +24,7 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 		void SetData(const void* data, std::uint32_t size) override;
 
 	private:
-		RendererID m_RendererID;
+		OpenGLRendererID m_RendererID;
 		BufferLayout m_Layout;
 	};
 
@@ -42,7 +42,7 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 		uint32_t GetCount() override { return m_Count; };
 
 	private:
-		RendererID m_RendererID;
+		OpenGLRendererID m_RendererID;
 		uint32_t m_Count;
 	};
 }

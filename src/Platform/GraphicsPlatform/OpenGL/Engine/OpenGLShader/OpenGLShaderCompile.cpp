@@ -12,9 +12,9 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 		if (type == ShaderType::None) return 0;
 	}
 
-	static RendererID CompileShader(ShaderType type, const char* const source)
+	static OpenGLRendererID CompileShader(ShaderType type, const char* const source)
 	{
-		RendererID shaderID = glCreateShader(FromShaderTypeToGLenum(type));
+		OpenGLRendererID shaderID = glCreateShader(FromShaderTypeToGLenum(type));
 
 		glShaderSource(shaderID, 1, &source, nullptr);
 
@@ -39,14 +39,14 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 		return shaderID;
 	}
 
-	RendererID OpenGLShader::LinkShader(const Shader::Program& program)
+	OpenGLRendererID OpenGLShader::LinkShader(const Shader::Program& program)
 	{
-		RendererID programID = glCreateProgram();
+		OpenGLRendererID programID = glCreateProgram();
 		
-		std::vector<RendererID> shaders;
+		std::vector<OpenGLRendererID> shaders;
 		for (auto& [shaderType, shaderData] : program)
 		{
-			RendererID shaderID = CompileShader(shaderType, shaderData.data());
+			OpenGLRendererID shaderID = CompileShader(shaderType, shaderData.data());
 			glAttachShader(programID, shaderID);
 			shaders.push_back(shaderID);
 		}
@@ -65,13 +65,13 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 
 			glDeleteProgram(programID);
 
-			for (RendererID shader : shaders)
+			for (OpenGLRendererID shader : shaders)
 				glDeleteShader(shader);
 
 			BLACKBIRD_ERROR("Program has not link : {:null='Could not retrieve the error message'}", log.data());
 		}
 
-		for (RendererID shader : shaders)
+		for (OpenGLRendererID shader : shaders)
 			glDetachShader(programID, shader);
 
 		return programID;

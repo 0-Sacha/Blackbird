@@ -25,6 +25,6 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 		std::uint32_t m_Width;
 		std::uint32_t m_Height;
 
-		RendererID m_RendererID;
+		OpenGLRendererID m_RendererID;
 	};
 }

@@ -12,9 +12,6 @@
 
 #include "Blackbird/ImGui/ImGuiLayer.h"
 
-
-#define BLACKBIRD_BIND_APPEVENT(func) std::bind(&Application::func, this, std::placeholders::_1)
-
 namespace Blackbird
 {
 	struct ApplicationSpecification
@@ -43,10 +40,11 @@ namespace Blackbird
 		void PushOverlay(Ref<Layer> overlay);
 
 	public:
-		Window& GetWindow() { return *m_Window; }
-		EngineCore::LoggerManager::BasicLogger& Logger() { return m_Logger; }
-		EngineContext& GetEngineContext() { return m_EngineContext; }
-	
+		Window& GetWindow()									{ return *m_Window; }
+		EngineCore::LoggerManager::BasicLogger& Logger()	{ return m_Logger; }
+		EngineContext& GetEngineContext()					{ return m_EngineContext; }
+		ImGuiLayer& GetImGuiLayer()							{ return *m_ImGuiLayer; }
+
 	public:
 		void OnEvent(Event& event);
 	

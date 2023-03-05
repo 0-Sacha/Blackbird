@@ -1,4 +1,3 @@
-#pragma once
 #include "OpenGLShaderFactory.h"
 
 #include "OpenGLShader.h"

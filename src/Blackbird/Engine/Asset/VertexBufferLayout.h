@@ -39,19 +39,13 @@ namespace Blackbird
 		BufferLayout(const std::initializer_list<BufferElements>& elements);
 
 	public:
-		inline const std::vector<BufferElements>& GetElements() { return m_Elements; }
+		inline const std::vector<BufferElements>& GetElements()			{ return m_Elements; }
+		inline const std::vector<BufferElements>& GetElements() const	{ return m_Elements; }
 		inline uint32_t GetStride() const { return m_Stride; }
 
 		template <typename... Args>
 		BufferElements& Emplace(Args&&... args) { return m_Elements.emplace_back(std::forward<Args>(args)...); }
 		BufferElements& Push(const BufferElements& element) { m_Elements.push_back(element); }
-
-	public:
-		inline std::vector<BufferElements>::iterator begin() { return m_Elements.begin(); }
-		inline std::vector<BufferElements>::iterator end() { return m_Elements.end(); }
-
-		inline std::vector<BufferElements>::const_iterator begin() const { return m_Elements.begin(); }
-		inline std::vector<BufferElements>::const_iterator end() const { return m_Elements.end(); }
 
 	private:
 		void CalculateOffsetAndStride();

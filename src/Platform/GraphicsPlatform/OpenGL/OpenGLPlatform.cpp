@@ -5,6 +5,8 @@
 #include "Engine/OpenGLShader/OpenGLShaderFactory.h"
 #include "Engine/OpenGLTexture/OpenGLTextureFactory.h"
 
+#include "Engine/OpenGLFramebuffer/OpenGLFramebufferFactory.h"
+
 #include "Engine/Context/OpenGLGLFWContext.h"
 
 #include "OpenGLImGuiInclude.h"
@@ -17,6 +19,8 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 		api.SetAssetFactory(std::make_unique<OpenGL::OpenGLAssetFactory>());
 		api.SetShaderFactory(std::make_unique<OpenGL::OpenGLShaderFactory>());
 		api.SetTextureFactory(std::make_unique<OpenGL::OpenGLTextureFactory>());
+
+		api.SetFramebufferFactory(std::make_unique<OpenGL::OpenGLFramebufferFactory>());
     }
 
 	Scope<IRendererContext> OpenGLPlatform::GetNewGLFWRendererContext(GLFWwindow* window)

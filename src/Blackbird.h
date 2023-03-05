@@ -20,13 +20,6 @@
 #include "Blackbird/Engine/Renderer2D/Renderer2D.h"
 #include "Blackbird/Engine/IRendererCommand.h"
 
+#include "Blackbird/Engine/BlackbirdStatic/BlackbirdStatic.h"
+
 #include "Platform/GraphicsPlatform/OpenGL/Utils/Debug/OpenGlDebug.h"
-
-
-#include "Blackbird/Engine/Static/S_Input.h"
-#include "Blackbird/Engine/Static/S_AssetFactory.h"
-#include "Blackbird/Engine/Static/S_ShaderFactory.h"
-#include "Blackbird/Engine/Static/S_TextureFactory.h"
-#include "Blackbird/Engine/Static/S_RendererCommand.h"
-#include "Blackbird/Engine/Static/S_Renderer.h"
-#include "Blackbird/Engine/Static/S_Renderer2D.h"

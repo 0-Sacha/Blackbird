@@ -18,6 +18,7 @@ namespace Blackbird
 		static Window& GetWindow()									{ return s_Application->GetWindow(); }
 		static EngineCore::LoggerManager::BasicLogger& Logger()		{ return s_Application->Logger(); }
 		static EngineContext& GetEngineContext()					{ return s_Application->GetEngineContext(); }
+		static ImGuiLayer& GetImGuiLayer()							{ return s_Application->GetImGuiLayer(); }
 		static void OnEvent(Event& event)							{ return s_Application->OnEvent(event); }
 
 	public:

@@ -5,7 +5,7 @@
 #include "Blackbird/Core/Core.h"
 #include "Blackbird/Engine/Renderer/Renderer.h"
 
-#include "Blackbird/Engine/Static/S_Application.h"
+#include "Blackbird/Engine/BlackbirdStatic/S_Application.h"
 
 #include <glfw/glfw3.h>
 
@@ -32,7 +32,7 @@ namespace Blackbird
 		m_EngineContext.InitPlatformAPI();
 
 		m_Window = m_EngineContext.Platform().CreateWindow({ specs.Name, specs.Width, specs.Height });
-		m_Window->SetEventCallback(BLACKBIRD_BIND_APPEVENT(OnEvent));
+		m_Window->SetEventCallback(BLACKBIRD_BIND_EVENT(OnEvent));
 
 		m_EngineContext.InitEngineAPI(m_Window);
 		m_EngineContext.CreateRenderer();
@@ -90,12 +90,13 @@ namespace Blackbird
 		BLACKBIRD_EVENT_TRACE(event);
 
 		EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<WindowCloseEvent>(BLACKBIRD_BIND_APPEVENT(OnWindowClose));
-		dispatcher.Dispatch<WindowResizeEvent>(BLACKBIRD_BIND_APPEVENT(OnWindowResize));
+		dispatcher.Dispatch<WindowCloseEvent>(BLACKBIRD_BIND_EVENT(OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(BLACKBIRD_BIND_EVENT(OnWindowResize));
 
-		m_LayerStack.ForEachReverse([&event](Ref<Layer>& layer)
+		m_LayerStack.ForEachReverseStopable([&event](Ref<Layer>& layer)
 			{
 				layer->OnEvent(event);
+				return event.Handled;
 			});
 	}
 
@@ -118,4 +119,5 @@ namespace Blackbird
 
 		return false;
 	}
+
 }

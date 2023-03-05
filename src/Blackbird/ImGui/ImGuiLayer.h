@@ -28,29 +28,41 @@ namespace Blackbird
 		void BeginFrame();
 		void EndFrame();
 
+	public:
+		void BlockEvent()	{ m_EventBlocked = true; }
+		void UnblockEvent() { m_EventBlocked = false; }
+
+	public:
+		void EnableDockspace()	{ m_DockspaceData.Enable = true; }
+		void DisableDockspace()	{ m_DockspaceData.Enable = false; }
+
 	private:
 		void BeginFrameDockspace();
 		void EndFrameDockspace();
 
 	private:
-		bool OnMouseButtonPressed(MouseButtonPressedEvent& event);
+		bool OnMouseEvent(Event& event);
 
 	private:
-		Application& m_ApplicationLinked;
-	
-	private:
-		struct DockspaceSpecification
+		struct DockspaceData
 		{
-			bool Enable = true;
+			bool Enable = false;
 
 			bool OPTFullscreen = true;
 			bool OPTPading = false;
 			ImGuiDockNodeFlags DockspaceFlags = ImGuiDockNodeFlags_None;
-			
-			bool Open = true;
-		};
+			const char* DockspaceName = "Dockspace";
+			const char* DockspaceID = "Dockspace";
 
-		DockspaceSpecification m_DockspaceSpecification;
+			bool Open = true;
+
+			bool IsFrameOpen = false;
+		};
+	
+	private:
+		Application& m_ApplicationLinked;
+		DockspaceData m_DockspaceData;
+		bool m_EventBlocked = false;
 	};
 
 }

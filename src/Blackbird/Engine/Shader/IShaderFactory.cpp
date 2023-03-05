@@ -40,7 +40,9 @@ namespace Blackbird
 		{
 			size_t eol = data.find_first_of("\r\n", pos);
 			if (eol == std::string::npos)
+			{
 				BLACKBIRD_ASSERT(false, "Shader Syntax error");
+			}
 
 			size_t beg = pos + token.size() + 1;
 			std::string type = data.substr(beg, eol - beg);

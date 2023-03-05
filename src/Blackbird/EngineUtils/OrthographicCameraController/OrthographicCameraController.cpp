@@ -1,15 +1,12 @@
 #include "OrthographicCameraController.h"
 
-#include "Blackbird/Engine/Static/S_Input.h"
-
 namespace Blackbird
 {
-	OrthographicCameraController::OrthographicCameraController(IInput& input, float aspectRatio, bool hasRotation)
+	OrthographicCameraController::OrthographicCameraController(IInput& input, float aspectRatio)
 		: m_Input(input)
 		, m_AspectRatio(aspectRatio)
 		, m_CameraBounds{ -m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel }
 		, m_Camera(m_CameraBounds.Left, m_CameraBounds.Right, m_CameraBounds.Bottom, m_CameraBounds.Top)
-		, m_HasRotation(hasRotation)
 	{
 	}
 
@@ -74,8 +71,7 @@ namespace Blackbird
 
 	bool OrthographicCameraController::OnWindowResize(WindowResizeEvent& event)
 	{
-		m_AspectRatio = (float)event.GetWidth() / (float)event.GetHeight();
-		CalculateProjection();
+		SetAspectRatio(event.GetWidth(), event.GetHeight());
 		return false;
 	}
 

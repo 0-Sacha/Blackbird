@@ -4,5 +4,5 @@
 
 namespace Blackbird::GraphicsPlatform::OpenGL
 {
-	using RendererID = unsigned int;
+	using OpenGLRendererID = unsigned int;
 }

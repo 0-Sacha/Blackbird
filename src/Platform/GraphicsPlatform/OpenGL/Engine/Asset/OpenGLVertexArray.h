@@ -24,7 +24,7 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 		const Ref<IndexBuffer>& GetIndexBuffer() const override { return m_IndexBuffer; }
 
 	private:
-		RendererID m_RendererID;
+		OpenGLRendererID m_RendererID;
 		std::vector<Ref<VertexBuffer>> m_VertexBuffers;
 		Ref<IndexBuffer> m_IndexBuffer;
 	};

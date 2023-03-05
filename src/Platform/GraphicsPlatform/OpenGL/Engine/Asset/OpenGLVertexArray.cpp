@@ -58,7 +58,7 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 		
 		uint32_t index = 0;
 		const auto& layout = vertexBuffer->GetLayout();
-		for(const auto& element : layout) {
+		for(const auto& element : layout.GetElements()) {
 			glEnableVertexAttribArray(index);
 			glVertexAttribPointer(index,
 				element.GetComponentCount(),
