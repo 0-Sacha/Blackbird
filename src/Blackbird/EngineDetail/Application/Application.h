@@ -26,10 +26,11 @@ namespace Blackbird
 	public:
 		Application(const ApplicationSpecification& specs = ApplicationSpecification{});
 		Application(const std::string& name, uint32_t width = 1280, uint32_t height = 720);
-		virtual ~Application() = default;
+		~Application();
 
 	private:
 		void Create(const ApplicationSpecification& specs);
+		void Destroy();
 
 	public:
 		void Run();
@@ -53,16 +54,14 @@ namespace Blackbird
 		bool OnWindowResize(WindowResizeEvent& event);
 
 	private:
+		ProjectCore::LoggerManager::BasicLogger m_Logger;
 		MasterEngineContext m_EngineContext;
 		Ref<Window> m_Window;
 		Ref<ImGuiLayer> m_ImGuiLayer;
-
-		ProjectCore::LoggerManager::BasicLogger m_Logger;
+		LayerStack m_LayerStack;
 
 		bool m_Running = true;
 		bool m_Minimized = false;
-		
-		LayerStack m_LayerStack;
 		float m_LastFrameTime = 0.0f;
 	};
 }

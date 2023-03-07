@@ -57,16 +57,16 @@ namespace Blackbird
 
     void MasterEngineContext::Destroy()
     {
-		// m_PlatformAPI->Shutdown();
-        m_PlatformAPI = nullptr;
-
-        m_EngineAPI = nullptr;
-        m_EngineAPI->Shutdown();
-
-        m_Renderer = nullptr;
 		m_Renderer->Shutdown();
+        m_Renderer = nullptr;
 
-        m_Renderer2D = nullptr;
 		m_Renderer2D->Shutdown();
+        m_Renderer2D = nullptr;
+
+        m_EngineAPI->Shutdown();
+        m_EngineAPI = nullptr;
+
+        // m_PlatformAPI->Shutdown();
+        m_PlatformAPI = nullptr;
     }
 }

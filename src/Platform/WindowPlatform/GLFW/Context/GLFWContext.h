@@ -12,13 +12,14 @@ namespace Blackbird::WindowPlatform::GLFW
 	{
 	public:
 		IGLFWContext(GLFWwindow* windowHandle);
+		~IGLFWContext() override = default;
 
 	public:
 		void Init() override final;
 		void SwapBuffer() override final;
 		void Destroy() override final;
 
-		virtual int InitGraphicsPlatform(GLFWContextInitializer proc) = 0;
+		virtual void InitGraphicsPlatform(GLFWContextInitializer proc) = 0;
 
 	protected:
 		GLFWwindow* m_WindowHandle;

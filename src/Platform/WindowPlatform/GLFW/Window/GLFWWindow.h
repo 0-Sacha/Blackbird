@@ -13,7 +13,7 @@ namespace Blackbird::WindowPlatform::GLFW
 	{
 	public:
 		GLFWWindow(const WindowProps& props, PlatformAPI& platformAPI);
-		virtual ~GLFWWindow();
+		~GLFWWindow() override;
 
 		void OnUpdate() override;
 

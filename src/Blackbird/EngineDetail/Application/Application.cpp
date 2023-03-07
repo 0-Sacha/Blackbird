@@ -25,6 +25,11 @@ namespace Blackbird
 		Create(specs);
 	}
 
+	Application::~Application()
+	{
+		Destroy();
+	}
+
 	void Application::Create(const ApplicationSpecification& specs)
 	{
 		m_Logger.SetName(specs.Name);
@@ -44,6 +49,22 @@ namespace Blackbird
 		S_Application::SetDefaultApplication(this);
 	}
 
+	void Application::Destroy()
+	{
+		m_LayerStack.ForEach([](Ref<Layer>& layer) {
+			layer->OnDetach();
+			});
+		m_LayerStack.Clear();
+		m_ImGuiLayer = nullptr;
+
+		BLACKBIRD_WARN("Window uses: {}", m_Window.use_count());
+		m_Window = nullptr;
+
+		BLACKBIRD_WARN("PlatformAPI uses : {}", m_EngineContext.PlatformRef().use_count());
+		BLACKBIRD_ASSERT(m_EngineContext.PlatformRef().use_count() == 1, "PlatformAPI is still use");
+		m_EngineContext.Destroy();
+	}
+
 	void Application::Close()
 	{
 		m_Running = false;
@@ -51,7 +72,8 @@ namespace Blackbird
 
 	void Application::Run()
 	{
-		while(m_Running) {
+		while(m_Running)
+		{
 			float time = (float)glfwGetTime();
 			TimeStep timeStep = time - m_LastFrameTime;
 			m_LastFrameTime = time;

@@ -13,8 +13,7 @@ namespace Blackbird::WindowPlatform::GLFW
 	void IGLFWContext::Init()
 	{
 		glfwMakeContextCurrent(m_WindowHandle);
-		int status = InitGraphicsPlatform((GLFWContextInitializer)glfwGetProcAddress);
-		BLACKBIRD_ASSERT(status, "Failed to initialize Glad!");
+		InitGraphicsPlatform((GLFWContextInitializer)glfwGetProcAddress);
 	}
 
 	void IGLFWContext::Destroy()

@@ -10,6 +10,9 @@ namespace Blackbird
 	class IInput
 	{
 	public:
+		virtual ~IInput() = default;
+
+	public:
 		virtual bool IsKeyPressed(int keycode) = 0;
 
 		virtual bool IsMouseBtPressed(int btCode) = 0;

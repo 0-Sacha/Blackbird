@@ -16,6 +16,12 @@ namespace Blackbird {
 		void PopLayer(Ref<Layer>& layer);
 		void PopOverlay(Ref<Layer>& overlay);
 
+		void Clear()
+		{
+			m_Layers.clear();
+			m_Overlay.clear();
+		}
+
 	public:
 		std::vector<Ref<Layer>>& GetLayers() 				{ return m_Layers; }
 		const std::vector<Ref<Layer>>& GetLayers() const 	{ return m_Layers; }

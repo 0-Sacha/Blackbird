@@ -15,6 +15,9 @@ namespace Blackbird::GraphicsPlatform
 {
     class IGraphicsPlatform
     {
+	public:
+		virtual ~IGraphicsPlatform() = default;
+
     public:
         virtual void InitEngineAPI(EngineAPI& api) = 0;
         virtual Scope<IRendererContext> GetNewGLFWRendererContext(GLFWwindow* window) = 0;

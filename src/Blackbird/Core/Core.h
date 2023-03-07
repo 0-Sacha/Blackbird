@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Flags.h"
-
 #include "ProjectCore/LoggerManager/LoggerManager.h"
 
 #include <utility>
@@ -30,7 +28,7 @@ namespace Blackbird
 }
 
 
-#ifdef BLACKBIRD_DEBUG
+#ifdef BLACKBIRD_TARGET_DEBUG
 	#define BLACKBIRD_ENABLE_ASSERTS
 	#define BLACKBIRD_ENABLE_LOGGER
 
@@ -39,12 +37,14 @@ namespace Blackbird
 
 #ifdef BLACKBIRD_ENABLE_LOGGER
 	#define BLACKBIRD_TRACE(...)	Blackbird::Core::Logger().Trace(__VA_ARGS__)
+	#define BLACKBIRD_DEBUG(...)	Blackbird::Core::Logger().Debug(__VA_ARGS__)
 	#define BLACKBIRD_INFO(...)		Blackbird::Core::Logger().Info(__VA_ARGS__)
 	#define BLACKBIRD_WARN(...)		Blackbird::Core::Logger().Warn(__VA_ARGS__)
 	#define BLACKBIRD_ERROR(...)	Blackbird::Core::Logger().Error(__VA_ARGS__)
 	#define BLACKBIRD_FATAL(...)	Blackbird::Core::Logger().Fatal(__VA_ARGS__)
 #else
 	#define BLACKBIRD_TRACE(...)
+	#define BLACKBIRD_DEBUG(...)
 	#define BLACKBIRD_INFO(...)
 	#define BLACKBIRD_WARN(...)
 	#define BLACKBIRD_ERROR(...)

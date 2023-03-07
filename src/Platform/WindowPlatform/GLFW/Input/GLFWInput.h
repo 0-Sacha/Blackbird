@@ -11,6 +11,8 @@ namespace Blackbird::WindowPlatform::GLFW
 		GLFWInput(Ref<Window>& window)
 			: m_Window(window)
 		{}
+
+		~GLFWInput() override = default;
 	
 	public:
 		bool IsKeyPressed(int keyCode) override;

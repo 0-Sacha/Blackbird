@@ -24,7 +24,7 @@ namespace Blackbird
 		void SetGraphicsPlatform(std::unique_ptr<GraphicsPlatform::IGraphicsPlatform>&& graphicsPlatform) 	{ m_GraphicsPlatform = std::move(graphicsPlatform); }
 
 	private:
-		std::unique_ptr<WindowPlatform::IWindowPlatform> m_WindowPlatform;
-		std::unique_ptr<GraphicsPlatform::IGraphicsPlatform> m_GraphicsPlatform;
+		Scope<WindowPlatform::IWindowPlatform> m_WindowPlatform;
+		Scope<GraphicsPlatform::IGraphicsPlatform> m_GraphicsPlatform;
 	};
 }

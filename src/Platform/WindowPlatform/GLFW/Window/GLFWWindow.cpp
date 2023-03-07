@@ -128,6 +128,7 @@ namespace Blackbird::WindowPlatform::GLFW
 		}
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, props.Title.c_str(), nullptr, nullptr);
+		BLACKBIRD_DEBUG("GLFW Window created");
 
 		m_RendererContext = platformAPI.GraphicsPlatform().GetNewGLFWRendererContext(m_Window);
 		m_RendererContext->Init();
@@ -144,11 +145,15 @@ namespace Blackbird::WindowPlatform::GLFW
 		glfwSetMouseButtonCallback(m_Window, GLFWMouseButtonCallback);
 		glfwSetScrollCallback(m_Window, GLFWScrollCallback);
 		glfwSetCursorPosCallback(m_Window, GLFWCursorPosCallback);
+		BLACKBIRD_DEBUG("GLFW Event Binded");
 	}
 
 	void GLFWWindow::Shutdown()
 	{
 		m_RendererContext->Destroy();
+		glfwDestroyWindow(m_Window);
+		glfwTerminate();
+		BLACKBIRD_DEBUG("GLFW Destroyed");
 	}
 
 	void GLFWWindow::OnUpdate()

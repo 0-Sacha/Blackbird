@@ -15,7 +15,10 @@ namespace Blackbird::WindowPlatform
 {
     class IWindowPlatform
     {
-    public:
+	public:
+		virtual ~IWindowPlatform() = default;
+    
+	public:
         virtual void InitEngineAPI(EngineAPI& api, Ref<Window>& window) = 0;
         virtual Ref<Window> CreateWindow(const WindowProps& props, PlatformAPI& api) = 0;
 

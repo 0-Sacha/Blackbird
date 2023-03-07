@@ -9,9 +9,10 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 	{
 	public:
 		OpenGLGLFWContext(GLFWwindow* windowHandle);
+		~OpenGLGLFWContext() override = default;
 
 	public:
-		int InitGraphicsPlatform(GLFWContextInitializer proc) override;
+		void InitGraphicsPlatform(GLFWContextInitializer proc) override;
 		void DisplayInfo() override;
 	};
 }

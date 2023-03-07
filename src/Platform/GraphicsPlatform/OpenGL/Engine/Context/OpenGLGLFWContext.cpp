@@ -12,9 +12,10 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 		BLACKBIRD_ASSERT(m_WindowHandle != nullptr, "WindowHandle is null");
 	}
 
-	int OpenGLGLFWContext::InitGraphicsPlatform(GLFWContextInitializer proc)
+	void OpenGLGLFWContext::InitGraphicsPlatform(GLFWContextInitializer proc)
 	{
-		return gladLoadGLLoader((GLADloadproc)proc);
+		int status = gladLoadGLLoader((GLADloadproc)proc);
+		BLACKBIRD_ASSERT(status, "Failed to initialize Glad!");
 	}
 
 	void OpenGLGLFWContext::DisplayInfo()
