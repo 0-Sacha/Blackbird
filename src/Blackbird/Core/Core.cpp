@@ -1,7 +1,7 @@
 #include "Core.h"
 
-EngineCore::LoggerManager::BasicLogger& Blackbird::Core::Logger()
+ProjectCore::LoggerManager::BasicLogger& Blackbird::Core::Logger()
 {
-	static EngineCore::LoggerManager::BasicLogger instance("Blackbird");
+	static ProjectCore::LoggerManager::BasicLogger instance("Blackbird");
 	return instance;
 }

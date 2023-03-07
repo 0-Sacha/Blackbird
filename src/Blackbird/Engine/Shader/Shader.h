@@ -47,7 +47,7 @@ namespace Blackbird
 
 }
 
-namespace EngineCore::FMT
+namespace ProjectCore::FMT
 {
 	template<typename FormatContext>
 	struct FormatterType<Blackbird::ShaderType, FormatContext>

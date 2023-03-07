@@ -34,7 +34,7 @@ project "Blackbird"
 
 	includedirs {
 		"%{Solution.Projects.Blackbird}/Dependencies/GLFW/include",
-		"%{Solution.Projects.Blackbird}/Dependencies/Glad/include",
+		"%{Solution.Projects.Blackbird}/Dependencies/Glad/include"
 	}
 
 	files {
@@ -44,6 +44,9 @@ project "Blackbird"
 		"Dependencies/stb_image/**.cpp",
 		"Dependencies/glm/glm/**.hpp",
 		"Dependencies/glm/glm/**.inl",
+
+		"Dependencies/Glad/include/glad.h",
+		"Dependencies/Glad/src/glad.c",
 	}
 
 	links {
@@ -53,7 +56,7 @@ project "Blackbird"
 		"opengl32.lib"
 	}
 
-	Solution.IncludeAndLinkProject("EngineCore")
+	Solution.IncludeAndLinkProject("ProjectCore")
 	Solution.IncludeProject("Blackbird")
 
 	filter "system:windows"

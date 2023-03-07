@@ -2,7 +2,7 @@
 
 #include <glad/glad.h>
 
-namespace EngineCore::FMT
+namespace ProjectCore::FMT
 {
 	template<typename FormatContext>
 	struct FormatterType<GLubyte*, FormatContext>

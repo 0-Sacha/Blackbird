@@ -1,4 +1,4 @@
-
+#include <glad/glad.h>
 #include "OpenGlDebug.h"
 
 namespace Blackbird::GraphicsPlatform::OpenGL {

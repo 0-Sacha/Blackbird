@@ -2,7 +2,7 @@
 
 #include "Flags.h"
 
-#include "EngineCore/LoggerManager/LoggerManager.h"
+#include "ProjectCore/LoggerManager/LoggerManager.h"
 
 #include <utility>
 #include <memory>
@@ -17,7 +17,7 @@ namespace Blackbird
 	class Core
 	{
 	public:
-		static EngineCore::LoggerManager::BasicLogger& Logger();
+		static ProjectCore::LoggerManager::BasicLogger& Logger();
 	};
 
 	class BlackbirdException : public std::exception

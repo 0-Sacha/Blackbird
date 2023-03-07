@@ -1,10 +1,14 @@
 #pragma once
 
-#include <glad/glad.h>
 #include "Blackbird/Core/Core.h"
 
-namespace Blackbird::GraphicsPlatform::OpenGL {
+typedef unsigned int GLenum;
+typedef unsigned int GLuint;
+typedef int GLsizei;
+typedef char GLchar;
 
+namespace Blackbird::GraphicsPlatform::OpenGL
+{
 	enum class OpenGlDebugLevel
 	{
 		None,

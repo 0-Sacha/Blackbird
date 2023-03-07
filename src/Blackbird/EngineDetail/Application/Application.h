@@ -41,7 +41,7 @@ namespace Blackbird
 
 	public:
 		Window& GetWindow()									{ return *m_Window; }
-		EngineCore::LoggerManager::BasicLogger& Logger()	{ return m_Logger; }
+		ProjectCore::LoggerManager::BasicLogger& Logger()	{ return m_Logger; }
 		EngineContext& GetEngineContext()					{ return m_EngineContext; }
 		ImGuiLayer& GetImGuiLayer()							{ return *m_ImGuiLayer; }
 
@@ -57,7 +57,7 @@ namespace Blackbird
 		Ref<Window> m_Window;
 		Ref<ImGuiLayer> m_ImGuiLayer;
 
-		EngineCore::LoggerManager::BasicLogger m_Logger;
+		ProjectCore::LoggerManager::BasicLogger m_Logger;
 
 		bool m_Running = true;
 		bool m_Minimized = false;
