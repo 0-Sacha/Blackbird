@@ -4,7 +4,7 @@
 
 #include "imgui.h"
 
-namespace Blackbird::WindowPlatform::GLFW
+namespace Blackbird::WindowPlatforms::GLFW
 {
 	class GLFWImGuiPlatform : public ImGuiLayer::IImGuiWindowPlatform
 	{

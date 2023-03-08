@@ -2,7 +2,7 @@
 
 #include "Platform/WindowPlatform/IWindowPlatform.h"
 
-namespace Blackbird::WindowPlatform::GLFW
+namespace Blackbird::WindowPlatforms::GLFW
 {
 
     class GLFWPlatform final : public IWindowPlatform

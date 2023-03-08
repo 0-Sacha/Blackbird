@@ -3,7 +3,7 @@
 #include "OpenGLVertexArray.h"
 #include "OpenGLVertexBuffer.h"
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
 	Ref<VertexArray> OpenGLAssetFactory::CreateVertexArray()
 	{

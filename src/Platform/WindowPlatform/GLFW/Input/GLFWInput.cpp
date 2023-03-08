@@ -3,7 +3,7 @@
 #include "Blackbird/EngineDetail/Application/Application.h"
 #include <GLFW/glfw3.h>
 
-namespace Blackbird::WindowPlatform::GLFW
+namespace Blackbird::WindowPlatforms::GLFW
 {
 
 	bool GLFWInput::IsKeyPressed(int keyCode)

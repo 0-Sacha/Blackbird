@@ -2,7 +2,7 @@
 
 #include "Blackbird/Engine/Shader/IShaderFactory.h"
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
 	class OpenGLShaderFactory final : public IShaderFactory
 	{

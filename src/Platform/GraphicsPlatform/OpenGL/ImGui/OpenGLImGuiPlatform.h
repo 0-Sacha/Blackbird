@@ -4,7 +4,7 @@
 
 #include "imgui.h"
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
 	class OpenGLImGuiPlatform : public ImGuiLayer::IImGuiGraphicsPlatform
 	{

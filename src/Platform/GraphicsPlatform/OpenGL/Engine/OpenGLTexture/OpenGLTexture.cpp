@@ -3,7 +3,7 @@
 
 #include "glad/glad.h"
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
 
 	void static GetFormatsFromChannels(std::size_t channelSize, GLenum& internalFormat, GLenum& format)

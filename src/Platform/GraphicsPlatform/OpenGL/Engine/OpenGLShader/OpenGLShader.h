@@ -4,7 +4,7 @@
 
 #include "Blackbird/Engine/Shader/Shader.h"
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
 
 	class OpenGLShader : public Shader

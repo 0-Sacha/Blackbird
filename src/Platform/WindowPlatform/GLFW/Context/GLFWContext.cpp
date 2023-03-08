@@ -2,7 +2,7 @@
 
 #include <GLFW/glfw3.h>
 
-namespace Blackbird::WindowPlatform::GLFW
+namespace Blackbird::WindowPlatforms::GLFW
 {
 	IGLFWContext::IGLFWContext(GLFWwindow* windowHandle)
 		: m_WindowHandle(windowHandle)

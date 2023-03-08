@@ -3,7 +3,7 @@
 #include "Platform/GraphicsPlatform/OpenGL/OpenGLCore.h"
 #include "Blackbird/Engine/Texture/Texture.h"
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
 	class OpenGLTexture2D : public Texture2D
 	{

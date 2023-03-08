@@ -2,7 +2,7 @@
 
 #include "Blackbird/Engine/Asset/IAssetFactory.h"
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
 	class OpenGLAssetFactory final : public IAssetFactory
 	{

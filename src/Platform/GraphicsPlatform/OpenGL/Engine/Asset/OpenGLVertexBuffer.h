@@ -4,7 +4,7 @@
 #include "Platform/GraphicsPlatform/OpenGL/OpenGLCore.h"
 #include "Blackbird/Engine/Asset/VertexBuffer.h"
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
 
 	class OpenGLVertexBuffer : public VertexBuffer

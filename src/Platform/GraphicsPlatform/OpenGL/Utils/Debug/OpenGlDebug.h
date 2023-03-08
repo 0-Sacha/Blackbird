@@ -7,7 +7,7 @@ typedef unsigned int GLuint;
 typedef int GLsizei;
 typedef char GLchar;
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
 	enum class OpenGlDebugLevel
 	{

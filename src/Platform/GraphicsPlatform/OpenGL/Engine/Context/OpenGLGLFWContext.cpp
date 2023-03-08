@@ -4,10 +4,10 @@
 
 #include "Platform/GraphicsPlatform/OpenGL/Utils/OpenGLFormat.h"
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
 	OpenGLGLFWContext::OpenGLGLFWContext(GLFWwindow* windowHandle)
-		: WindowPlatform::GLFW::IGLFWContext(windowHandle)
+		: WindowPlatforms::GLFW::IGLFWContext(windowHandle)
 	{
 		BLACKBIRD_ASSERT(m_WindowHandle != nullptr, "WindowHandle is null");
 	}

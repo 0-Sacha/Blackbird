@@ -2,7 +2,7 @@
 
 #include "Blackbird/Core/Core.h"
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
 	using OpenGLRendererID = unsigned int;
 }

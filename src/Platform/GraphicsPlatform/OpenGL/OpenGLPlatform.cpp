@@ -11,7 +11,7 @@
 
 #include "ImGui/OpenGLImGuiPlatform.h"
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
     void OpenGLPlatform::InitEngineAPI(EngineAPI& api)
     {

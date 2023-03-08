@@ -12,7 +12,7 @@ namespace Blackbird
     class PlatformAPI;
 }
 
-namespace Blackbird::GraphicsPlatform
+namespace Blackbird::GraphicsPlatforms
 {
     class IGraphicsPlatform
     {

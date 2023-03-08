@@ -2,7 +2,7 @@
 
 #include "Platform/GraphicsPlatform/IGraphicsPlatform.h"
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
 
     class OpenGLPlatform final : public IGraphicsPlatform

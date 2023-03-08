@@ -3,7 +3,7 @@
 #include "Blackbird/EngineDetail/Input/IInput.h"
 #include "Blackbird/EngineDetail/Window.h"
 
-namespace Blackbird::WindowPlatform::GLFW
+namespace Blackbird::WindowPlatforms::GLFW
 {
 	class GLFWInput : public IInput
 	{

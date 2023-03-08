@@ -2,7 +2,7 @@
 
 #include "Blackbird/Engine/Framebuffer/Framebuffer.h"
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
 
 	class OpenGLFramebuffer final : public Framebuffer

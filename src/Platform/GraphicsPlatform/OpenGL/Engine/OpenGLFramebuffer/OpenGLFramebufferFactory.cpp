@@ -2,7 +2,7 @@
 
 #include "OpenGLFramebuffer.h"
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
 	Ref<Framebuffer> OpenGLFramebufferFactory::Create(const FramebufferSpecification& specification)
 	{

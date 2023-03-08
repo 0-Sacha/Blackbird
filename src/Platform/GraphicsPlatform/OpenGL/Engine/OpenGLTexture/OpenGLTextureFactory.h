@@ -2,7 +2,7 @@
 
 #include "Blackbird/Engine/Texture/ITextureFactory.h"
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
 	class OpenGLTextureFactory final : public ITextureFactory
 	{

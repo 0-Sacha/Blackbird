@@ -3,7 +3,7 @@
 #include "glad/glad.h"
 #include "backends/imgui_impl_opengl3.h"
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
 
 	void OpenGLImGuiPlatform::InitImpl()

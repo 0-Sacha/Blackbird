@@ -25,7 +25,7 @@ static uint32_t FormShaderDataTypeToOpenGL(Blackbird::ShaderData::Type type)
 	return 0;
 }
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
 
 	OpenGLVertexArray::OpenGLVertexArray()

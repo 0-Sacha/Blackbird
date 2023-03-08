@@ -12,7 +12,7 @@ namespace Blackbird
     class PlatformAPI;
 }
 
-namespace Blackbird::WindowPlatform
+namespace Blackbird::WindowPlatforms
 {
     class IWindowPlatform
     {

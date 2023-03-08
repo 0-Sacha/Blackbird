@@ -4,7 +4,7 @@
 #include "Blackbird/Engine/Asset/VertexArray.h"
 
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
 
 	class OpenGLVertexArray : public VertexArray

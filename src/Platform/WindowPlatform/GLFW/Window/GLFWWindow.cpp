@@ -7,7 +7,7 @@
 
 #include <GLFW/glfw3.h>
 
-namespace Blackbird::WindowPlatform::GLFW
+namespace Blackbird::WindowPlatforms::GLFW
 {
 	static bool s_GLFWInitialized = false;
 

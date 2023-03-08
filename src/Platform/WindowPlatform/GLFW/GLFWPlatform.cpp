@@ -6,7 +6,7 @@
 
 #include <GLFW/glfw3.h>
 
-namespace Blackbird::WindowPlatform::GLFW
+namespace Blackbird::WindowPlatforms::GLFW
 {
     void GLFWPlatform::InitEngineAPI(EngineAPI& api, Ref<Window>& window)
     {

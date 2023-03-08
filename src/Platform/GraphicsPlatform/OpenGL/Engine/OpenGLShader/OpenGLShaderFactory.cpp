@@ -2,7 +2,7 @@
 
 #include "OpenGLShader.h"
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
 	Ref<Shader> OpenGLShaderFactory::Create(const std::string& name, const Shader::Program& program)
 	{

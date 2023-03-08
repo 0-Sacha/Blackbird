@@ -7,7 +7,7 @@
 
 struct GLFWwindow;
 
-namespace Blackbird::WindowPlatform::GLFW
+namespace Blackbird::WindowPlatforms::GLFW
 {
 	class GLFWWindow : public Window
 	{

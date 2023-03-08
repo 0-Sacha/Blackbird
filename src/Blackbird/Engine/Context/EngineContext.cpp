@@ -31,8 +31,8 @@ namespace Blackbird
     void MasterEngineContext::InitPlatformAPI()
     {
         m_PlatformAPI = std::make_shared<PlatformAPI>();
-        m_PlatformAPI->SetWindowPlatform(std::make_unique<WindowPlatform::GLFW::GLFWPlatform>());
-        m_PlatformAPI->SetGraphicsPlatform(std::make_unique<GraphicsPlatform::OpenGL::OpenGLPlatform>());
+        m_PlatformAPI->SetWindowPlatform(std::make_unique<WindowPlatforms::GLFW::GLFWPlatform>());
+        m_PlatformAPI->SetGraphicsPlatform(std::make_unique<GraphicsPlatforms::OpenGL::OpenGLPlatform>());
     }
 
     void MasterEngineContext::InitEngineAPI(Ref<Window>& window)

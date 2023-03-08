@@ -2,7 +2,7 @@
 
 #include "Blackbird/Engine/IRendererCommand.h"
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
 	class OpenGLRendererCommand : public IRendererCommand
 	{

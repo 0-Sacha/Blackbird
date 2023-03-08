@@ -2,7 +2,7 @@
 
 #include "glad/glad.h"
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
 	static GLenum FromShaderTypeToGLenum(ShaderType type)
 	{

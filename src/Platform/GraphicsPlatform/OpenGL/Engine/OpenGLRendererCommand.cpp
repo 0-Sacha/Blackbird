@@ -3,7 +3,7 @@
 
 #include <glad/glad.h>
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
 	void OpenGLRendererCommand::Init()
 	{

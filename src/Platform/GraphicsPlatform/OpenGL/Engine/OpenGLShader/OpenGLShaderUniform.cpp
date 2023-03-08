@@ -4,7 +4,7 @@
 
 #include "glad/glad.h"
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
 	void OpenGLShader::UploadUniformInt(const std::string& name, int data)
 	{

@@ -3,9 +3,9 @@
 #include "Platform/GraphicsPlatform/OpenGL/OpenGLCore.h"
 #include "Platform/WindowPlatform/GLFW/Context/GLFWContext.h"
 
-namespace Blackbird::GraphicsPlatform::OpenGL
+namespace Blackbird::GraphicsPlatforms::OpenGL
 {
-	class OpenGLGLFWContext final : public WindowPlatform::GLFW::IGLFWContext
+	class OpenGLGLFWContext final : public WindowPlatforms::GLFW::IGLFWContext
 	{
 	public:
 		OpenGLGLFWContext(GLFWwindow* windowHandle);

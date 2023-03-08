@@ -6,7 +6,7 @@
 struct GLFWwindow;
 typedef void* (*GLFWContextInitializer)(const char *name);
 
-namespace Blackbird::WindowPlatform::GLFW
+namespace Blackbird::WindowPlatforms::GLFW
 {
 	class IGLFWContext : public IRendererContext
 	{
