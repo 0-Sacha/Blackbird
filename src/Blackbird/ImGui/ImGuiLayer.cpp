@@ -2,12 +2,12 @@
 
 #include "Blackbird/EngineDetail/Application/Application.h"
 
-
 namespace Blackbird
 {
-	ImGuiLayer::ImGuiLayer(Application& applicationLinked)
+	ImGuiLayer::ImGuiLayer(Scope<IImGuiWindowPlatform>&& _IImGuiWindowPlatform, Scope<IImGuiGraphicsPlatform>&& _IImGuiGraphicsPlatform)
 		: Layer("ImGuiLayer")
-		, m_ApplicationLinked(applicationLinked)
+		, m_IImGuiWindowPlatform(std::move(_IImGuiWindowPlatform))
+		, m_IImGuiGraphicsPlatform(std::move(_IImGuiGraphicsPlatform))
 	{}
 
 	void ImGuiLayer::OnAttach()
@@ -36,22 +36,22 @@ namespace Blackbird
 			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 		}
 
-		m_ApplicationLinked.GetEngineContext().Platform().WindowPlatform().ImGUIInit(m_ApplicationLinked.GetWindow());
-		m_ApplicationLinked.GetEngineContext().Platform().GraphicsPlatform().ImGUIInit();
+		m_IImGuiWindowPlatform->InitImpl(m_ApplicationLinked->GetWindow());
+		m_IImGuiGraphicsPlatform->InitImpl();
 	}
 
 	void ImGuiLayer::OnDetach()
 	{
-		m_ApplicationLinked.GetEngineContext().Platform().GraphicsPlatform().ImGUIShutdown();
-		m_ApplicationLinked.GetEngineContext().Platform().WindowPlatform().ImGUIShutdown();
+		m_IImGuiWindowPlatform->ShutdownImpl();
+		m_IImGuiGraphicsPlatform->ShutdownImpl();
 
 		ImGui::DestroyContext();
 	}
 
 	void ImGuiLayer::BeginFrame()
 	{
-		m_ApplicationLinked.GetEngineContext().Platform().GraphicsPlatform().ImGUINewFrame();
-		m_ApplicationLinked.GetEngineContext().Platform().WindowPlatform().ImGUINewFrame();
+		m_IImGuiWindowPlatform->NewFrameImpl();
+		m_IImGuiGraphicsPlatform->NewFrameImpl();
 
 		ImGui::NewFrame();
 
@@ -71,15 +71,15 @@ namespace Blackbird
 		}
 
 		ImGuiIO& io = ImGui::GetIO();
-		io.DisplaySize = ImVec2((float)m_ApplicationLinked.GetWindow().GetWidth(), (float)m_ApplicationLinked.GetWindow().GetHeight());
+		io.DisplaySize = ImVec2((float)m_ApplicationLinked->GetWindow().GetWidth(), (float)m_ApplicationLinked->GetWindow().GetHeight());
 
 		// Rendering
 		ImGui::Render();
-		m_ApplicationLinked.GetEngineContext().Platform().GraphicsPlatform().ImGuiRender();
+		m_IImGuiGraphicsPlatform->OnRenderImpl();
 
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 		{
-			m_ApplicationLinked.GetEngineContext().Platform().WindowPlatform().ImGuiViewportPass();
+			m_IImGuiWindowPlatform->ViewportPassImpl();
 		}
 	}
 

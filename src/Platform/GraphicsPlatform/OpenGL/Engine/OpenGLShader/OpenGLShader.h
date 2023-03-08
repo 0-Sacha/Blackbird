@@ -10,12 +10,12 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 	class OpenGLShader : public Shader
 	{
 	public:
-		~OpenGLShader() override;
-
 		OpenGLShader(const std::string& name, OpenGLRendererID id)
 			: m_Name(name)
 			, m_RendererID(id)
 		{}
+
+		~OpenGLShader() override;
 
 	public:
 		void Bind() const override;

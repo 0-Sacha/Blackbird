@@ -1,10 +1,8 @@
-
-
 #include "OpenGLVertexArray.h"
 
 #include "Blackbird/Engine/Asset/VertexBufferLayout.h"
 
-#include <glad/glad.h>
+#include "glad/glad.h"
 
 static uint32_t FormShaderDataTypeToOpenGL(Blackbird::ShaderData::Type type)
 {

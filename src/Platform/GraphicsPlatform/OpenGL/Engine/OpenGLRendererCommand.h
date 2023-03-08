@@ -7,6 +7,9 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 	class OpenGLRendererCommand : public IRendererCommand
 	{
 	public:
+		~OpenGLRendererCommand() override = default;
+
+	public:
 		void Init() override;
 		void Shutdown() override;
 

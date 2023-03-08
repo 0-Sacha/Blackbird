@@ -23,10 +23,7 @@ namespace Blackbird
 			: m_Specification(specification)
 		{}
 
-		virtual ~Framebuffer()
-		{
-			Destroy();
-		}
+		virtual ~Framebuffer() = default;
 
 	public:
 		const FramebufferSpecification& GetSpecification()						{ return m_Specification; }
@@ -47,7 +44,6 @@ namespace Blackbird
 
 	protected:
 		virtual void Invalidate() = 0;
-		virtual void Destroy() {}
 
 	protected:
 		FramebufferSpecification m_Specification;

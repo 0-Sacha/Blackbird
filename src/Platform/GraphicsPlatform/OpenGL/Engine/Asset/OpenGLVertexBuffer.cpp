@@ -1,6 +1,6 @@
 #include "OpenGLVertexBuffer.h"
 
-#include <glad/glad.h>
+#include "glad/glad.h"
 
 namespace Blackbird::GraphicsPlatform::OpenGL
 {

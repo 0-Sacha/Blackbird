@@ -2,9 +2,8 @@
 
 #include "Blackbird/EngineDetail/Layer/Layer.h"
 
-#include "Blackbird/EngineDetail/Event/ApplicationEvent.h"
-#include "Blackbird/EngineDetail/Event/KeyboardEvent.h"
-#include "Blackbird/EngineDetail/Event/MouseEvent.h"
+#include "Blackbird/EngineDetail/Event/AllEvent.h"
+#include "Blackbird/EngineDetail/Window.h"
 
 #include "imgui.h"
 
@@ -15,13 +14,17 @@ namespace Blackbird
 	class ImGuiLayer : public Layer
 	{
 	public:
-		ImGuiLayer(Application& applicationLinked);
-		~ImGuiLayer() override {}
+		class IImGuiWindowPlatform;
+		class IImGuiGraphicsPlatform;
+
+	public:
+		ImGuiLayer(Scope<IImGuiWindowPlatform>&& _IImGuiLayerWindowPlatform, Scope<IImGuiGraphicsPlatform>&& _IImGuiLayerGrpahicsPlatform);
+		~ImGuiLayer() override = default;
 
 	public:
 		void OnAttach() override;
 		void OnDetach() override;
-		void OnEvent(Event& event);
+		void OnEvent(Event& event) override;
 		void OnImGuiRender() override;
 		
 	public:
@@ -60,9 +63,36 @@ namespace Blackbird
 		};
 	
 	private:
-		Application& m_ApplicationLinked;
+		Scope<IImGuiWindowPlatform> m_IImGuiWindowPlatform;
+		Scope<IImGuiGraphicsPlatform> m_IImGuiGraphicsPlatform;
+
 		DockspaceData m_DockspaceData;
 		bool m_EventBlocked = false;
+	};
+
+
+	class ImGuiLayer::IImGuiWindowPlatform
+	{
+	public:
+		virtual ~IImGuiWindowPlatform() = default;
+
+	public:
+		virtual void InitImpl(Window& window) = 0;
+		virtual void ShutdownImpl() = 0;
+		virtual void NewFrameImpl() = 0;
+		virtual void ViewportPassImpl() = 0;
+	};
+
+	class ImGuiLayer::IImGuiGraphicsPlatform
+	{
+	public:
+		virtual ~IImGuiGraphicsPlatform() = default;
+
+	public:
+		virtual void InitImpl() = 0;
+		virtual void ShutdownImpl() = 0;
+		virtual void NewFrameImpl() = 0;
+		virtual void OnRenderImpl() = 0;
 	};
 
 }

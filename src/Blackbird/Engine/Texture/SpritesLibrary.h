@@ -11,6 +11,9 @@ namespace Blackbird
 	class SpritesLibrary
 	{
 	public:
+		virtual ~SpritesLibrary() = default;
+
+	public:
 		bool Exists(const std::string& name);
 		Ref<Texture2D> Get(const std::string& name);
 		void Add(const std::string& name, const Ref<Texture2D>& sprite);
@@ -25,6 +28,8 @@ namespace Blackbird
 		SpritesPathsLibrary(ITextureFactory& factory)
 			: m_TextureFactory(factory)
 		{}
+
+		~SpritesPathsLibrary() override = default;
 
 	protected:
 		using SpritesLibrary::Add;
@@ -42,6 +47,8 @@ namespace Blackbird
 		SpritesFactoryLibrary(Ref<SheetToSpriteFactory>& factory)
 			: m_SheetToSpriteFactory(factory)
 		{}
+
+		~SpritesFactoryLibrary() override = default;
 
 	protected:
 		using SpritesLibrary::Add;

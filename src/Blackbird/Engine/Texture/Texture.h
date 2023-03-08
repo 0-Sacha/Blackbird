@@ -27,6 +27,9 @@ namespace Blackbird
 	class Texture2D : public Texture
 	{
 	public:
+		~Texture2D() override = default;
+
+	public:
 		virtual glm::vec2 GetTexCoordsMin() const { return { 0.0f, 0.0f }; }
 		virtual glm::vec2 GetTexCoordsMax() const { return { 1.0f, 1.0f }; }
 	};

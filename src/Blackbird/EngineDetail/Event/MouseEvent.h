@@ -11,6 +11,9 @@ namespace Blackbird
 	class MouseEvent : public Event
 	{
 	public:
+		~MouseEvent() override = default;
+
+	public:
 		EVENT_CLASS_CATEGORY(EventCategory_Input | EventCategory_Mouse)
 	};
 
@@ -20,13 +23,15 @@ namespace Blackbird
 		MouseMouvedEvent(float x, float y)
 			: m_X(x), m_Y(y) { }
 
+		~MouseMouvedEvent() override = default;
+
+	public:
 		inline float GetX() const { return m_X; }
 		inline float GetY() const { return m_Y; }
 
-		std::string ToString() const override {
-			std::string str;
-			ProjectCore::FMT::FormatInString(str, "MouseMoved: {}, {}", m_X, m_Y);
-			return str;
+		std::string ToString() const override
+		{
+			return ProjectCore::FMT::FormatString("MouseMoved: {}, {}", m_X, m_Y);
 		}
 
 		EVENT_CLASS_TYPE(MouseMoved)
@@ -42,13 +47,15 @@ namespace Blackbird
 		MouseScrolledEvent(float xOffset, float yOffset)
 			: m_XOffset(xOffset), m_YOffset(yOffset) { }
 		
+		~MouseScrolledEvent() override = default;
+
+	public:
 		inline float GetXOffset() const { return m_XOffset; }
 		inline float GetYOffset() const { return m_YOffset; }
 
-		std::string ToString() const override {
-			std::string str;
-			ProjectCore::FMT::FormatInString(str, "MouseScrolled: {}, {}", m_XOffset, m_YOffset);
-			return str;
+		std::string ToString() const override
+		{
+			return ProjectCore::FMT::FormatString("MouseScrolled: {}, {}", m_XOffset, m_YOffset);
 		}
 
 		EVENT_CLASS_TYPE(MouseScrolled)
@@ -71,6 +78,10 @@ namespace Blackbird
 		MouseButtonEvent(MouseBt bt)
 			: m_BtCode((int)bt) { }
 
+	public:
+		~MouseButtonEvent() override = default;
+
+	protected:
 		int m_BtCode;
 	};
 
@@ -80,11 +91,13 @@ namespace Blackbird
 	public:
 		MouseButtonPressedEvent(int button)
 			: MouseButtonEvent(button) { }
+			
+		~MouseButtonPressedEvent() override = default;
 
-		std::string ToString() const override {
-			std::string str;
-			ProjectCore::FMT::FormatInString(str, "MouseButtonPressed: {}", m_BtCode);
-			return str;
+	public:
+		std::string ToString() const override
+		{
+			return ProjectCore::FMT::FormatString("MouseButtonPressed: {}", m_BtCode);
 		}
 
 		EVENT_CLASS_TYPE(MouseButtonPressed)
@@ -96,10 +109,12 @@ namespace Blackbird
 		MouseButtonReleasedEvent(int button)
 			: MouseButtonEvent(button) { }
 
-		std::string ToString() const override {
-			std::string str;
-			ProjectCore::FMT::FormatInString(str, "MouseButtonReleased: {}", m_BtCode);
-			return str;
+		~MouseButtonReleasedEvent() override = default;
+
+	public:
+		std::string ToString() const override
+		{
+			return ProjectCore::FMT::FormatString("MouseButtonReleased: {}", m_BtCode);
 		}
 
 		EVENT_CLASS_TYPE(MouseButtonReleased)

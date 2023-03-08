@@ -42,6 +42,9 @@ namespace Blackbird {
 	class Event
 	{
 	public:
+		virtual ~Event() = default;
+
+	public:
 		bool Handled = false;
 
 		virtual EventType GetEventType() const = 0;

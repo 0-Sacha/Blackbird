@@ -11,6 +11,11 @@ namespace Blackbird {
 	class LayerStack
 	{
 	public:
+		LayerStack(Application* applicationLinked)
+			: m_ApplicationLinked(applicationLinked)
+		{}
+
+	public:
 		void PushLayer(Ref<Layer>& layer);
 		void PushOverlay(Ref<Layer>& overlay);
 		void PopLayer(Ref<Layer>& layer);

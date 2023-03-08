@@ -4,8 +4,6 @@
 #include "Blackbird/EngineDetail/Utils/TimeStep.h"
 #include "Blackbird/EngineDetail/Event/Event.h"
 
-#include "Blackbird/Engine/Context/EngineContext.h"
-
 namespace Blackbird
 {
 	class Application;
@@ -15,9 +13,9 @@ namespace Blackbird
 	public:
 		Layer(const std::string& debugName = "Layer");
 		Layer(std::string&& debugName);
+		virtual ~Layer() = default;
 
-		virtual ~Layer() {}
-
+	public:
 		void OnAttachLayer(Application* applicationLinked) { m_ApplicationLinked = applicationLinked; OnAttach(); }
 		void OnDetachLayer(Application* applicationLinked) { BLACKBIRD_ASSERT(m_ApplicationLinked == applicationLinked); OnDetach(); }
 

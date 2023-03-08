@@ -9,7 +9,7 @@
 
 #include "Engine/Context/OpenGLGLFWContext.h"
 
-#include "OpenGLImGuiInclude.h"
+#include "ImGui/OpenGLImGuiPlatform.h"
 
 namespace Blackbird::GraphicsPlatform::OpenGL
 {
@@ -28,24 +28,9 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 		return std::make_unique<OpenGLGLFWContext>(window);
 	}
 
-	void OpenGLPlatform::ImGUIInit()
+	Scope<ImGuiLayer::IImGuiGraphicsPlatform> OpenGLPlatform::CreateImGuiGraphicsPlatform()
 	{
-		ImGui_ImplOpenGL3_Init("#version 410");
-	}
-
-	void OpenGLPlatform::ImGUIShutdown()
-	{
-		ImGui_ImplOpenGL3_Shutdown();
-	}
-
-	void OpenGLPlatform::ImGUINewFrame()
-	{
-		ImGui_ImplOpenGL3_NewFrame();
-	}
-
-	void OpenGLPlatform::ImGuiRender()
-	{
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		return std::make_unique<OpenGLImGuiPlatform>();
 	}
 
 }

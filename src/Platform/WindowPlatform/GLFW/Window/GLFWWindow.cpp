@@ -151,9 +151,10 @@ namespace Blackbird::WindowPlatform::GLFW
 	void GLFWWindow::Shutdown()
 	{
 		m_RendererContext->Destroy();
-		glfwDestroyWindow(m_Window);
+		// TODO : Need this ???
+		// glfwDestroyWindow(m_Window);
 		glfwTerminate();
-		BLACKBIRD_DEBUG("GLFW Destroyed");
+		BLACKBIRD_DEBUG("GLFW Window: Destroyed");
 	}
 
 	void GLFWWindow::OnUpdate()

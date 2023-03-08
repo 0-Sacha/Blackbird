@@ -1,5 +1,3 @@
-
-
 #include "Application.h"
 
 #include "Blackbird/Core/Core.h"
@@ -7,16 +5,16 @@
 
 #include "Blackbird/Engine/BlackbirdStatic/S_Application.h"
 
-#include <glfw/glfw3.h>
-
 namespace Blackbird
 {
 	Application::Application(const ApplicationSpecification& specs)
+		: m_LayerStack(this)
 	{
 		Create(specs);
 	}
 
 	Application::Application(const std::string& name, uint32_t width, uint32_t height)
+		: m_LayerStack(this)
 	{
 		ApplicationSpecification specs;
 		specs.Name = name;
@@ -43,7 +41,9 @@ namespace Blackbird
 		m_EngineContext.CreateRenderer();
 		m_EngineContext.CreateRenderer2D();
 
-		m_ImGuiLayer = std::make_shared<ImGuiLayer>(*this);
+		m_ImGuiLayer = std::make_shared<ImGuiLayer>(
+			m_EngineContext.Platform().WindowPlatform().CreateImGuiWindowPlatform(),
+			m_EngineContext.Platform().GraphicsPlatform().CreateImGuiGraphicsPlatform());
 		PushOverlay(m_ImGuiLayer);
 
 		S_Application::SetDefaultApplication(this);
@@ -57,11 +57,12 @@ namespace Blackbird
 		m_LayerStack.Clear();
 		m_ImGuiLayer = nullptr;
 
-		BLACKBIRD_WARN("Window uses: {}", m_Window.use_count());
+#ifdef BLACKBIRD_ENABLE_LOGGER
+		if (m_Window.use_count() > 2)
+			BLACKBIRD_WARN("Window uses: {}", m_Window.use_count());
+#endif
 		m_Window = nullptr;
 
-		BLACKBIRD_WARN("PlatformAPI uses : {}", m_EngineContext.PlatformRef().use_count());
-		BLACKBIRD_ASSERT(m_EngineContext.PlatformRef().use_count() == 1, "PlatformAPI is still use");
 		m_EngineContext.Destroy();
 	}
 
@@ -74,7 +75,7 @@ namespace Blackbird
 	{
 		while(m_Running)
 		{
-			float time = (float)glfwGetTime();
+			float time = (float)m_EngineContext.Platform().WindowPlatform().GetTime();
 			TimeStep timeStep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 

@@ -19,6 +19,8 @@ namespace Blackbird
 			, m_SubTextureHeight(height)
 		{}
 
+		~SubTexture2D() override = default;
+
 	public:
 		void Bind(uint32_t slot = 0) const override { return m_SheetTexture->Bind(); }
 		void Release(uint32_t slot = 0) const override { return m_SheetTexture->Release(); }

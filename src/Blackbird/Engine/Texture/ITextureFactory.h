@@ -13,6 +13,9 @@ namespace Blackbird
 	class ITextureFactory
 	{
 	public:
+		virtual ~ITextureFactory() = default;
+
+	public:
 		virtual Ref<Texture2D> CreateTexture2D(std::uint32_t width, std::uint32_t height, void* data, std::size_t channelSize) = 0;
 	
 	public:

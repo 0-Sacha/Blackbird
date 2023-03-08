@@ -1,7 +1,7 @@
 
 #include "OpenGLTexture.h"
 
-#include "Platform/GraphicsPlatform/OpenGL/OpenGLInclude.h"
+#include "glad/glad.h"
 
 namespace Blackbird::GraphicsPlatform::OpenGL
 {

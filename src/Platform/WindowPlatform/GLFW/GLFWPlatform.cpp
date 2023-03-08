@@ -2,9 +2,9 @@
 
 #include "Window/GLFWWindow.h"
 #include "Input/GLFWInput.h"
+#include "ImGui/GLFWImGuiPlatform.h"
 
-#include "GLFWImGuiInclude.h"
-#include "GLFWInclude.h"
+#include <GLFW/glfw3.h>
 
 namespace Blackbird::WindowPlatform::GLFW
 {
@@ -18,27 +18,14 @@ namespace Blackbird::WindowPlatform::GLFW
         return std::make_shared<GLFWWindow>(props, api);
     }
 
-	void GLFWPlatform::ImGUIInit(Window& window)
+	Scope<ImGuiLayer::IImGuiWindowPlatform> GLFWPlatform::CreateImGuiWindowPlatform()
 	{
-		ImGui_ImplGlfw_InitForOpenGL((GLFWwindow*)window.GetNativeWindow(), true);
+		return std::make_unique<GLFWImGuiPlatform>();
 	}
 
-	void GLFWPlatform::ImGUIShutdown()
+	float GLFWPlatform::GetTime()
 	{
-		ImGui_ImplGlfw_Shutdown();
-	}
-
-	void GLFWPlatform::ImGUINewFrame()
-	{
-		ImGui_ImplGlfw_NewFrame();
-	}
-
-	void GLFWPlatform::ImGuiViewportPass()
-	{
-		GLFWwindow* backupCurrentContext = glfwGetCurrentContext();
-		ImGui::UpdatePlatformWindows();
-		ImGui::RenderPlatformWindowsDefault();
-		glfwMakeContextCurrent(backupCurrentContext);
+        return glfwGetTime();
 	}
 
 }

@@ -8,14 +8,12 @@ namespace Blackbird::GraphicsPlatform::OpenGL
     class OpenGLPlatform final : public IGraphicsPlatform
     {
     public:
+		~OpenGLPlatform() override = default;
+
+    public:
         void InitEngineAPI(EngineAPI& api) override;
         Scope<IRendererContext> GetNewGLFWRendererContext(GLFWwindow* window) override;
-
-	public:
-		void ImGUIInit() override;
-		void ImGUIShutdown() override;
-		void ImGUINewFrame() override;
-		void ImGuiRender() override;
+		Scope<ImGuiLayer::IImGuiGraphicsPlatform> CreateImGuiGraphicsPlatform() override;
 	};
 
 }

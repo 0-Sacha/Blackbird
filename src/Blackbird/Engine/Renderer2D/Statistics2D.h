@@ -7,6 +7,9 @@ namespace Blackbird
 	class Statistics2D
 	{
 	public:
+		virtual ~Statistics2D() = default;
+
+	public:
 		std::uint32_t DrawCall = 0;
 
 	public:

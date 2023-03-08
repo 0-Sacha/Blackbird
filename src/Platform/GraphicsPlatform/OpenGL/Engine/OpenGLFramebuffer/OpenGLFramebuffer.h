@@ -18,13 +18,13 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 		}
 
 		~OpenGLFramebuffer() override
-		{
+		{ 
 			Destroy();
 		}
 
 	public:
 		void Invalidate() override;
-		void Destroy() override;
+		void Destroy();
 
 	public:
 		void Bind() const override;

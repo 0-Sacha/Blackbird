@@ -14,6 +14,8 @@ namespace Blackbird
 			: m_Renderer2D(renderer2D)
 		{}
 
+		virtual ~IDesigner2DManager() = default;
+
 	public:
 		virtual void Init() = 0;
 		virtual void Release() = 0;
@@ -36,6 +38,8 @@ namespace Blackbird
 		IDesigner2D(IDesigner2DManager* defaultManager = nullptr)
             : m_DefaultDrawManager(defaultManager)
         {}
+
+		virtual ~IDesigner2D() = default;
 
     public:
 		virtual void Draw(IDesigner2DManager& renderer) = 0;
@@ -67,7 +71,7 @@ namespace Blackbird
 			: m_Designer(designer)
 		{}
 
-		~Designer2DDrawOnDestroy() { m_Designer.DefaultDraw(); }
+		virtual ~Designer2DDrawOnDestroy() { m_Designer.DefaultDraw(); }
 
 	public:
 		DesignerType* operator->()

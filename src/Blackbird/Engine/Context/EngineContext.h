@@ -10,6 +10,9 @@ namespace Blackbird
 	class EngineContext
 	{
     public:
+        virtual ~EngineContext() = default;
+
+    public:
         void Clear();
 		void Set(EngineContext& context);
 
@@ -43,6 +46,9 @@ namespace Blackbird
 
     class MasterEngineContext : public EngineContext
 	{
+	public:
+        ~MasterEngineContext() override = default;
+
 	public:
         void Destroy();
 

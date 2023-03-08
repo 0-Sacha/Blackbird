@@ -19,6 +19,9 @@ namespace Blackbird
     class QuadStatistics : public Statistics2D
     {
     public:
+        ~QuadStatistics() override = default;
+
+    public:
         std::uint32_t QuadCount = 0;
 
     public:
@@ -33,6 +36,9 @@ namespace Blackbird
 
     class QuadDesigner : public IDesigner2D
     {
+    public:
+        ~QuadDesigner() override = default;
+
 	public:
         struct Vertex
         {
@@ -99,6 +105,8 @@ namespace Blackbird
             : IDesigner2DManager(renderer)
             , BatchBuffer(numberOfQuadBatch)
         {}
+
+        ~QuadDesignerManager() override = default;
 
     public:
         void Init() override;

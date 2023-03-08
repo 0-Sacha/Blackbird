@@ -13,13 +13,15 @@ namespace Blackbird {
 		WindowResizeEvent(uint32_t width, uint32_t height)
 			: m_Width(width), m_Height(height) { }
 
+		~WindowResizeEvent() override = default;
+
+	public:
 		inline uint32_t GetWidth() const { return m_Width; }
 		inline uint32_t GetHeight() const { return m_Height; }
 
-		std::string ToString() const override {
-			std::string str;
-			ProjectCore::FMT::FormatInString(str, "WindowResizeEvent: {}, {}", m_Width, m_Height);
-			return str;
+		std::string ToString() const override
+		{
+			return ProjectCore::FMT::FormatString("WindowResizeEvent: {}, {}", m_Width, m_Height);
 		}
 
 		EVENT_CLASS_TYPE(WindowResize)
@@ -32,8 +34,10 @@ namespace Blackbird {
 	class WindowCloseEvent : public Event
 	{
 	public:
-		WindowCloseEvent() {}
+		WindowCloseEvent() = default;
+		~WindowCloseEvent() override = default;
 
+	public:
 		EVENT_CLASS_TYPE(WindowClose)
 		EVENT_CLASS_CATEGORY(EventCategory_Application)
 	};
@@ -41,8 +45,10 @@ namespace Blackbird {
 	class AppTickEvent : public Event
 	{
 	public:
-		AppTickEvent() {}
-
+		AppTickEvent() = default;
+		~AppTickEvent() override = default;
+	
+	public:
 		EVENT_CLASS_TYPE(AppTick)
 		EVENT_CLASS_CATEGORY(EventCategory_Application)
 	};
@@ -50,8 +56,10 @@ namespace Blackbird {
 	class AppUpdateEvent : public Event
 	{
 	public:
-		AppUpdateEvent() {}
+		AppUpdateEvent() = default;
+		~AppUpdateEvent() override = default;
 
+	public:
 		EVENT_CLASS_TYPE(WindowResize)
 		EVENT_CLASS_CATEGORY(EventCategory_Application)
 	};
@@ -59,8 +67,10 @@ namespace Blackbird {
 	class AppRenderEvent : public Event
 	{
 	public:
-		AppRenderEvent() {}
+		AppRenderEvent() = default;
+		~AppRenderEvent() override = default;
 
+	public:
 		EVENT_CLASS_TYPE(WindowResize)
 		EVENT_CLASS_CATEGORY(EventCategory_Application)
 	};

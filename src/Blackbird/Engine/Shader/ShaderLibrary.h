@@ -10,6 +10,9 @@ namespace Blackbird
 	class ShaderLibrary
 	{
 	public:
+		virtual ~ShaderLibrary() = default;
+
+	public:
 		bool Exists(const std::string& name);
 		void Add(const Ref<Shader>& shader);
 		void Add(const std::string& name, const Ref<Shader>& shader);
@@ -25,6 +28,8 @@ namespace Blackbird
 		ShaderPathsLibrary(IShaderFactory& factory)
 			: m_ShaderFactory(factory)
 		{}
+
+		~ShaderPathsLibrary() override = default;
 
 	public:
 		Ref<Shader> LoadFromPath(const std::string& path);

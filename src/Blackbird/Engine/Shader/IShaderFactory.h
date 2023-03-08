@@ -9,6 +9,9 @@ namespace Blackbird
 	class IShaderFactory
 	{
 	public:
+		virtual ~IShaderFactory() = default;
+
+	public:
 		virtual Ref<Shader> Create(const std::string& name, const Shader::Program& program) = 0;
 	
 	public:

@@ -1,6 +1,6 @@
 #include "OpenGLGLFWContext.h"
 
-#include <glad/glad.h>
+#include "glad/glad.h"
 
 #include "Platform/GraphicsPlatform/OpenGL/Utils/OpenGLFormat.h"
 

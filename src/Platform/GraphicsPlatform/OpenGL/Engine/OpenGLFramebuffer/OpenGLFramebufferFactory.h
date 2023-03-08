@@ -8,6 +8,9 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 	class OpenGLFramebufferFactory final : public IFramebufferFactory
 	{
 	public:
+		~OpenGLFramebufferFactory() override = default;
+	
+	public:
 		Ref<Framebuffer> Create(const FramebufferSpecification& specification) override;
 	};
 }

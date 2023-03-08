@@ -24,6 +24,8 @@ namespace Blackbird
 		BlackbirdException(const char* msg)
 			: std::exception(msg)
 		{}
+
+		~BlackbirdException() override = default;
 	};
 }
 

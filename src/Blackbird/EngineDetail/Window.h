@@ -23,8 +23,10 @@ namespace Blackbird
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;
 
+	public:
 		virtual ~Window() = default;
 
+	public:
 		virtual void OnUpdate() = 0;
 
 		virtual uint32_t GetWidth() const = 0;

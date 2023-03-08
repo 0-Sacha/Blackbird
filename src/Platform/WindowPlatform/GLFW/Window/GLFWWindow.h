@@ -15,6 +15,7 @@ namespace Blackbird::WindowPlatform::GLFW
 		GLFWWindow(const WindowProps& props, PlatformAPI& platformAPI);
 		~GLFWWindow() override;
 
+	public:
 		void OnUpdate() override;
 
 		inline uint32_t GetWidth() const override { return m_Data.Width; }

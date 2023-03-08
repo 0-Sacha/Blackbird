@@ -8,6 +8,9 @@ namespace Blackbird
 	class IFramebufferFactory
 	{
 	public:
+		virtual ~IFramebufferFactory() = default;
+
+	public:
 		virtual Ref<Framebuffer> Create(const FramebufferSpecification& specification) = 0;
 	};
 }

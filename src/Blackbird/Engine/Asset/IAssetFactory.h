@@ -8,6 +8,9 @@ namespace Blackbird
 	class IAssetFactory
 	{
 	public:
+		virtual ~IAssetFactory() = default;
+
+	public:
 		virtual Ref<VertexArray> CreateVertexArray() = 0;
 		virtual Ref<VertexBuffer> CreateVertexBuffer(uint32_t size) = 0;
 		virtual Ref<VertexBuffer> CreateVertexBuffer(float* vertices, uint32_t size) = 0;

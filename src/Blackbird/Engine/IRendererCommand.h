@@ -9,6 +9,9 @@ namespace Blackbird
 	class IRendererCommand
 	{
 	public:
+		virtual ~IRendererCommand() = default;
+
+	public:
 		virtual void Init() = 0;
 		virtual void Shutdown() = 0;
 

@@ -7,6 +7,9 @@ namespace Blackbird::GraphicsPlatform::OpenGL
 	class OpenGLAssetFactory final : public IAssetFactory
 	{
 	public:
+		~OpenGLAssetFactory() override = default;
+
+	public:
 		Ref<VertexArray> CreateVertexArray() override;
 		
 		Ref<VertexBuffer> CreateVertexBuffer(uint32_t size) override;
