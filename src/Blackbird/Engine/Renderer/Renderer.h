@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Blackbird/Core/Core.h"
-#include "Blackbird/Engine/Camera/OrthographicCamera.h"
+#include "Blackbird/Engine/Camera/Camera.h"
 #include "Blackbird/Engine/Shader/Shader.h"
 
 #include "Blackbird/EngineAPI.h"
@@ -15,7 +15,7 @@ namespace Blackbird
 		void Shutdown();
 
 	public:
-		void BeginScene(OrthographicCamera& camera);
+		void BeginScene(const Camera& camera, const glm::mat4& cameraTransform);
 		void EndScene();
 
 		void Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform = glm::mat4(1.0f));

@@ -18,7 +18,7 @@ namespace Blackbird
 	public:
 		virtual std::uint32_t GetWidth() const = 0;
 		virtual std::uint32_t GetHeight() const = 0;
-		std::uint32_t GetRatio() const { return (float)GetHeight() / GetWidth(); }
+		float GetRatio() const { return (float)GetHeight() / GetWidth(); }
 
 	public:
 		virtual std::uint32_t GetTextureID() const = 0;

@@ -12,7 +12,8 @@
 
 #include "../Statistics2D.h"
 
-#include "glm/glm.hpp"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace Blackbird
 {
@@ -34,11 +35,8 @@ namespace Blackbird
 
     class QuadDesignerManager;
 
-    class QuadDesigner : public IDesigner2D
+    class IQuadDesigner : public IDesigner2D
     {
-    public:
-        ~QuadDesigner() override = default;
-
 	public:
         struct Vertex
         {
@@ -50,41 +48,19 @@ namespace Blackbird
         };
 
 	public:
-        QuadDesigner(IDesigner2DManager* defaultRenderer = nullptr)
+        IQuadDesigner(IDesigner2DManager* defaultRenderer = nullptr)
 			: IDesigner2D(defaultRenderer)
 		{}
 
-    public:
-        glm::vec3 Position = { 0.0f, 0.0f, 0.0f };
-        glm::vec2 Size = { 1.0f, 1.0f };
-        float Rotation = 0.0f;
+		~IQuadDesigner() override = default;
 
+    public:
         Ref<Texture2D> QuadTexture = nullptr;
         float TilingFactor = 1.0f;
-
         glm::vec4 Color = glm::vec4{ 1.0f, 1.0f, 1.0f, 1.0f };
 
-    public:
-        QuadDesigner& SetPosition(glm::vec3 pos) { Position = pos; return *this; }
-        QuadDesigner& SetPosition(glm::vec2 pos) { Position = glm::vec3(pos, 0.0f); return *this; }
-        QuadDesigner& SetSize(glm::vec2 size) { Size = size; return *this; }
-        QuadDesigner& SetRotation(float rotation) { Rotation = rotation; return *this; }
-
-        QuadDesigner& SetTexture(const Ref<Texture2D>& texture) { QuadTexture = texture; return *this; }
-        QuadDesigner& SetTilingFactor(float tilingFactor) { TilingFactor = tilingFactor; return *this; }
-
-        QuadDesigner& SetColor(glm::vec4 color) { Color = color; return *this; }
-
 	public:
-        glm::mat4 GetTransform()
-        {
-            glm::mat4 transform = glm::translate(glm::mat4(1.0f), Position);
-            if (Size != glm::vec2{ 1.0f, 1.0f })
-                transform = glm::scale(transform, glm::vec3(Size, 1.0f));
-            if (Rotation != 0)
-                transform = glm::rotate(transform, Rotation, glm::vec3(0.0f, 0.0f, 1.0f));
-            return transform;
-        }
+        virtual glm::mat4 GetTransform() = 0;
 
     public:
         void Draw(IDesigner2DManager& manager) override;
@@ -98,7 +74,7 @@ namespace Blackbird
     {
 	public:
         static constexpr std::size_t NUMBER_OF_QUAD_BATCH = 10'000;
-        using BatchBuffer2DType = BatchBuffer2D<typename QuadDesigner::Vertex, 4, 6>;
+        using BatchBuffer2DType = BatchBuffer2D<typename IQuadDesigner::Vertex, 4, 6>;
 
 	public:
         QuadDesignerManager(Renderer2D& renderer, std::size_t numberOfQuadBatch = NUMBER_OF_QUAD_BATCH)
@@ -113,7 +89,7 @@ namespace Blackbird
         void Release() override;
     
 	public:
-		void BeginScene(const OrthographicCamera& camera) override;
+		void BeginScene(const glm::mat4& viewProjectionMatrix) override;
 		void Flush() override;
 		void EndScene() override;
 
@@ -127,5 +103,65 @@ namespace Blackbird
 		Ref<Texture2D> WhiteTexture;
 
         QuadStatistics Stats;
+    };
+
+    class TransformQuadDesigner : public IQuadDesigner
+    {
+	public:
+        glm::mat4 Tranform{ 1.0f };
+
+	public:
+        TransformQuadDesigner(IDesigner2DManager* defaultRenderer = nullptr)
+			: IQuadDesigner(defaultRenderer)
+		{}
+
+        ~TransformQuadDesigner() override = default;
+
+	public:
+		glm::mat4 GetTransform() override
+		{
+            return Tranform;
+		}
+
+	public:
+		TransformQuadDesigner& SetTranform(const glm::mat4& transform) { Tranform = transform; return *this; }
+		TransformQuadDesigner& SetTexture(const Ref<Texture2D>& texture) { QuadTexture = texture; return *this; }
+		TransformQuadDesigner& SetTilingFactor(float tilingFactor) { TilingFactor = tilingFactor; return *this; }
+		TransformQuadDesigner& SetColor(glm::vec4 color) { Color = color; return *this; }
+    };
+
+    class UnitQuadDesigner : public IQuadDesigner
+    {
+    public:
+        glm::vec3 Position = { 0.0f, 0.0f, 0.0f };
+        glm::vec2 Size = { 1.0f, 1.0f };
+        float Rotation = 0.0f;
+
+	public:
+        UnitQuadDesigner(IDesigner2DManager* defaultRenderer = nullptr)
+			: IQuadDesigner(defaultRenderer)
+		{}
+
+		~UnitQuadDesigner() override = default;
+
+    public:
+        glm::mat4 GetTransform() override
+        {
+            glm::mat4 transform = glm::translate(glm::mat4(1.0f), Position);
+            if (Size != glm::vec2{ 1.0f, 1.0f })
+                transform = glm::scale(transform, glm::vec3(Size, 1.0f));
+            if (Rotation != 0)
+                transform = glm::rotate(transform, Rotation, glm::vec3(0.0f, 0.0f, 1.0f));
+            return transform;
+        }
+
+    public:
+        UnitQuadDesigner& SetPosition(glm::vec3 pos) { Position = pos; return *this; }
+        UnitQuadDesigner& SetPosition(glm::vec2 pos) { Position = glm::vec3(pos, 0.0f); return *this; }
+        UnitQuadDesigner& SetSize(glm::vec2 size) { Size = size; return *this; }
+        UnitQuadDesigner& SetRotation(float rotation) { Rotation = rotation; return *this; }
+		UnitQuadDesigner& SetTexture(const Ref<Texture2D>& texture) { QuadTexture = texture; return *this; }
+		UnitQuadDesigner& SetTilingFactor(float tilingFactor) { TilingFactor = tilingFactor; return *this; }
+		UnitQuadDesigner& SetColor(glm::vec4 color) { Color = color; return *this; }
     };
 }

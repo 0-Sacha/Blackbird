@@ -17,9 +17,11 @@ namespace Blackbird
 		m_Storage->Shutdown();
 	}
 
-	void Renderer2D::BeginScene(const OrthographicCamera& camera)
+	void Renderer2D::BeginScene(const Camera& camera, const glm::mat4& cameraTransform)
 	{
-		m_Storage->QuadManager.BeginScene(camera);
+		glm::mat4 viewProjectionMatrix = camera.GetProjection() * glm::inverse(cameraTransform);
+		
+		m_Storage->QuadManager.BeginScene(viewProjectionMatrix);
 	}
 
 	void Renderer2D::EndScene()

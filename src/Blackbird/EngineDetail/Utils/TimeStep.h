@@ -10,7 +10,7 @@ namespace Blackbird
 		operator float() const { return m_TimeStep; }
 		inline float GetSecond() const { return m_TimeStep; }
 		inline float GetMillisecond() const { return m_TimeStep * 1000; }
-		inline size_t GetFPS() const { return 1.0f / m_TimeStep; }
+		inline std::size_t GetFPS() const { return static_cast<std::size_t>(1.0f / m_TimeStep); }
 
 	private:
 		float m_TimeStep;

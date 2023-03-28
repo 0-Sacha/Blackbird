@@ -16,9 +16,11 @@ namespace Blackbird
 		m_SceneData = nullptr;
 	}
 
-	void Renderer::BeginScene(OrthographicCamera& camera)
+	void Renderer::BeginScene(const Camera& camera, const glm::mat4& cameraTransform)
 	{
-		m_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
+		glm::mat4 viewProjectionMatrix = camera.GetProjection() * glm::inverse(cameraTransform);
+
+		m_SceneData->ViewProjectionMatrix = viewProjectionMatrix;
 	}
 
 	void Renderer::EndScene()

@@ -13,7 +13,7 @@ namespace Blackbird
 		// Quad VertexArray
 		QuadVA = assetFactory.CreateVertexArray();
 
-		QuadVB = assetFactory.CreateVertexBuffer(BatchBuffer.GetMaxVerticies() * sizeof(QuadDesigner::Vertex));
+		QuadVB = assetFactory.CreateVertexBuffer(BatchBuffer.GetMaxVerticies() * sizeof(IQuadDesigner::Vertex));
 		BufferLayout squareLayout = {
 			{ ShaderData::Type::Float3, "a_Position" },
 			{ ShaderData::Type::Float4, "a_Color" },
@@ -65,10 +65,10 @@ namespace Blackbird
 		BatchShader = nullptr;
 	}
 
-	void QuadDesignerManager::BeginScene(const OrthographicCamera& camera)
+	void QuadDesignerManager::BeginScene(const glm::mat4& viewProjectionMatrix)
 	{
 		BatchShader->Bind();
-		BatchShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
+		BatchShader->SetMat4("u_ViewProjection", viewProjectionMatrix);
 
 		BatchBuffer.Reset();
 		BatchTexture.Reset();
@@ -93,7 +93,7 @@ namespace Blackbird
 	}
 
 
-	void QuadDesigner::Draw(IDesigner2DManager& manager)
+	void IQuadDesigner::Draw(IDesigner2DManager& manager)
 	{
 		QuadDesignerManager* asQuadManager = dynamic_cast<QuadDesignerManager*>(&manager);
 		if (asQuadManager != nullptr)
@@ -101,7 +101,7 @@ namespace Blackbird
 		BLACKBIRD_WARN("Give a IDesigner2DManager to a QuadDesigner which is not a QuadDesignerManager");
 	}
 
-    void QuadDesigner::Draw(QuadDesignerManager& manager)
+    void IQuadDesigner::Draw(QuadDesignerManager& manager)
     {
 		if (manager.BatchBuffer.CanAddObject() == false)
 			manager.Flush();
@@ -126,7 +126,7 @@ namespace Blackbird
 		const glm::vec2& texCoordsMin = texture->GetTexCoordsMin();
 		const glm::vec2& texCoordsMax = texture->GetTexCoordsMax();
 
-		QuadDesigner::Vertex vertex{ transfrom * QUAD_VERTICIES_POSITION[0], Color, { texCoordsMin.x, texCoordsMin.y }, texIndex, TilingFactor };
+		IQuadDesigner::Vertex vertex{ transfrom * QUAD_VERTICIES_POSITION[0], Color, { texCoordsMin.x, texCoordsMin.y }, texIndex, TilingFactor };
 		manager.BatchBuffer.PushBackVertex(vertex);
 
 		vertex.Position = transfrom * QUAD_VERTICIES_POSITION[1];
@@ -147,7 +147,7 @@ namespace Blackbird
     }
 
 
-	static void DrawQuadColorInstant(QuadDesigner& quad, QuadDesignerManager& manager)
+	static void DrawQuadColorInstant(IQuadDesigner& quad, QuadDesignerManager& manager)
 	{
 		// FIXME
 		// manager.FlatColorShader->Bind();
@@ -161,7 +161,7 @@ namespace Blackbird
 		manager.Stats.DrawCall++;
 	}
 
-	static void DrawQuadTextureInstant(QuadDesigner& quad, QuadDesignerManager& manager)
+	static void DrawQuadTextureInstant(IQuadDesigner& quad, QuadDesignerManager& manager)
 	{
 		// FIXME
 		// manager.TextureShader->Bind();
@@ -178,7 +178,7 @@ namespace Blackbird
 	}
 
 
-	void QuadDesigner::DrawInstant(IDesigner2DManager& manager)
+	void IQuadDesigner::DrawInstant(IDesigner2DManager& manager)
 	{
 		QuadDesignerManager* asQuadManager = dynamic_cast<QuadDesignerManager*>(&manager);
 		if (asQuadManager != nullptr)
@@ -186,7 +186,7 @@ namespace Blackbird
 		BLACKBIRD_WARN("Give a IDesigner2DManager to a QuadDesigner which is not a QuadDesignerManager");
 	}
 
-	void QuadDesigner::DrawInstant(QuadDesignerManager& manager)
+	void IQuadDesigner::DrawInstant(QuadDesignerManager& manager)
 	{
 		if (QuadTexture == nullptr)
 			return DrawQuadColorInstant(*this, manager);

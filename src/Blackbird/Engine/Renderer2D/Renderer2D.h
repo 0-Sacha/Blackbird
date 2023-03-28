@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Blackbird/Engine/Camera/OrthographicCamera.h"
+#include "Blackbird/Engine/Camera/Camera.h"
 #include "Blackbird/Engine/Texture/Texture.h"
 
 #include "Blackbird/EngineAPI.h"
@@ -23,7 +23,7 @@ namespace Blackbird
 		void Shutdown();
 
 	public:
-		void BeginScene(const OrthographicCamera& camera);
+		void BeginScene(const Camera& camera, const glm::mat4& cameraTransform);
 		void EndScene();
 
 	public:
@@ -31,8 +31,11 @@ namespace Blackbird
 		void ResetStats();
 
 	public:
-		QuadDesigner CreateQuadDesigner() { return QuadDesigner(&m_Storage->QuadManager); }
-		Designer2DDrawOnDestroy<QuadDesigner> DrawQuad() { return Designer2DDrawOnDestroy(CreateQuadDesigner()); }
+		TransformQuadDesigner CreateQuadDesignerT() { return TransformQuadDesigner(&m_Storage->QuadManager); }
+		Designer2DDrawOnDestroy<TransformQuadDesigner> DrawQuadT() { return Designer2DDrawOnDestroy(CreateQuadDesignerT()); }
+
+		UnitQuadDesigner CreateQuadDesigner() { return UnitQuadDesigner(&m_Storage->QuadManager); }
+		Designer2DDrawOnDestroy<UnitQuadDesigner> DrawQuad() { return Designer2DDrawOnDestroy(CreateQuadDesigner()); }
 
 	public:
 		EngineAPI& Engine() { return *m_EngineAPI; }

@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Blackbird/Core/Core.h"
-#include "Blackbird/Engine/Camera/OrthographicCamera.h"
+
+#include "glm/glm.hpp"
 
 namespace Blackbird
 {
@@ -21,7 +22,7 @@ namespace Blackbird
 		virtual void Release() = 0;
 
 	public:
-		virtual void BeginScene(const OrthographicCamera& camera) = 0;
+		virtual void BeginScene(const glm::mat4& viewProjectionMatrix) = 0;
 		virtual void Flush() = 0;
 		virtual void EndScene() = 0;
 

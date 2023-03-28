@@ -26,6 +26,10 @@ namespace Blackbird
         static inline PlatformAPI& Platform()       { return GetEngineContext().Platform();}
 		static inline Renderer& GetRenderer()       { return GetEngineContext().GetRenderer(); }
 		static inline Renderer2D& GetRenderer2D()   { return GetEngineContext().GetRenderer2D(); }
+		static inline Ref<EngineAPI>& EngineRef()			{ return GetEngineContext().EngineRef(); }
+		static inline Ref<PlatformAPI>& PlatformRef()		{ return GetEngineContext().PlatformRef(); }
+		static inline Ref<Renderer>& GetRendererRef()		{ return GetEngineContext().GetRendererRef(); }
+		static inline Ref<Renderer2D>& GetRenderer2DRef()	{ return GetEngineContext().GetRenderer2DRef(); }
 
     private:
         static inline Application* s_Application = nullptr;

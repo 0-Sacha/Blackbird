@@ -12,6 +12,8 @@
 	#define BLACKBIRD_EVENT_TRACE(event)
 #endif
 
+// TODO : event dispatch priority : Always, OnlyIfNotCatched, ...
+
 namespace Blackbird {
 
 	enum class EventType : int
@@ -67,9 +69,10 @@ namespace Blackbird {
 		template<typename T>
 		inline bool Dispatch(const std::function<bool(T& event)>& func)
 		{
-			if (m_Event.GetEventType() == T::GetStaticType())
+			T* a_Event = dynamic_cast<T*>(&m_Event);
+			if (a_Event != nullptr)
 			{
-				m_Event.Handled = func(static_cast<T&>(m_Event));
+				m_Event.Handled = func(*a_Event);
 				return true;
 			}
 			return false;

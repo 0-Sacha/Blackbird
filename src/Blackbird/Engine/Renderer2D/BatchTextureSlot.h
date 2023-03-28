@@ -42,14 +42,14 @@ namespace Blackbird
 
 		void BindAllTexture()
 		{
-			for (std::size_t i = 0; i < m_CurrentTextureIndex; ++i)
+			for (std::uint32_t i = 0; i < m_CurrentTextureIndex; ++i)
 				m_TextureSlots[i]->Bind(i);
 		}
 
 	public:
 		bool AddTexture(Ref<Texture> texture, std::uint32_t& textureIndexBatch)
 		{
-			for (std::size_t i = 0; i < m_CurrentTextureIndex; ++i)
+			for (std::uint32_t i = 0; i < m_CurrentTextureIndex; ++i)
 			{
 				Ref<Texture>& slot = m_TextureSlots[i];
 
@@ -71,8 +71,8 @@ namespace Blackbird
 		}
 
 	protected:
-		std::size_t m_MaxTexturePerBatch;
-		std::size_t m_CurrentTextureIndex;
+		std::uint32_t m_MaxTexturePerBatch;
+		std::uint32_t m_CurrentTextureIndex;
 
 		Ref<Texture>* m_TextureSlots;
 	};

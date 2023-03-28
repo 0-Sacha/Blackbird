@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Blackbird/Engine/Camera/OrthographicCamera.h"
+#include "OrthographicCamera.h"
 
 #include "Blackbird/EngineDetail/Utils/TimeStep.h"
 #include "Blackbird/EngineDetail/Event/ApplicationEvent.h"
