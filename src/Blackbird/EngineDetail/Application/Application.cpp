@@ -59,7 +59,7 @@ namespace Blackbird
 
 #ifdef BLACKBIRD_ENABLE_LOGGER
 		if (m_Window.use_count() > 2)
-			BLACKBIRD_WARN("Window uses: {}", m_Window.use_count());
+			BLKBID_WARN("Window uses: {}", m_Window.use_count());
 #endif
 		m_Window = nullptr;
 

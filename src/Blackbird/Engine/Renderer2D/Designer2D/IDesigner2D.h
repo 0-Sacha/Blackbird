@@ -50,14 +50,14 @@ namespace Blackbird
         {
             if (m_DefaultDrawManager != nullptr)
                 return Draw(*m_DefaultDrawManager);
-            BLACKBIRD_WARN("Use of DefaultDraw on a Designer2D but there is no DefaultManager set");
+            BLKBID_WARN("Use of DefaultDraw on a Designer2D but there is no DefaultManager set");
         }
 
 		void DefaultDrawInstant()
 		{
 			if (m_DefaultDrawManager != nullptr)
 				return DrawInstant(*m_DefaultDrawManager);
-			BLACKBIRD_WARN("Use of DefaultDraw on a Designer2D but there is no DefaultManager set");
+			BLKBID_WARN("Use of DefaultDraw on a Designer2D but there is no DefaultManager set");
 		}
 
 	private:

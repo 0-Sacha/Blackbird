@@ -9,7 +9,7 @@ namespace Blackbird
 		std::ifstream ifile(path, std::ios::in | std::ios::binary);
 		if (!ifile)
 		{
-			BLACKBIRD_ERROR("Could not open file : {}", path);
+			BLKBID_ERROR("Could not open file : {}", path);
 			return;
 		}
 

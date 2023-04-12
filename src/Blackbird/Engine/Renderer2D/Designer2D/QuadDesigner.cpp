@@ -98,7 +98,7 @@ namespace Blackbird
 		QuadDesignerManager* asQuadManager = dynamic_cast<QuadDesignerManager*>(&manager);
 		if (asQuadManager != nullptr)
 			return Draw(*asQuadManager);
-		BLACKBIRD_WARN("Give a IDesigner2DManager to a QuadDesigner which is not a QuadDesignerManager");
+		BLKBID_WARN("Give a IDesigner2DManager to a QuadDesigner which is not a QuadDesignerManager");
 	}
 
     void IQuadDesigner::Draw(QuadDesignerManager& manager)
@@ -183,7 +183,7 @@ namespace Blackbird
 		QuadDesignerManager* asQuadManager = dynamic_cast<QuadDesignerManager*>(&manager);
 		if (asQuadManager != nullptr)
 			return DrawInstant(*asQuadManager);
-		BLACKBIRD_WARN("Give a IDesigner2DManager to a QuadDesigner which is not a QuadDesignerManager");
+		BLKBID_WARN("Give a IDesigner2DManager to a QuadDesigner which is not a QuadDesignerManager");
 	}
 
 	void IQuadDesigner::DrawInstant(QuadDesignerManager& manager)

@@ -7,7 +7,7 @@
 #define BLACKBIRD_SET_BIT(i) (1 << i)
 
 #ifdef BLACKBIRD_ENABLE_EVENT_TRACE
-	#define BLACKBIRD_EVENT_TRACE(event) BLACKBIRD_TRACE("{}", event.ToString());
+	#define BLACKBIRD_EVENT_TRACE(event) BLKBID_TRACE("{}", event.ToString());
 #else
 	#define BLACKBIRD_EVENT_TRACE(event)
 #endif

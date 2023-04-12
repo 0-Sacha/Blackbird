@@ -32,7 +32,7 @@ namespace Blackbird::GraphicsPlatforms::OpenGL
 			glDeleteShader(shaderID);
 			shaderID = 0;
 
-			BLACKBIRD_ERROR("{} has not compiled : {:null='Could not retrieve the error message'}", type, log.data());
+			BLKBID_ERROR("{} has not compiled : {:null='Could not retrieve the error message'}", type, log.data());
 		}
 
 		return shaderID;
@@ -67,7 +67,7 @@ namespace Blackbird::GraphicsPlatforms::OpenGL
 			for (OpenGLRendererID shader : shaders)
 				glDeleteShader(shader);
 
-			BLACKBIRD_ERROR("Program has not link : {:null='Could not retrieve the error message'}", log.data());
+			BLKBID_ERROR("Program has not link : {:null='Could not retrieve the error message'}", log.data());
 		}
 
 		for (OpenGLRendererID shader : shaders)
