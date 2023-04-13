@@ -54,7 +54,7 @@ namespace Blackbird {
 		Z = 90,				//  Z
 
 		LeftBracket = 91,	//  [
-		Backslash = 92,		//  \ 
+		Backslash = 92,		//  '\'
 		RightBracket = 93,	//  ]
 		GraveAccent = 96,	//  `
 		

@@ -1,5 +1,3 @@
-#pragma once
-
 #include "QuadDesigner.h"
 
 #include "../Renderer2D.h"
@@ -126,7 +124,7 @@ namespace Blackbird
 		const glm::vec2& texCoordsMin = texture->GetTexCoordsMin();
 		const glm::vec2& texCoordsMax = texture->GetTexCoordsMax();
 
-		IQuadDesigner::Vertex vertex{ transfrom * QUAD_VERTICIES_POSITION[0], Color, { texCoordsMin.x, texCoordsMin.y }, texIndex, TilingFactor };
+		IQuadDesigner::Vertex vertex{ transfrom * QUAD_VERTICIES_POSITION[0], Color, { texCoordsMin.x, texCoordsMin.y }, static_cast<float>(texIndex), TilingFactor };
 		manager.BatchBuffer.PushBackVertex(vertex);
 
 		vertex.Position = transfrom * QUAD_VERTICIES_POSITION[1];

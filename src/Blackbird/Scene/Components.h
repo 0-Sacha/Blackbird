@@ -96,6 +96,5 @@ namespace Blackbird
 	public:
 		NativeScriptComponent() = default;
 		NativeScriptComponent(const NativeScriptComponent&) = default;
-		~NativeScriptComponent() = default;
 	};
 }

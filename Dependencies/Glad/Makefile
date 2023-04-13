@@ -18,15 +18,7 @@ endif
 # Configurations
 # #############################################
 
-ifeq ($(origin CC), default)
-  CC = clang
-endif
-ifeq ($(origin CXX), default)
-  CXX = clang++
-endif
-ifeq ($(origin AR), default)
-  AR = ar
-endif
+RESCOMP = windres
 DEFINES +=
 INCLUDES += -Iinclude
 FORCE_INCLUDE +=
@@ -34,7 +26,6 @@ ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
 LIBS +=
 LDDEPS +=
-ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64
 LINKCMD = $(AR) -rcs "$@" $(OBJECTS)
 define PREBUILDCMDS
 endef
@@ -49,6 +40,7 @@ TARGET = $(TARGETDIR)/Glad.lib
 OBJDIR = ../../../bin-int/Windows-gmake2/Debug-x64/Glad
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O0 -g
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O0 -g
+ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64
 
 else ifeq ($(config),release_x64)
 TARGETDIR = ../../../bin/Windows-gmake2/Release-x64/Glad
@@ -56,6 +48,7 @@ TARGET = $(TARGETDIR)/Glad.lib
 OBJDIR = ../../../bin-int/Windows-gmake2/Release-x64/Glad
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -g
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -g
+ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64
 
 else ifeq ($(config),dist_x64)
 TARGETDIR = ../../../bin/Windows-gmake2/Dist-x64/Glad
@@ -63,6 +56,7 @@ TARGET = $(TARGETDIR)/Glad.lib
 OBJDIR = ../../../bin-int/Windows-gmake2/Dist-x64/Glad
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O3
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O3
+ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -s
 
 endif
 

@@ -24,7 +24,7 @@ namespace Blackbird
 		void SetPrimatryCameraEntity(Entity camera) { m_PrimaryCameraEntity = camera; }
 		Entity GetPrimatryCameraEntity() { return m_PrimaryCameraEntity; }
 	
-	private:
+	public:
 		LECS::Registry& Registry() { return m_Registry; }
 
 	public:

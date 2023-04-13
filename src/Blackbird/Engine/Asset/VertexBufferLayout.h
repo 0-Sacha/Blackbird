@@ -45,7 +45,7 @@ namespace Blackbird
 
 		template <typename... Args>
 		BufferElements& Emplace(Args&&... args) { return m_Elements.emplace_back(std::forward<Args>(args)...); }
-		BufferElements& Push(const BufferElements& element) { m_Elements.push_back(element); }
+		void Push(const BufferElements& element) { return m_Elements.push_back(element); }
 
 	private:
 		void CalculateOffsetAndStride();
