@@ -56,13 +56,13 @@ namespace ProjectCore::FMT
 			switch (t)
 			{
 			case Blackbird::ShaderType::None:
-				context.PrintCharPtr("None Shader");
+				context.BufferOut().WriteCharArray("None Shader");
 				break;
 			case Blackbird::ShaderType::Vertex:
-				context.PrintCharPtr("Vertex Shader");
+				context.BufferOut().WriteCharArray("Vertex Shader");
 				break;
 			case Blackbird::ShaderType::Fragment:
-				context.PrintCharPtr("Fragment Shader");
+				context.BufferOut().WriteCharArray("Fragment Shader");
 				break;
 			}
 		}

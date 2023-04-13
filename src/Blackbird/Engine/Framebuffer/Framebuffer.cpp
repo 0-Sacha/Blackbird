@@ -12,7 +12,7 @@ namespace Blackbird
 
 		if (width == 0 || height == 0 || width > s_MaxSize || height > s_MaxSize)
 		{
-			BLACKBIRD_WARN("Coundn't set size for framebuffers = 0 ; width, heigth = {}, {} ", width, height);
+			BLKBID_WARN("Coundn't set size for framebuffers = 0 ; width, heigth = {}, {} ", width, height);
 			return;
 		}
 		m_Specification.Width = width;

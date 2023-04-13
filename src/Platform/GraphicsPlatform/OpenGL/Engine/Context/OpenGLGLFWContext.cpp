@@ -20,9 +20,9 @@ namespace Blackbird::GraphicsPlatforms::OpenGL
 
 	void OpenGLGLFWContext::DisplayInfo()
 	{
-		BLACKBIRD_INFO("OpenGl Info :");
-		BLACKBIRD_INFO(" - Vendor   : {}", glGetString(GL_VENDOR));
-		BLACKBIRD_INFO(" - Renderer : {}", glGetString(GL_RENDERER));
-		BLACKBIRD_INFO(" - Version  : {}", glGetString(GL_VERSION));
+		BLKBID_INFO("OpenGl Info :");
+		BLKBID_INFO(" - Vendor   : {}", glGetString(GL_VENDOR));
+		BLKBID_INFO(" - Renderer : {}", glGetString(GL_RENDERER));
+		BLKBID_INFO(" - Version  : {}", glGetString(GL_VERSION));
 	}
 }

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "entt/entt.hpp"
 #include "Blackbird/EngineDetail/Utils/TimeStep.h"
 #include "Blackbird/Engine/Renderer2D/Renderer2D.h"
 
+#include "LittleECS/LittleECS.h"
 #include "Entity.h"
 
 namespace Blackbird
@@ -24,8 +24,8 @@ namespace Blackbird
 		void SetPrimatryCameraEntity(Entity camera) { m_PrimaryCameraEntity = camera; }
 		Entity GetPrimatryCameraEntity() { return m_PrimaryCameraEntity; }
 	
-	private:
-		entt::registry& Registry() { return m_Registry; }
+	public:
+		LECS::Registry& Registry() { return m_Registry; }
 
 	public:
 		void OnViewportResize(std::uint32_t width, std::uint32_t height);
@@ -41,7 +41,7 @@ namespace Blackbird
 		// TODO : This has to be a weak ref
 		Blackbird::Ref<Blackbird::Renderer2D> m_Renderer2D;
 		
-		entt::registry m_Registry;
+		LECS::Registry m_Registry;
 		Entity m_PrimaryCameraEntity;
 
 		std::uint32_t m_ViewportWidth = 0;

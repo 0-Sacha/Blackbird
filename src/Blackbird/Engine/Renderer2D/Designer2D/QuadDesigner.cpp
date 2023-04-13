@@ -1,5 +1,3 @@
-#pragma once
-
 #include "QuadDesigner.h"
 
 #include "../Renderer2D.h"
@@ -98,7 +96,7 @@ namespace Blackbird
 		QuadDesignerManager* asQuadManager = dynamic_cast<QuadDesignerManager*>(&manager);
 		if (asQuadManager != nullptr)
 			return Draw(*asQuadManager);
-		BLACKBIRD_WARN("Give a IDesigner2DManager to a QuadDesigner which is not a QuadDesignerManager");
+		BLKBID_WARN("Give a IDesigner2DManager to a QuadDesigner which is not a QuadDesignerManager");
 	}
 
     void IQuadDesigner::Draw(QuadDesignerManager& manager)
@@ -126,7 +124,7 @@ namespace Blackbird
 		const glm::vec2& texCoordsMin = texture->GetTexCoordsMin();
 		const glm::vec2& texCoordsMax = texture->GetTexCoordsMax();
 
-		IQuadDesigner::Vertex vertex{ transfrom * QUAD_VERTICIES_POSITION[0], Color, { texCoordsMin.x, texCoordsMin.y }, texIndex, TilingFactor };
+		IQuadDesigner::Vertex vertex{ transfrom * QUAD_VERTICIES_POSITION[0], Color, { texCoordsMin.x, texCoordsMin.y }, static_cast<float>(texIndex), TilingFactor };
 		manager.BatchBuffer.PushBackVertex(vertex);
 
 		vertex.Position = transfrom * QUAD_VERTICIES_POSITION[1];
@@ -183,7 +181,7 @@ namespace Blackbird
 		QuadDesignerManager* asQuadManager = dynamic_cast<QuadDesignerManager*>(&manager);
 		if (asQuadManager != nullptr)
 			return DrawInstant(*asQuadManager);
-		BLACKBIRD_WARN("Give a IDesigner2DManager to a QuadDesigner which is not a QuadDesignerManager");
+		BLKBID_WARN("Give a IDesigner2DManager to a QuadDesigner which is not a QuadDesignerManager");
 	}
 
 	void IQuadDesigner::DrawInstant(QuadDesignerManager& manager)

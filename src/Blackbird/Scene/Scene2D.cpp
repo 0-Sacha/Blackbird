@@ -5,7 +5,6 @@
 
 namespace Blackbird
 {
-
 	Scene2D::Scene2D(Blackbird::Ref<Blackbird::Renderer2D>& renderer)
 		: m_Renderer2D(renderer)
 	{}
@@ -15,9 +14,9 @@ namespace Blackbird
 
 	Entity Scene2D::CreateEntity(const std::string& name)
 	{
-		Entity entity = { m_Registry.create(), this };
-		entity.AddComponent<TransformComponent>();
-		TagComponent& tag = entity.AddComponent<TagComponent>();
+		Entity entity = { this, m_Registry.CreateEntityId() };
+		entity.Add<TransformComponent>();
+		TagComponent& tag = entity.Add<TagComponent>();
 		tag.Tag = name.empty() ? "Entity" : name;
 		return entity;
 	}
@@ -34,21 +33,18 @@ namespace Blackbird
 		if (m_PrimaryCameraEntity == false)
 			return;
 
-		m_Renderer2D->BeginScene(m_PrimaryCameraEntity.GetComponent<SceneCameraComponent>().Camera, m_PrimaryCameraEntity.GetComponent<TransformComponent>().Transform);
+		m_Renderer2D->BeginScene(m_PrimaryCameraEntity.Get<SceneCameraComponent>().Camera, m_PrimaryCameraEntity.Get<TransformComponent>().Transform);
 
-		auto group = m_Registry.group<TransformComponent>(entt::get<SpritRendererComponent>);
-		for (auto entity : group)
-		{
-			const auto& [transform, sprite] = group.get<TransformComponent, SpritRendererComponent>(entity);
+		m_Registry.ForEachComponents<TransformComponent, SpritRendererComponent>([&](const TransformComponent& transform, const SpritRendererComponent& sprite){
 			m_Renderer2D->DrawQuadT()->SetTranform(transform).SetColor(sprite.Color);
-		}
+		});
 
 		m_Renderer2D->EndScene();
 	}
 
 	void Scene2D::UpdateEntitiesScript(TimeStep ts)
 	{
-		m_Registry.view<NativeScriptComponent>().each([ts](entt::entity entity, NativeScriptComponent& nativeScriptComponent) {
+		m_Registry.ForEachUniqueComponent<NativeScriptComponent>([ts](NativeScriptComponent& nativeScriptComponent) {
 			if (nativeScriptComponent.Enable)
 				nativeScriptComponent.Script->OnUpdate(ts);
 		});
@@ -62,16 +58,12 @@ namespace Blackbird
 		m_ViewportWidth = width;
 		m_ViewportHeight = height;
 
-		auto view = m_Registry.view<SceneCameraComponent>();
-		for (auto entity : view)
-		{
-			SceneCameraComponent& cameraComponent = view.get<SceneCameraComponent>(entity);
+		m_Registry.ForEachUniqueComponent<SceneCameraComponent>([&](SceneCameraComponent& cameraComponent){
 			if (cameraComponent.ResizeAspectRatioOnViewport)
 			{
 				cameraComponent.Camera.SetViewportSize(width, height);
 			}
-		}
-
+		});
 	}
 
 }

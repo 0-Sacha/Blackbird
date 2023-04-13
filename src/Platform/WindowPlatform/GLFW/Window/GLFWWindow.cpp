@@ -12,7 +12,7 @@ namespace Blackbird::WindowPlatforms::GLFW
 	static bool s_GLFWInitialized = false;
 
 	static void GLFWErrorCallback(int error, const char* description) {
-		BLACKBIRD_FATAL("GLFW Error ({0}): {1}", error, description);
+		BLKBID_FATAL("GLFW Error ({0}): {1}", error, description);
 	}
 
 	static void GLFWWindowSizeCallback(GLFWwindow* window, int width, int height) {
@@ -117,7 +117,7 @@ namespace Blackbird::WindowPlatforms::GLFW
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
 
-		BLACKBIRD_INFO("Creating {0}  {{1}, {2}}", props.Title, props.Width, props.Height);
+		BLKBID_INFO("Creating {0}  {{1}, {2}}", props.Title, props.Width, props.Height);
 
 		if (!s_GLFWInitialized)
 		{
@@ -128,7 +128,7 @@ namespace Blackbird::WindowPlatforms::GLFW
 		}
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, props.Title.c_str(), nullptr, nullptr);
-		BLACKBIRD_DEBUG("GLFW Window created");
+		BLKBID_DEBUG("GLFW Window created");
 
 		m_RendererContext = platformAPI.GraphicsPlatform().GetNewGLFWRendererContext(m_Window);
 		m_RendererContext->Init();
@@ -145,7 +145,7 @@ namespace Blackbird::WindowPlatforms::GLFW
 		glfwSetMouseButtonCallback(m_Window, GLFWMouseButtonCallback);
 		glfwSetScrollCallback(m_Window, GLFWScrollCallback);
 		glfwSetCursorPosCallback(m_Window, GLFWCursorPosCallback);
-		BLACKBIRD_DEBUG("GLFW Event Binded");
+		BLKBID_DEBUG("GLFW Event Binded");
 	}
 
 	void GLFWWindow::Shutdown()
@@ -154,7 +154,7 @@ namespace Blackbird::WindowPlatforms::GLFW
 		// TODO : Need this ???
 		// glfwDestroyWindow(m_Window);
 		glfwTerminate();
-		BLACKBIRD_DEBUG("GLFW Window: Destroyed");
+		BLKBID_DEBUG("GLFW Window: Destroyed");
 	}
 
 	void GLFWWindow::OnUpdate()

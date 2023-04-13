@@ -57,22 +57,22 @@ namespace Blackbird
 
     void MasterEngineContext::Destroy()
     {
-        BLACKBIRD_DEBUG("Shutdown Renderer...");
+        BLKBID_DEBUG("Shutdown Renderer...");
 		m_Renderer->Shutdown();
 		BLACKBIRD_ASSERT(m_Renderer.use_count() == 1, "Renderer is still use");
         m_Renderer = nullptr;
 
-		BLACKBIRD_DEBUG("Shutdown Renderer2D...");
+		BLKBID_DEBUG("Shutdown Renderer2D...");
 		m_Renderer2D->Shutdown();
 		BLACKBIRD_ASSERT(m_Renderer2D.use_count() == 1, "Renderer2D is still use");
         m_Renderer2D = nullptr;
 
-		BLACKBIRD_DEBUG("Shutdown EngineAPI...");
+		BLKBID_DEBUG("Shutdown EngineAPI...");
         m_EngineAPI->Shutdown();
 		BLACKBIRD_ASSERT(m_EngineAPI.use_count() == 1, "EngineAPI is still use");
 		m_EngineAPI = nullptr;
 
-		BLACKBIRD_DEBUG("Shutdown PlatformAPI...");
+		BLKBID_DEBUG("Shutdown PlatformAPI...");
 		// m_PlatformAPI->Shutdown();
 		BLACKBIRD_ASSERT(m_PlatformAPI.use_count() == 1, "PlatformAPI is still use");
 		m_PlatformAPI = nullptr;

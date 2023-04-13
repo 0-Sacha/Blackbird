@@ -12,7 +12,7 @@ namespace Blackbird::GraphicsPlatforms::OpenGL {
 		case GL_DEBUG_SEVERITY_HIGH:
 			if(s_OpenGlDebugLevel > OpenGlDebugLevel::None)
 			{
-				BLACKBIRD_FATAL("[OpenGL Debug HIGH] {}", message);
+				BLKBID_FATAL("[OpenGL Debug HIGH] {}", message);
 				if (s_OpenGlDebugLevel == OpenGlDebugLevel::HighAssert)
 				{
 					BLACKBIRD_ASSERT(false, "GL_DEBUG_SEVERITY_HIGH");
@@ -22,19 +22,19 @@ namespace Blackbird::GraphicsPlatforms::OpenGL {
 		case GL_DEBUG_SEVERITY_MEDIUM:
 			if (s_OpenGlDebugLevel >= OpenGlDebugLevel::Medium)
 			{
-				BLACKBIRD_ERROR("[OpenGL Debug MEDIUM] {}", message);
+				BLKBID_ERROR("[OpenGL Debug MEDIUM] {}", message);
 			}
 			break;
 		case GL_DEBUG_SEVERITY_LOW:
 			if (s_OpenGlDebugLevel >= OpenGlDebugLevel::Low)
 			{
-				BLACKBIRD_WARN("[OpenGL Debug LOW] {}", message);
+				BLKBID_WARN("[OpenGL Debug LOW] {}", message);
 			}
 			break;
 		case GL_DEBUG_SEVERITY_NOTIFICATION:
 			if (s_OpenGlDebugLevel >= OpenGlDebugLevel::Notification)
 			{
-				BLACKBIRD_TRACE("[OpenGL Debug NOTIFICATION] {}", message);
+				BLKBID_TRACE("[OpenGL Debug NOTIFICATION] {}", message);
 			}
 			break;
 		}

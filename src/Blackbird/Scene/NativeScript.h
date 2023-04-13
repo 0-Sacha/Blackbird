@@ -26,9 +26,9 @@ namespace Blackbird
 
 	public:
 		template<typename T>
-		inline T& GetComponent()
+		inline T& Get()
 		{
-			return m_Entity.GetComponent<T>();
+			return m_Entity.Get<T>();
 		}
 
 	protected:

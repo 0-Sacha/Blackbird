@@ -57,6 +57,7 @@ project "Blackbird"
 	}
 
 	Solution.IncludeAndLinkProject("ProjectCore")
+	Solution.IncludeProject("LittleECS")
 	Solution.IncludeProject("Blackbird")
 
 	filter "system:windows"

@@ -15,7 +15,7 @@ namespace Blackbird
 
 	void CameraControllerScript::OnUpdate(TimeStep ts)
 	{
-		glm::mat4& transform = GetComponent<TransformComponent>().Transform;
+		glm::mat4& transform = Get<TransformComponent>().Transform;
 
 		if (m_Input.IsKeyPressed(KeyboardKey::A))
 			transform = glm::translate(transform, glm::vec3{ m_CameraTranslationSpeed * ts, 0, 0 });
@@ -34,7 +34,7 @@ namespace Blackbird
 				transform = glm::rotate(transform, -m_CameraRotationSpeed * ts, glm::vec3(0, 0, 1));
 		}
 
-		m_CameraTranslationSpeed = m_Entity.GetComponent<SceneCameraComponent>().Camera.GetOrthographicSize();
+		m_CameraTranslationSpeed = m_Entity.Get<SceneCameraComponent>().Camera.GetOrthographicSize();
 	}
 
 	void CameraControllerScript::OnEvent(Event& event)
@@ -46,7 +46,7 @@ namespace Blackbird
 
 	bool CameraControllerScript::OnMouseScrolled(MouseScrolledEvent& event)
 	{
-		SceneCamera& sceneCamera = m_Entity.GetComponent<SceneCameraComponent>().Camera;
+		SceneCamera& sceneCamera = m_Entity.Get<SceneCameraComponent>().Camera;
 		sceneCamera.SetOrthographicSize(sceneCamera.GetOrthographicSize() - event.GetYOffset() * 0.25f);
 		return false;
 	}
