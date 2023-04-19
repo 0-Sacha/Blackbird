@@ -23,6 +23,11 @@ Solution.ProjectsInfo.Defines["Blackbird"] = {
 	"GLFW_INCLUDE_NONE"
 }
 
+Solution.ProjectsInfo.ProjectDependencies["Blackbird"] = {
+	"ProjectCore",
+	"LittleECS"
+}
+
 project "Blackbird"
 	kind "StaticLib"
 	language "C++"
@@ -56,9 +61,7 @@ project "Blackbird"
 		"opengl32.lib"
 	}
 
-	Solution.IncludeAndLinkProject("ProjectCore")
-	Solution.IncludeProject("LittleECS")
-	Solution.IncludeProject("Blackbird")
+	Solution.Project("Blackbird")
 
 	filter "system:windows"
 		defines "_CRT_SECURE_NO_WARNINGS"
