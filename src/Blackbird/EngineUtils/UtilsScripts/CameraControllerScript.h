@@ -32,9 +32,9 @@ namespace Blackbird
 
 	private:
 		IInput& m_Input;
-		float m_CameraTranslationSpeed = 5.0f;
+		float m_CameraTranslationSpeed = 2.0f;
 		bool m_HasRotation;
-		float m_CameraRotationSpeed = 50.0f;
+		float m_CameraRotationSpeed = 0.2f;
 	};
 
 }

@@ -5,9 +5,22 @@ namespace Blackbird
 
 	void SceneCamera::SetOrthographic(float size, float nearClip, float farClip)
 	{
-		m_OrthographicSize = size;
+		m_ProjectionType = ProjectionType::Orthographic;
+		
 		m_OrthographicNearClip = nearClip;
 		m_OrthographicFarClip = farClip;
+		m_OrthographicSize = size;
+		
+		RecalculateProjection();
+	}
+
+	void SceneCamera::SetPerspective(float verticalFOV, float nearClip, float farClip)
+	{
+		m_ProjectionType = ProjectionType::Perspective;
+
+		m_PerspectiveFOV = verticalFOV;
+		m_PerspectiveNearClip = nearClip;
+		m_PerspectiveFarClip = farClip;
 
 		RecalculateProjection();
 	}
@@ -21,12 +34,19 @@ namespace Blackbird
 
 	void SceneCamera::RecalculateProjection()
 	{
-		float orthoLeft = -m_OrthographicSize * m_AspectRatio * 0.5f;
-		float orthoRight = m_OrthographicSize * m_AspectRatio * 0.5f;
-		float orthoBottom = -m_OrthographicSize * 0.5f;
-		float orthoTop = m_OrthographicSize * 0.5f;
-
-		m_Projection = glm::ortho(orthoLeft, orthoRight, orthoTop, orthoBottom, m_OrthographicNearClip, m_OrthographicFarClip);
+		if (m_ProjectionType == ProjectionType::Orthographic)
+		{
+			float orthoLeft = -m_OrthographicSize * m_AspectRatio * 0.5f;
+			float orthoRight = m_OrthographicSize * m_AspectRatio * 0.5f;
+			float orthoBottom = -m_OrthographicSize * 0.5f;
+			float orthoTop = m_OrthographicSize * 0.5f;
+	
+			m_Projection = glm::ortho(orthoLeft, orthoRight, orthoTop, orthoBottom, m_OrthographicNearClip, m_OrthographicFarClip);
+		}
+		else if (m_ProjectionType == ProjectionType::Perspective)
+		{
+			m_Projection = glm::perspective(m_PerspectiveFOV, m_AspectRatio, m_PerspectiveNearClip, m_PerspectiveFarClip);
+		}
 	}
 
 }

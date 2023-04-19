@@ -16,6 +16,15 @@ namespace Blackbird
 		Entity();
 		Entity(Scene2D* scene, LECS::EntityId entityId);
 
+		const Scene2D* GetScene() const
+		{
+			return m_Scene;
+		}
+		Scene2D* GetScene()
+		{
+			return m_Scene;
+		}
+
 	private:
 		Scene2D* m_Scene;
 	};

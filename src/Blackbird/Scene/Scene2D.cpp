@@ -33,7 +33,7 @@ namespace Blackbird
 		if (m_PrimaryCameraEntity == false)
 			return;
 
-		m_Renderer2D->BeginScene(m_PrimaryCameraEntity.Get<SceneCameraComponent>().Camera, m_PrimaryCameraEntity.Get<TransformComponent>().Transform);
+		m_Renderer2D->BeginScene(m_PrimaryCameraEntity.Get<SceneCameraComponent>().Camera, m_PrimaryCameraEntity.Get<TransformComponent>().GetTransform());
 
 		m_Registry.ForEachComponents<TransformComponent, SpritRendererComponent>([&](const TransformComponent& transform, const SpritRendererComponent& sprite){
 			m_Renderer2D->DrawQuadT()->SetTranform(transform).SetColor(sprite.Color);

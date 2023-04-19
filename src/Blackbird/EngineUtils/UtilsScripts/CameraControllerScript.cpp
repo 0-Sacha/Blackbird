@@ -15,23 +15,24 @@ namespace Blackbird
 
 	void CameraControllerScript::OnUpdate(TimeStep ts)
 	{
-		glm::mat4& transform = Get<TransformComponent>().Transform;
+		glm::vec3& translation = Get<TransformComponent>().Translation;
 
 		if (m_Input.IsKeyPressed(KeyboardKey::A))
-			transform = glm::translate(transform, glm::vec3{ m_CameraTranslationSpeed * ts, 0, 0 });
+			translation.x += m_CameraTranslationSpeed * ts;
 		else if (m_Input.IsKeyPressed(KeyboardKey::D))
-			transform = glm::translate(transform, glm::vec3{ -m_CameraTranslationSpeed * ts, 0, 0 });
+			translation.x -= m_CameraTranslationSpeed * ts;
 		else if (m_Input.IsKeyPressed(KeyboardKey::W))
-			transform = glm::translate(transform, glm::vec3{ 0, m_CameraTranslationSpeed * ts, 0 });
+			translation.y += m_CameraTranslationSpeed * ts;
 		else if (m_Input.IsKeyPressed(KeyboardKey::S))
-			transform = glm::translate(transform, glm::vec3{ 0, -m_CameraTranslationSpeed * ts, 0 });
+			translation.y -= m_CameraTranslationSpeed * ts;
 
 		if (m_HasRotation)
 		{
+			glm::vec3& rotation = Get<TransformComponent>().Rotation;
 			if (m_Input.IsKeyPressed(KeyboardKey::Q))
-				transform = glm::rotate(transform, m_CameraRotationSpeed * ts, glm::vec3(0, 0, 1));
+				rotation.z += m_CameraRotationSpeed * ts;
 			if (m_Input.IsKeyPressed(KeyboardKey::E))
-				transform = glm::rotate(transform, -m_CameraRotationSpeed * ts, glm::vec3(0, 0, 1));
+				rotation.z -= m_CameraRotationSpeed * ts;
 		}
 
 		m_CameraTranslationSpeed = m_Entity.Get<SceneCameraComponent>().Camera.GetOrthographicSize();
@@ -47,7 +48,7 @@ namespace Blackbird
 	bool CameraControllerScript::OnMouseScrolled(MouseScrolledEvent& event)
 	{
 		SceneCamera& sceneCamera = m_Entity.Get<SceneCameraComponent>().Camera;
-		sceneCamera.SetOrthographicSize(sceneCamera.GetOrthographicSize() - event.GetYOffset() * 0.25f);
+		sceneCamera.SetOrthographic(sceneCamera.GetOrthographicSize() - event.GetYOffset() * 0.25f, sceneCamera.GetOrthographicNearClip(), sceneCamera.GetOrthographicFarClip());
 		return false;
 	}
 
