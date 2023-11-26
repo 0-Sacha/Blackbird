@@ -1,12 +1,6 @@
-[submodule ".\\Dependencies\\ImGui"]
-	path = .\\Dependencies\\ImGui
-	url = git@github-perso:0-Sacha/imgui.git
-[submodule ".\\Dependencies\\GLFW"]
-	path = .\\Dependencies\\GLFW
-	url = git@github-perso:0-Sacha/glfw.git
-[submodule "imgui"]
-	path = imgui
-	url = git@github-perso:0-Sacha/imgui.git
+[submodule "Dependencies/GLFW"]
+	path = Dependencies/GLFW
+	url = git@github.com:0-Sacha/glfw.git
 [submodule "Dependencies/ImGui"]
 	path = Dependencies/ImGui
-	url = git@github-perso:0-Sacha/imgui.git
+	url = git@github.com:0-Sacha/imgui.git
