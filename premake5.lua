@@ -11,7 +11,7 @@ group ""
 
 Solution.ProjectsInfo.PlatformDefineName["Blackbird"] = "BLACKBIRD"
 
-Solution.ProjectsInfo.Includes["Blackbird"] = {
+Solution.ProjectsInfo.IncludeDirs["Blackbird"] = {
 	"%{Solution.Projects.Blackbird}/",
 	"%{Solution.Projects.Blackbird}/src/",
 
