@@ -2,7 +2,6 @@
 project "Glad"
     kind "StaticLib"
     language "C"
-    staticruntime "on"
     
     targetdir 	(Solution.Path.ProjectTargetDirectory)
     objdir 		(Solution.Path.ProjectObjectDirectory)
