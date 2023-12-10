@@ -1,35 +1,35 @@
 
-Solution.Projects["GLFW"] 		= "Dependencies/GLFW"
-Solution.Projects["Glad"] 		= "Dependencies/Glad"
-Solution.Projects["ImGui"] 		= "Dependencies/imgui"
+Solution.AddProject("GLFW", 	"Dependencies/GLFW")
+Solution.AddProject("Glad", 	"Dependencies/Glad")
+Solution.AddProject("ImGui", 	"Dependencies/ImGui")
 
 group "Dependencies"
-	include (Solution.Projects["GLFW"])
-	include (Solution.Projects["Glad"])
-	include (Solution.Projects["ImGui"])
+	include (Solution.Projects["GLFW"].Path)
+	include (Solution.Projects["Glad"].Path)
+	include (Solution.Projects["ImGui"].Path)
 group ""
 
-Solution.ProjectsInfo.PlatformDefineName["Blackbird"] = "BLACKBIRD"
-
-Solution.ProjectsInfo.IncludeDirs["Blackbird"] = {
-	"%{Solution.Projects.Blackbird}/",
-	"%{Solution.Projects.Blackbird}/src/",
-
-	"%{Solution.Projects.Blackbird}/Dependencies",
-	"%{Solution.Projects.Blackbird}/Dependencies/ImGui",
+Solution.Projects["Blackbird"].PlatformDefineName = "BLACKBIRD"
+Solution.Projects["Blackbird"].Type = "StaticLib"
+Solution.Projects["Blackbird"].IncludeDirs = {
+	"%{Solution.Projects.Blackbird.Path}/",
+	"%{Solution.Projects.Blackbird.Path}/src/",
+	"%{Solution.Projects.Blackbird.Path}/Dependencies",
+	"%{Solution.Projects.Blackbird.Path}/Dependencies/ImGui",
 }
-
-Solution.ProjectsInfo.Defines["Blackbird"] = {
+Solution.Projects["Blackbird"].Defines = {
 	"GLFW_INCLUDE_NONE"
 }
-
-Solution.ProjectsInfo.ProjectDependencies["Blackbird"] = {
+Solution.Projects["Blackbird"].ProjectDependencies = {
 	"ProjectCore",
-	"LittleECS"
+	"LittleECS",
+	"GLFW",
+	"Glad",
+	"ImGui"
 }
 
 project "Blackbird"
-	kind "StaticLib"
+	kind 		(Solution.Projects["Blackbird"].Type)
 	language "C++"
 	cppdialect "C++20"
 
@@ -37,8 +37,8 @@ project "Blackbird"
     objdir 		(Solution.Path.ProjectObjectDirectory)
 
 	includedirs {
-		"%{Solution.Projects.Blackbird}/Dependencies/GLFW/include",
-		"%{Solution.Projects.Blackbird}/Dependencies/Glad/include"
+		"%{Solution.Projects.Blackbird.Path}/Dependencies/GLFW/include",
+		"%{Solution.Projects.Blackbird.Path}/Dependencies/Glad/include"
 	}
 
 	files {
@@ -54,9 +54,6 @@ project "Blackbird"
 	}
 
 	links {
-		"GLFW",
-		"Glad",
-		"ImGui",
 		"opengl32.lib"
 	}
 
